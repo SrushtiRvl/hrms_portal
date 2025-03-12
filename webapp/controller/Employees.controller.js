@@ -7,7 +7,7 @@ sap.ui.define([
     return Controller.extend("zhrmsportal.controller.Employees", {
         onInit:function(){
             var oModel=this.getOwnerComponent().getModel("Departments");
-            this.getView().setModel('Departments',oModel);
+            this.getView().setModel(oModel,'Departments');
             this.oRouter=sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.getRoute("Employees");
         }

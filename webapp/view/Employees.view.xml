@@ -4,10 +4,7 @@
     <App>
         <Page>
             <Label text="Hello"></Label>
-            <ComboBox
-				items="{
-					path: 'Departments>/Departments'
-				}">
+            <ComboBox items="{Departments>/Departments}">
 				<core:Item key="{depKey}" text="{depName}" />
 			</ComboBox>
         </Page>
