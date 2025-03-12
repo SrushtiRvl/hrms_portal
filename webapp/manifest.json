@@ -59,6 +59,10 @@
             "Departments":{
                 "type":"sap.ui.model.json.JSONModel",
                 "uri":"model/Departments.json"
+            },
+            "Employees":{
+                "type":"sap.ui.model.json.JSONModel",
+                "uri":"model/Employees.json"
             }
         },
         "resources": {

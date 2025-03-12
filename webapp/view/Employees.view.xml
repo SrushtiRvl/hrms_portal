@@ -3,10 +3,66 @@
     xmlns="sap.m" xmlns:core="sap.ui.core">
     <App>
         <Page>
-            <Label text="Hello"></Label>
+            <Table items="{Employees>/Employees}">
+                <headerToolbar>
+                    <Toolbar >
+                        <Title text="Employees"/>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <SearchField width="30%" search="onSearch"></SearchField>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <Button text="Add Employee"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column >
+                    <Text text="Employee Name"/>
+                    </Column>
+                    <Column >
+                    <Text text="Employee Code"/>
+                    </Column>
+                    <Column >
+                    <Text text="Official Email"/>
+                    </Column>
+                    <Column >
+                    <Text text="Date of Joining"/>
+                    </Column>
+                    <Column >
+                    <Text text="Team Lead"/>
+                    </Column>
+                    <Column >
+                    <Text text="Role"/>
+                    </Column>
+                    <Column >
+                    <Text text="Status"/>
+                    </Column>
+                    <Column >
+                    <Text text="Edit" />
+                    </Column>
+                    <Column >
+                    <Text text="Delete" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem >
+                        <cells>
+                            <Text text="{Employees>empName}"/>
+                            <Text text="{Employees>empCode}"/>
+                            <Text text="{Employees>officialEmail}"/>
+                            <Text text="{Employees>joiningDate}"/>
+                            <Text text="{Employees>teamLead}"/>
+                            <Text text="{Employees>role}"/>
+                            <Text text="{Employees>status}"/>
+                            <core:Icon src="sap-icon://edit" press="onEdit"></core:Icon>
+                            <core:Icon src="sap-icon://delete" press="onDelete"></core:Icon>
+                        </cells>
+
+                    </ColumnListItem>
+                </items>
+            </Table>
+            <!-- <Label text="Hello"></Label>
             <ComboBox items="{Departments>/Departments}">
-				<core:Item key="{depKey}" text="{depName}" />
-			</ComboBox>
+				<core:Item key="{Departments>depKey}" text="{Departments>depName}" />
+			</ComboBox> -->
         </Page>
     </App>
 </mvc:View>

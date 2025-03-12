@@ -1,0 +1,32 @@
+{
+    "Status":[
+        {
+            "sKey":"Active",
+            "sValue":"Active"
+        },
+        {
+            "sKey":"Inactive",
+            "sValue":"Inactive"
+        }
+
+    ],
+    "Employees":[
+        {
+            "empCode":"E10",
+            "empName":"Srushti Raval",
+            "officialEmail":"srushti@gmail.com",
+            "joiningDate":"29-01-2025",
+            "teamLead":"Pratik Modh",
+            "role":"Intern",
+            "status":"Active",
+            "personalEmail":"srushti12@gmail.com",
+            "department":"sap",
+            "sDepartment":"ui5",
+            "designation":"Intern",
+            "mobile":"9892054960",
+            "reportingManager":"Kurvesh Patel",
+            "dob":"12-02-2004",
+            "punchID":"P12"
+        }
+    ]
+}
