@@ -1,0 +1,20 @@
+/* Enter your custom styles here */
+
+.logo{
+    /* margin-left: 20px; */
+    margin:auto;
+    display: block;
+}
+.login{
+
+	flex-direction:column;
+}
+.loginBtn{
+    margin-top:5px;
+}
+.showIcon{
+	/*margin-left:10px;*/
+}
+.space{
+	margin:2px;
+}

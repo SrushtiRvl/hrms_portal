@@ -1,0 +1,18 @@
+<mvc:View controllerName="zhrmsportal.controller.AdminDashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page title="{i18n>title}">
+    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Employees"
+		subheader="Total Employees:100" press="onPress">
+		<TileContent unit="" footer="View Employee Details">
+			<ImageContent src="sap-icon://people-connected" />
+		</TileContent>
+	</GenericTile>
+    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Projects"
+		subheader="Total Projects:100" press="onPress">
+		<TileContent unit="" footer="Manage Projects">
+			<ImageContent src="sap-icon://workflow-tasks" />
+		</TileContent>
+	</GenericTile>
+    </Page>
+</mvc:View>

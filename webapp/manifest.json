@@ -1,0 +1,143 @@
+{
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "zhrmsportal",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.16.5",
+            "toolsId": "f8f90f2d-e02c-42a6-a5b8-61bd50130eb8"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.133.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "zhrmsportal.i18n.i18n"
+                }
+            },
+            "loginDetails":{
+                "type":"sap.ui.model.json.JSONModel",
+                "uri":"model/loginDetails.json"
+            },
+            "Departments":{
+                "type":"sap.ui.model.json.JSONModel",
+                "uri":"model/Departments.json"
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "controlAggregation": "pages",
+                "controlId": "App",
+                "transition": "slide",
+                "type": "View",
+                "viewType": "XML",
+                "path": "zhrmsportal.view",
+                "async": true,
+                "viewPath": "zhrmsportal.view"
+            },
+            "routes": [
+                {
+                    "name": "App",
+                    "pattern": "",
+                    "target": [
+                        "App"
+                    ]
+                },
+                {
+                    "name":"AdminDashboard",
+                    "pattern":"dashboard",
+                    "target":[
+                        "AdminDashboard"
+                    ]
+                },
+                {
+                    "name":"Employees",
+                    "pattern":"employees",
+                    "target":[
+                        "Employees"
+                    ]
+                },
+                {
+                    "name":"EmployeeDashboard",
+                    "pattern":"dashboard",
+                    "target":[
+                        "EmployeeDashboard"
+                    ]
+                }
+            ],
+            "targets": {
+                "App": {
+                    "viewName": "App",
+                    "viewType": "XML",
+                    "transition":"slide"
+                },
+                "AdminDashboard":{
+                    "viewName":"AdminDashboard",
+                    "viewType":"XML",
+                    "transition":"show"
+                },
+                "Employees":{
+                    "viewName":"Employees",
+                    "viewType":"XML",
+                    "transition":"slide"
+                },
+                "EmployeeDashboard":{
+                    "viewName":"EmployeeDashboard",
+                    "viewType":"XML",
+                    "transition":"slide" 
+                }
+                
+            }
+        },
+        "rootView": {
+            "viewName": "zhrmsportal.view.App",
+            "type": "XML",
+            "id": "App"
+        }
+    }
+}

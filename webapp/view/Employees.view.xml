@@ -1,0 +1,15 @@
+<mvc:View controllerName="zhrmsportal.controller.Employees"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m" xmlns:core="sap.ui.core">
+    <App>
+        <Page>
+            <Label text="Hello"></Label>
+            <ComboBox
+				items="{
+					path: 'Departments>/Departments'
+				}">
+				<core:Item key="{depKey}" text="{depName}" />
+			</ComboBox>
+        </Page>
+    </App>
+</mvc:View>
