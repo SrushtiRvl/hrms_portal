@@ -1,5 +1,61 @@
 /* Enter your custom styles here */
 
+.wizard{
+    /* background-color: rgba(128, 128, 128, 0.329) !important; */
+    /* background-color: rgba(128, 128, 128, 0.087) !important; */
+    /* background-color: rgb(54 54 54 / 6%) !important; */
+    /* background-color: rgb(114 114 114 / 6%) !important; */
+}
+.wizard-form{
+    /* sapMRb sapMRbSel radioButtons sapMRbHasLabel */
+}
+.radio{
+    display: flex;
+}
+.sapMRb:focus::before{
+    border: none;
+}
+.radioButtons:focus{
+    border:1px solid rgba(0, 0, 255, 0.703) !important;
+    outline: none !important;
+}
+.radioButtons{
+    margin-right: 0.50rem !important;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    width:100%;
+    /* box-shadow: 20px rgba(0, 0, 255, 0.276) !important ; */
+    border: 1px solid rgba(0, 0, 255, 0.121) !important;
+}
+.radioButtons:focus{
+    outline: none;
+}
+.sapUiSizeCompact .sapMRbSvg {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    overflow: visible;
+    margin: 0.5rem;
+    margin-left: 0.3rem !important;
+    /* padding: 0.3rem; */
+    /* border-radius: 3px; */
+    /* border: 1px solid blue !important; */
+}
+/* Apply a checkmark icon when the RadioButton is selected */
+.sapMRbB {
+    border: none !important;  /* Remove border */
+    background: none !important;  /* Remove background */
+    width: auto;  /* Let the text size define the width */
+    height: auto;  /* Let the text size define the height */
+    padding: 0 !important;  /* Remove padding */
+    display: inline-flex;  /* Display text as inline block */
+    align-items: center;  /* Vertically center the text */
+    cursor: pointer;  /* Make it clickable */
+}
+.sapMRadioBtnInner {
+    display: none !important;  /* Hide the radio button circle */
+}
+
 .logo{
     /* margin-left: 20px; */
     margin:auto;

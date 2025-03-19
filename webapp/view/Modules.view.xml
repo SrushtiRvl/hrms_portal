@@ -1,0 +1,43 @@
+<mvc:View controllerName="zhrmsportal.controller.Modules"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m" xmlns:core="sap.ui.core">
+    <App>
+        <Page>
+            <Table items="{Modules>/Modules}" id="mTable">
+                <headerToolbar>
+                    <Toolbar >
+                        <Title text="Modules"/>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <SearchField width="30%" liveChange="onSearch"></SearchField>
+                        <ToolbarSpacer ></ToolbarSpacer>
+                        <Button text="Add Modules"></Button>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column >
+                    <Text text="Name"/>
+                    </Column>
+                    <Column >
+                    <Text text="Code"/>
+                    </Column>
+                    <Column >
+                    <Text text="Module Type"/>
+                    </Column>
+                    
+                </columns>
+                <items>
+                    <ColumnListItem >
+                        <cells>
+                            <Text text="{Modules>mName}"/>
+                            <Text text="{Modules>mCode}"/>
+                            <Text text="{Modules>mType}"/>
+                            <core:Icon src="sap-icon://edit" press="onEdit"></core:Icon>
+                            <core:Icon src="sap-icon://delete" press="onDelete"></core:Icon>
+                        </cells>
+
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </Page>
+    </App>
+</mvc:View>

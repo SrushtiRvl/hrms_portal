@@ -10,6 +10,94 @@
         }
 
     ],
+    "SalaryType":[
+        {
+            "sKey":"hr",
+            "sValue":"Hourly"
+        },
+        {
+            "sKey":"mo",
+            "sValue":"Monthly"
+        }
+
+    ],
+    "compensation":[
+        {
+            "cKey":"hr",
+            "cValue":"Hourly"
+        },
+        {
+            "cKey":"an",
+            "cValue":"Annual"
+        }
+
+    ],
+    "EmoloyeeType":[
+        {
+            "empTKey":"fullTime",
+            "empTName":"Full Time"
+        },
+        {
+            "empTKey":"partTime",
+            "empTName":"PartTime"
+        },
+        {
+            "empTKey":"contract",
+            "empTName":"Contract"
+        }
+
+    ],
+    "EmployeeRole":[
+        {
+            "empRKey":"admin",
+            "empRName":"Admin"
+        },
+        {
+            "empRKey":"employee",
+            "empRName":"Employee",
+            "subRType":[
+                {
+                    "empRSKey":"hr",
+                    "empRSName":"HR"
+                },
+                {
+                    "empRSKey":"reportingManager",
+                    "empRSName":"Reporting Manager"
+                },
+                {
+                    "empRSKey":"intern",
+                    "empRSName":"Intern"
+                },
+                {
+                    "empRSKey":"teamLead",
+                    "empRSName":"Team Lead"
+                }
+            ]
+        }
+    ],
+    "ReportingManager": [
+        {
+            "repoMKey": "RM001",
+            "repoMName": "John Doe"
+        },
+        {
+            "repoMKey": "RM002",
+            "repoMName": "Jane Smith"
+        },
+        {
+            "repoMKey": "RM003",
+            "repoMName": "Alice Brown"
+        },
+        {
+            "repoMKey": "RM004",
+            "repoMName": "Bob White"
+        },
+        {
+            "repoMKey": "RM005",
+            "repoMName": "Charlie Green"
+        }
+    ],
+    
     "Employees":[
         {
             "empCode":"E10",
@@ -20,13 +108,65 @@
             "role":"Intern",
             "status":"Active",
             "personalEmail":"srushti12@gmail.com",
-            "department":"sap",
-            "sDepartment":"ui5",
+            "module":"ui5",
             "designation":"Intern",
             "mobile":"9892054960",
             "reportingManager":"Kurvesh Patel",
             "dob":"12-02-2004",
             "punchID":"P12"
+        },
+        {
+            "empCode": "E11",
+            "empName": "Ravi Patel",
+            "officialEmail": "ravi.patel@gmail.com",
+            "joiningDate": "15-03-2023",
+            "teamLead": "Nisha Sharma",
+            "role": "Software Engineer",
+            "status": "Active",
+            "personalEmail": "ravi12@gmail.com",
+            "department": "sap",
+            "sDepartment": "backend",
+            "designation": "Junior Developer",
+            "mobile": "9801234567",
+            "reportingManager": "Amit Gupta",
+            "dob": "22-08-1995",
+            "punchID": "P13"
+        },
+        {
+            "empCode": "E12",
+            "empName": "Meera Joshi",
+            "officialEmail": "meera.joshi@gmail.com",
+            "joiningDate": "01-06-2024",
+            "teamLead": "Rajeev Kumar",
+            "role": "HR Associate",
+            "status": "Active",
+            "personalEmail": "meera.joshi12@gmail.com",
+            "department": "hr",
+            "sDepartment": "recruitment",
+            "designation": "HR Executive",
+            "mobile": "9934567890",
+            "reportingManager": "Anjali Verma",
+            "dob": "05-02-1990",
+            "punchID": "P14"
+        },
+        {
+            "empCode": "E13",
+            "empName": "Ankit Verma",
+            "officialEmail": "ankit.verma@gmail.com",
+            "joiningDate": "20-11-2022",
+            "teamLead": "Priya Singh",
+            "role": "Data Scientist",
+            "status": "Inactive",
+            "personalEmail": "ankit.verma12@gmail.com",
+            "department": "analytics",
+            "sDepartment": "data science",
+            "designation": "Data Analyst",
+            "mobile": "9923456789",
+            "reportingManager": "Deepak Kumar",
+            "dob": "19-04-1992",
+            "punchID": "P15"
         }
+        
+        
     ]
 }

@@ -33,7 +33,7 @@
         }
     },
     "sap.ui5": {
-        "flexEnabled": true,
+        "flexEnabled": false,
         "dependencies": {
             "minUI5Version": "1.133.0",
             "libs": {
@@ -56,9 +56,9 @@
                 "type":"sap.ui.model.json.JSONModel",
                 "uri":"model/loginDetails.json"
             },
-            "Departments":{
+            "Modules":{
                 "type":"sap.ui.model.json.JSONModel",
-                "uri":"model/Departments.json"
+                "uri":"model/Modules.json"
             },
             "Employees":{
                 "type":"sap.ui.model.json.JSONModel",
@@ -107,6 +107,20 @@
                     ]
                 },
                 {
+                    "name":"AddEmployee",
+                    "pattern":"addEmployee",
+                    "target":[
+                        "AddEmployee"
+                    ]
+                },
+                {
+                    "name":"Modules",
+                    "pattern":"modules",
+                    "target":[
+                        "Modules"
+                    ]
+                },
+                {
                     "name":"EmployeeDashboard",
                     "pattern":"dashboard",
                     "target":[
@@ -127,6 +141,16 @@
                 },
                 "Employees":{
                     "viewName":"Employees",
+                    "viewType":"XML",
+                    "transition":"slide"
+                },
+                "AddEmployee":{
+                    "viewName":"AddEmployee",
+                    "viewType":"XML",
+                    "transition":"slide"
+                },
+                "Modules":{
+                    "viewName":"Modules",
                     "viewType":"XML",
                     "transition":"slide"
                 },

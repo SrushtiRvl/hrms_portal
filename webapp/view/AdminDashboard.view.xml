@@ -14,5 +14,17 @@
 			<ImageContent src="sap-icon://workflow-tasks" />
 		</TileContent>
 	</GenericTile>
+    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Modules"
+		subheader="Total Projects:100" press="onPress">
+		<TileContent unit="" footer="Manage Modules">
+			<ImageContent src="sap-icon://business-objects-mobile" />
+		</TileContent>
+	</GenericTile>
+    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Punch-in Punch-outs"
+		subheader="Total Projects:100" press="onPress">
+		<TileContent unit="" footer="Manage Punch-in Punch-out">
+			<ImageContent src="sap-icon://filter-analytics" />
+		</TileContent>
+	</GenericTile>
     </Page>
 </mvc:View>

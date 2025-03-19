@@ -3,14 +3,14 @@
     xmlns="sap.m" xmlns:core="sap.ui.core">
     <App>
         <Page>
-            <Table items="{Employees>/Employees}">
+            <Table items="{Employees>/Employees}" id="empTable">
                 <headerToolbar>
                     <Toolbar >
                         <Title text="Employees"/>
                         <ToolbarSpacer ></ToolbarSpacer>
-                        <SearchField width="30%" search="onSearch"></SearchField>
+                        <SearchField width="30%" liveChange="onSearch"></SearchField>
                         <ToolbarSpacer ></ToolbarSpacer>
-                        <Button text="Add Employee"></Button>
+                        <Button text="Add Employee" press="onAddEmp"></Button>
                     </Toolbar>
                 </headerToolbar>
                 <columns>
@@ -36,10 +36,8 @@
                     <Text text="Status"/>
                     </Column>
                     <Column >
-                    <Text text="Edit" />
-                    </Column>
-                    <Column >
-                    <Text text="Delete" />
+                    
+                    <Text text="Actions"  textAlign="End"/>
                     </Column>
                 </columns>
                 <items>
@@ -52,17 +50,16 @@
                             <Text text="{Employees>teamLead}"/>
                             <Text text="{Employees>role}"/>
                             <Text text="{Employees>status}"/>
-                            <core:Icon src="sap-icon://edit" press="onEdit"></core:Icon>
-                            <core:Icon src="sap-icon://delete" press="onDelete"></core:Icon>
+                            <HBox>
+                            <Button icon="sap-icon://edit" press="onEdit" type="Attention" class="sapUiTinyMargin"></Button>
+                            <Button icon="sap-icon://delete" press="onDelete" type="Reject" class="sapUiTinyMargin"></Button>
+                            
+                            </HBox>
                         </cells>
 
                     </ColumnListItem>
                 </items>
             </Table>
-            <!-- <Label text="Hello"></Label>
-            <ComboBox items="{Departments>/Departments}">
-				<core:Item key="{Departments>depKey}" text="{Departments>depName}" />
-			</ComboBox> -->
         </Page>
     </App>
 </mvc:View>

@@ -1,0 +1,506 @@
+<mvc:View
+    controllerName="zhrmsportal.controller.AddEmployee"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <!-- <NavContainer id="as"> -->
+    <App>
+        <pages>
+            <Page>
+                <content>
+                    <Wizard
+                        id="idWizard"
+                        complete="onComplete"
+                        renderMode="Page"
+                        backgroundDesign="Solid"
+                        class="sapUiResponsivePadding--header sapUiResponsivePadding--content wizard"
+                        enableBranching="false"
+                    >
+                        <WizardStep
+                            id="PersonalDetails"
+                            title="Personal Details"
+                            validated="true"
+                            activate="personalDetails"
+                            icon="sap-icon://account"
+                            class="wizard"
+                        >
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        layout="ResponsiveGridLayout"
+                                        class="wizard-form"
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="4"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="4"
+                                        emptySpanL="4"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="6"
+                                        columnsL="2"
+                                        columnsM="2"
+                                    />
+                                </form:layout>
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement label="Name">
+                                            <form:fields>
+                                                <Input
+                                                    value="{Employees>/formData/fn}"
+                                                    required="true"
+                                                    id="fName"
+                                                    liveChange="personalDetails"
+                                                    placeholder="First Name"
+                                                />
+                                                <Input
+                                                    value="{Employees>/formData/ln}"
+                                                    required="true"
+                                                    liveChange="personalDetails"
+                                                    id="lName"
+                                                    placeholder="Last Name"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Personal Email"
+                                        >
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{Employees>/formData/personalEmail}"
+                                                    liveChange="personalDetails"
+                                                    id="pEmail"
+                                                    placeholder="Email"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="Mobile">
+                                            <form:fields>
+                                                <Input
+                                                    value="{Employees>/formData/mobile}"
+                                                    required="true"
+                                                    type="Number"
+                                                    id="mobile"
+                                                    liveChange="personalDetails"
+                                                    placeholder="Mobile Number"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="Date of Birth">
+                                            <form:fields>
+                                                <DatePicker
+                                                    displayFormat="dd.MM.yyyy"
+                                                    valueFormat="yyyy-MM-dd"
+                                                    dateValue="{Employees>/formData/dob}"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                                <!-- <Input/> -->
+                            </form:Form>
+                        </WizardStep>
+                        <WizardStep
+                            id="jobDetails"
+                            title="Job Details"
+                            validated="true"
+                            activate="jobDetails"
+                            icon="sap-icon://employee"
+                            class="wizard"
+                        >
+                            <form:Form
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                            >
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="4"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="0"
+                                        emptySpanL="0"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="6"
+                                        columnsL="2"
+                                        columnsM="2"
+                                        singleContainerFullSize="false"
+                                    />
+                                </form:layout>
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement label="Employee Type">
+                                            <form:fields>
+                                                
+                                                    <RadioButtonGroup
+                                                        id="empType"
+                                                        class="radio"
+                                                        buttons="{Employees>/EmoloyeeType}"
+                                                    >
+                                                        <RadioButton
+                                                            text="{Employees>empTName}"
+                                                            class="radioButtons"
+                                                        >
+                                                    
+                                                        </RadioButton>
+                                                    </RadioButtonGroup>
+
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Employee Code"
+                                        >
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{Employees>/formData/empCode}"
+                                                    liveChange="personalDetails"
+                                                    placeholder="Employee Code"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="Employee Role">
+                                            <form:fields>
+                                                <ComboBox
+                                                
+                                                    items="{Employees>/EmployeeRole}"
+                                                    selectionChange="onEmpRoleSelect"
+                                                    placeholder="Select Employee Role"
+                                                    required="true"
+                                                >
+                                                    <core:Item
+                                                        key="{Employees>empRKey}"
+                                                        text="{Employees>empRName}"
+                                                    />
+                                                </ComboBox>
+                                                <ComboBox
+                                                    items="{Employees>/EmployeeRole/1/subRType}"
+                                                    visible="false"
+                                                    id="subRoleType"
+                                                    placeholder="Select Employee Type"
+                                                >
+                                                    <core:Item
+                                                        key="{Employees>empRSKey}"
+                                                        text="{Employees>empRSName}"
+                                                    />
+                                                </ComboBox>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Official Email"
+                                        >
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{Employee>/formData/ofcEmail}"
+                                                    placeholder="Official email"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Status"
+                                        >
+                                            <form:fields>
+                                                <ComboBox
+                                                    required="true"
+                                                    items="{Employees>/Status}"
+                                                    placeholder="Status"
+                                                >
+                                                    <core:Item
+                                                        key="{Employees>sKey}"
+                                                        text="{Employees>sValue}"
+                                                    />
+                                                </ComboBox>
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:layoutData>
+                                        <form:GridContainerData
+                                            halfGrid="true"
+                                        />
+                                    </form:layoutData>
+                                </form:FormContainer>
+
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement
+                                            label="Designation"
+                                        >
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{Employees>/formData/designation}"
+                                                    placeholder="Designation"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Reporting Manager"
+                                        >
+                                            <form:fields>
+                                                <MultiComboBox
+                                                    required="true"
+                                                    placeholder="Select Manager"
+                                                    selectionChange="handleSelectionChange"
+                                                    selectionFinish="handleSelectionFinish"
+                                                    items="{Employees>/ReportingManager}"
+                                                >
+                                                    <core:Item
+                                                        key="{Employees>repoMKey}"
+                                                        text="{Employees>repoMName}"
+                                                    />
+                                                </MultiComboBox>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Date of Joining"
+                                        >
+                                            <form:fields>
+                                                <DatePicker
+                                                    required="true"
+                                                    displayFormat="dd.MM.yyyy"
+                                                    valueFormat="yyyy-MM-dd"
+                                                    dateValue="{Employees>/formData/doj}"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Punch Id"
+                                        >
+                                            <form:fields>
+                                                <Input
+                                                    value="{Employees>/formData/punchID}"
+                                                    liveChange="personalDetails"
+                                                    placeholder="Punch Id"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                    </form:formElements>
+                                    <form:layoutData>
+                                        <form:GridContainerData
+                                            halfGrid="true"
+                                        />
+                                    </form:layoutData>
+                                </form:FormContainer>
+                            </form:Form>
+                        </WizardStep>
+                        <WizardStep
+                            id="ProjectDetails"
+                            title="Project Details"
+                            validated="true"
+                            activate="projectDetails"
+                            icon="sap-icon://workflow-tasks"
+                        >
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="4"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="4"
+                                        emptySpanL="4"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="6"
+                                        columnsL="2"
+                                        columnsM="2"
+                                    />
+                                </form:layout>
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement label="Project Code">
+                                            <form:fields>
+                                                <Input
+                                                    value="{Employees>/formData/pCode}"
+                                                    required="true"
+                                                    liveChange="projectDetails"
+                                                    placeholder="Project Code"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="Project Name">
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{Employees>/formData/pName}"
+                                                    liveChange="projectDetails"
+                                                    placeholder="Project Name"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="Start Date">
+                                            <form:fields>
+                                                <DatePicker
+                                                    required="true"
+                                                    displayFormat="dd.MM.yyyy"
+                                                    valueFormat="yyyy-MM-dd"
+                                                    dateValue="{Employees>/formData/pStartDate}"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="End Date">
+                                            <form:fields>
+                                                <DatePicker
+                                                    required="true"
+                                                    displayFormat="dd.MM.yyyy"
+                                                    valueFormat="yyyy-MM-dd"
+                                                    dateValue="{Employees>/formData/pEndDate}"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Reporting Manager"
+                                        >
+                                            <form:fields>
+                                                <ComboBox
+                                                    placeholder="Select Reporting Manager"
+                                                    required="true"
+                                                    selectionChange="handleSelectionChange"
+                                                    items="{Employees>/ReportingManager}"
+                                                >
+                                                    <core:Item
+                                                        key="{Employees>repoMKey}"
+                                                        text="{Employees>repoMName}"
+                                                    />
+                                                </ComboBox>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="Status">
+                                            <form:fields>
+                                                <ComboBox
+                                                    required="true"
+                                                    items="{Employees>/Status}"
+                                                    placeholder="Select Status"
+                                                >
+                                                    <core:Item
+                                                        key="{Employees>sKey}"
+                                                        text="{Employees>sValue}"
+                                                    />
+                                                </ComboBox>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <!-- <form:FormElement
+                                            label=""
+                                        >
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{Employees>/formData/pName}"
+                                                    liveChange="projectDetails"
+                                                    placeholder="Project Name"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement> -->
+                                    </form:formElements>
+                                </form:FormContainer>
+                                <!-- <Input/> -->
+                            </form:Form>
+                        </WizardStep>
+                        <WizardStep
+                            id="CompesationDetails"
+                            title="Compesation Details"
+                            validated="true"
+                            activate="compesationDetails"
+                            icon="sap-icon://study-leave"
+                        >
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="4"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="4"
+                                        emptySpanL="4"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="6"
+                                        columnsL="2"
+                                        columnsM="2"
+                                    />
+                                </form:layout>
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement label="Degree Type">
+                                            <form:fields>
+                                                <ComboBox
+                                                    items="{Employees>/SalaryType}"
+                                                    placeholder="Select Salary Type"
+                                                >
+                                                    <core:Item
+                                                        key="{Employees>sKey}"
+                                                        text="{Employees>sValue}"
+                                                    />
+                                                </ComboBox>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="">
+                                        <Input value="{}"/>
+                                        </form:FormElement>
+                                        <form:FormElement label="Compensation">
+                                            <form:fields>
+                                                <RadioButtonGroup buttons="{Employees>/compensation}" class="radio">
+                                                    <RadioButton text="{Employees>cValue}" class="radioButtons"></RadioButton>
+                                                </RadioButtonGroup>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement label="Gross annual salary">
+                                        <Input value="{}"/>
+                                        </form:FormElement>
+                                        
+                                        <!-- <form:FormElement
+                                            label=""
+                                        >
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{Employees>/formData/pName}"
+                                                    liveChange="projectDetails"
+                                                    placeholder="Project Name"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement> -->
+                                    </form:formElements>
+                                </form:FormContainer>
+                                <!-- <Input/> -->
+                            </form:Form>
+                        </WizardStep>
+                    </Wizard>
+                </content>
+                <footer>
+                    <OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button
+                            id="next"
+                            press="onActionBtnPress"
+                            text="Next"
+                            visible="false"
+                        />
+                        <Button
+                            id="previous"
+                            press="onActionBtnPress"
+                            text="Previous"
+                            visible="false"
+                        />
+                        <Button
+                            id="review"
+                            press="onActionBtnPress"
+                            text="Review"
+                            visible="false"
+                        />
+                    </OverflowToolbar>
+                </footer>
+            </Page>
+        </pages>
+        <!-- </NavContainer> -->
+    </App>
+</mvc:View>
