@@ -1,21 +1,42 @@
 {
+    "selMT":"",
+    "selM":"",
     "Modules":[
+        {
+            "mKey":"func",
+            "mName":"Functional"
+        },
+        {
+            "mKey":"tech",
+            "mName":"Technical"
+        }
+    ],
+    "Technical":[
+        
         {
             "mKey":"ui5",
             "mName":"SAP UI5/Fiori Consultant (SAPUI)",
             "mCode":"SAP01",
-            "mType":"Functional"
+            "mType":"Technical"
         },
         {
             "mKey":"abap",
             "mName":"SAP ABAP Consultant (SABAP)",
             "mCode":"SAP02",
-            "mType":"Functional"
+            "mType":"Technical"
         },
         {
             "mKey":"fico",
             "mName":"Senior SAP FICO Consultant (SSFIC)",
             "mCode":"SAP03",
+            "mType":"Technical"
+        }
+    ],
+    "Functional":[
+        {
+            "mKey":"basis",
+            "mName":"SAP Basis",
+            "mCode":"SAP06",
             "mType":"Functional"
         }
     ]

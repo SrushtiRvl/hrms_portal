@@ -49,30 +49,20 @@
     ],
     "EmployeeRole":[
         {
-            "empRKey":"admin",
-            "empRName":"Admin"
+            "empRKey":"hr",
+            "empRName":"HR"
         },
         {
-            "empRKey":"employee",
-            "empRName":"Employee",
-            "subRType":[
-                {
-                    "empRSKey":"hr",
-                    "empRSName":"HR"
-                },
-                {
-                    "empRSKey":"reportingManager",
-                    "empRSName":"Reporting Manager"
-                },
-                {
-                    "empRSKey":"intern",
-                    "empRSName":"Intern"
-                },
-                {
-                    "empRSKey":"teamLead",
-                    "empRSName":"Team Lead"
-                }
-            ]
+            "empRKey":"reportingManager",
+            "empRName":"Reporting Manager"
+        },
+        {
+            "empRKey":"intern",
+            "empRName":"Intern"
+        },
+        {
+            "empRKey":"teamLead",
+            "empRName":"Team Lead"
         }
     ],
     "ReportingManager": [

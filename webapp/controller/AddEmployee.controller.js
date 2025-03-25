@@ -35,19 +35,13 @@ sap.ui.define([
 
             }
         },
-        onEmpRoleSelect: function (oEvent) {
-            var sub = this.getView().byId('subRoleType');
-            var selectedValue = oEvent.getSource().getSelectedItem().getBindingContext('Employees').getObject().empRName;
-            if (selectedValue === 'Employee') {
-                sub.setVisible(true)
-                this.wizard.setNextStep(this.byId('personalDetails'))
-                sub.setRequired(true)
-            }
-            else {
-                sub.setVisible(false)
-                sub.setRequired(false)
-
-            }
+        onModuleSelect: function (oEvent) {
+            var sub = this.getView().byId('modules');
+            var oModelModules=this.getOwnerComponent().getModel('Modules');
+            // var selectedValue = oEvent.getSource().getSelectedItem().getBindingContext('Modules').getObject().mName;
+            var selectedValue=oModelModules.getData().selMT;
+            sub.bindAggregation("items","Modules>/"+selectedValue, new sap.ui.core.ListItem({text:"{Modules>mName}",key:"{Modules>mKey}"}))
+            sub.setVisible()
         },
         setModelData:function(data,property){
             var formData = this.oEmpModel.getProperty('/formData');
@@ -55,10 +49,10 @@ sap.ui.define([
         },
 
         personalDetails: function (e) {
-            var v=e.getParameter('value');
-            e.getSource().setProperty('value',v);
             if(e.sId === "liveChange"){
-                var data=e.getParameter('value');
+                var v=e.getParameter('value');
+                e.getSource().setProperty('value',v);
+                // var data=e.getParameter('value');
                 // var property=e.get
             }
             var formData = this.oEmpModel.getProperty('/formData');
@@ -101,10 +95,10 @@ sap.ui.define([
                 this.byId('PersonalDetails').setIcon('sap-icon://accept')
             }
             else {
-                this.wizard.invalidateStep(this.byId('PersonalDetails'))
-                this.wizard.setCurrentStep(this.byId("PersonalDetails"));
-                this.getView().byId('next').setVisible(false);
-                this.byId('PersonalDetails').setIcon('sap-icon://account')
+                // this.wizard.invalidateStep(this.byId('PersonalDetails'))
+                // this.wizard.setCurrentStep(this.byId("PersonalDetails"));
+                // this.getView().byId('next').setVisible(false);
+                // this.byId('PersonalDetails').setIcon('sap-icon://account')
             }
 
         },
