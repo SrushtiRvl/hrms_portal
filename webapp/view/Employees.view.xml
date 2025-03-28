@@ -3,7 +3,7 @@
     xmlns="sap.m" xmlns:core="sap.ui.core">
     <App>
         <Page>
-            <Table items="{Employees>/Employees}" id="empTable">
+            <Table items="{Employees>/Employees}" id="empTable" autoPopinMode="true">
                 <headerToolbar>
                     <Toolbar >
                         <Title text="Employees"/>

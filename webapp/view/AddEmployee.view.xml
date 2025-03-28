@@ -49,18 +49,18 @@
                                     <form:formElements>
                                         <form:FormElement label="Name">
                                             <form:fields>
+                                                <!-- id="fName" -->
                                                 <Input
                                                     value="{Employees>/formData/fn}"
                                                     required="true"
-                                                    id="fName"
                                                     liveChange="personalDetails"
                                                     placeholder="First Name"
                                                 />
+                                                <!-- id="lName" -->
                                                 <Input
                                                     value="{Employees>/formData/ln}"
                                                     required="true"
                                                     liveChange="personalDetails"
-                                                    id="lName"
                                                     placeholder="Last Name"
                                                 />
                                             </form:fields>
@@ -68,23 +68,23 @@
                                         <form:FormElement
                                             label="Personal Email"
                                         >
+                                            <!-- id="pEmail" -->
                                             <form:fields>
                                                 <Input
                                                     required="true"
                                                     value="{Employees>/formData/personalEmail}"
                                                     liveChange="personalDetails"
-                                                    id="pEmail"
                                                     placeholder="Email"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement label="Mobile">
+                                            <!-- id="mobile" -->
                                             <form:fields>
                                                 <Input
                                                     value="{Employees>/formData/mobile}"
                                                     required="true"
                                                     type="Number"
-                                                    id="mobile"
                                                     liveChange="personalDetails"
                                                     placeholder="Mobile Number"
                                                 />
@@ -137,25 +137,19 @@
                                     <form:formElements>
                                         <form:FormElement label="Employee Type">
                                             <form:fields>
-                                                
-                                                    <RadioButtonGroup
-                                                        id="empType"
-                                                        class="radio"
-                                                        buttons="{Employees>/EmoloyeeType}"
-                                                    >
-                                                        <RadioButton
-                                                            text="{Employees>empTName}"
-                                                            class="radioButtons"
-                                                        >
-                                                    
-                                                        </RadioButton>
-                                                    </RadioButtonGroup>
-
+                                                <RadioButtonGroup
+                                                    id="empType"
+                                                    class="radio"
+                                                    buttons="{Employees>/EmoloyeeType}"
+                                                >
+                                                    <RadioButton
+                                                        text="{Employees>empTName}"
+                                                        class="radioButtons"
+                                                    />
+                                                </RadioButtonGroup>
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement
-                                            label="Employee Code"
-                                        >
+                                        <form:FormElement label="Employee Code">
                                             <form:fields>
                                                 <Input
                                                     required="true"
@@ -165,10 +159,18 @@
                                                 />
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement
-                                            label="Module"
-                                        >
+                                        <form:FormElement label="Module">
                                             <ComboBox
+                                                required="true"
+                                                items="{/Modules}"
+                                                placeholder="Select Module"
+                                            >
+                                                <core:Item
+                                                    key="{MODULE_ID}"
+                                                    text="{MODULE_NAME}"
+                                                />
+                                            </ComboBox>
+                                            <!-- <ComboBox
                                                 
                                                     items="{Modules>/Modules}"
                                                     selectionChange="onModuleSelect"
@@ -180,25 +182,24 @@
                                                         key="{Modules>mKey}"
                                                         text="{Modules>mName}"
                                                     />
-                                                </ComboBox>
-                                                    <!-- items="{Modules>/selM}" -->
-                                                <ComboBox
+                                                </ComboBox> -->
+                                            <!-- items="{Modules>/selM}" -->
+                                            <!-- <ComboBox
                                                     visible="false"
                                                     id="modules"
                                                     placeholder="Select module"
                                                     selectionChange="onModuleSelect"
                                                     selectedItem="{Modules>/selM}"
-                                                >
-                                                    <!-- <core:Item
+                                                > -->
+                                            <!-- <core:Item
                                                         key="{Modules>mKey}"
                                                         text="{Modules>mName}"
                                                     /> -->
-                                                </ComboBox> 
+                                            <!-- </ComboBox>  -->
                                         </form:FormElement>
                                         <form:FormElement label="Employee Role">
                                             <form:fields>
                                                 <ComboBox
-                                                
                                                     items="{Employees>/EmployeeRole}"
                                                     selectionChange="onEmpRoleSelect"
                                                     placeholder="Select Employee Role"
@@ -209,17 +210,6 @@
                                                         text="{Employees>empRName}"
                                                     />
                                                 </ComboBox>
-                                                <!-- <ComboBox
-                                                    items="{Employees>/EmployeeRole/1/subRType}"
-                                                    visible="false"
-                                                    id="subRoleType"
-                                                    placeholder="Select Employee Type"
-                                                >
-                                                    <core:Item
-                                                        key="{Employees>empRSKey}"
-                                                        text="{Employees>empRSName}"
-                                                    />
-                                                </ComboBox> -->
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement
@@ -233,9 +223,7 @@
                                                 />
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement
-                                            label="Status"
-                                        >
+                                        <form:FormElement label="Status">
                                             <form:fields>
                                                 <ComboBox
                                                     required="true"
@@ -259,9 +247,7 @@
 
                                 <form:FormContainer>
                                     <form:formElements>
-                                        <form:FormElement
-                                            label="Designation"
-                                        >
+                                        <form:FormElement label="Designation">
                                             <form:fields>
                                                 <Input
                                                     required="true"
@@ -300,9 +286,7 @@
                                                 />
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement
-                                            label="Punch Id"
-                                        >
+                                        <form:FormElement label="Punch Id">
                                             <form:fields>
                                                 <Input
                                                     value="{Employees>/formData/punchID}"
@@ -320,6 +304,66 @@
                                 </form:FormContainer>
                             </form:Form>
                         </WizardStep>
+
+                        <WizardStep
+                            id="educationDetails"
+                            title="Education Details"
+                            validated="true"
+                            activate="educationDetails"
+                            icon="sap-icon://study-leave"
+                        >
+                            <form:Form editable="true">
+                                <form:layout>
+                                    <form:ResponsiveGridLayout
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="4"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="4"
+                                        emptySpanL="4"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="6"
+                                        columnsL="2"
+                                        columnsM="2"
+                                    />
+                                </form:layout>
+                                <form:FormContainer>
+                                    <form:formElements>
+                                        <form:FormElement label="Degree Type">
+                                            <form:fields>
+                                                <Input
+                                                    value="{}"
+                                                    required="true"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Institution Name"
+                                        >
+                                            <Input
+                                                value="{}"
+                                                required="true"
+                                            />
+                                        </form:FormElement>
+                                        <form:FormElement label="CGPA">
+                                            <Input
+                                                value="{}"
+                                                required="true"
+                                            />
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Graduation Date"
+                                        >
+                                            <DatePicker
+                                                value="{Employees>/formData/gDate}"
+                                            />
+                                        </form:FormElement>
+                                    </form:formElements>
+                                </form:FormContainer>
+                            </form:Form>
+                        </WizardStep>
                         <WizardStep
                             id="ProjectDetails"
                             title="Project Details"
@@ -327,7 +371,30 @@
                             activate="projectDetails"
                             icon="sap-icon://workflow-tasks"
                         >
-                            <form:Form editable="true">
+                            <VBox>
+                                <core:HTML id="html" />
+                            </VBox>
+                            <VBox>
+                                <HBox>
+                                    <Button
+                                        id="Signature"
+                                        text="Signature"
+                                        press="onSign"
+                                    />
+                                    <Button
+                                        id="Save"
+                                        text="Save"
+                                        press="saveButton"
+                                    />
+                                    <Button
+                                        id="clear"
+                                        text="Clear"
+                                        press="clearButton"
+                                    />
+                                </HBox>
+                            </VBox>
+
+                            <!-- <form:Form editable="true">
                                 <form:layout>
                                     <form:ResponsiveGridLayout
                                         labelSpanXL="4"
@@ -417,67 +484,10 @@
                                                 </ComboBox>
                                             </form:fields>
                                         </form:FormElement>
-                                        <!-- <form:FormElement
-                                            label=""
-                                        >
-                                            <form:fields>
-                                                <Input
-                                                    required="true"
-                                                    value="{Employees>/formData/pName}"
-                                                    liveChange="projectDetails"
-                                                    placeholder="Project Name"
-                                                />
-                                            </form:fields>
-                                        </form:FormElement> -->
-                                    </form:formElements>
-                                </form:FormContainer>
-                                <!-- <Input/> -->
-                            </form:Form>
-                        </WizardStep>
-                        <WizardStep
-                            id="CompesationDetails"
-                            title="Compesation Details"
-                            validated="true"
-                            activate="compesationDetails"
-                            icon="sap-icon://study-leave"
-                        >
-                            <form:Form editable="true">
-                                <form:layout>
-                                    <form:ResponsiveGridLayout
-                                        labelSpanXL="4"
-                                        labelSpanL="4"
-                                        labelSpanM="4"
-                                        labelSpanS="12"
-                                        adjustLabelSpan="false"
-                                        emptySpanXL="4"
-                                        emptySpanL="4"
-                                        emptySpanM="0"
-                                        emptySpanS="0"
-                                        columnsXL="6"
-                                        columnsL="2"
-                                        columnsM="2"
-                                    />
-                                </form:layout>
-                                <form:FormContainer>
-                                    <form:formElements>
-                                        <form:FormElement label="Degree Type">
-                                            <form:fields>
-                                                <Input value="{}" required="true"/>
-                                            </form:fields>
-                                        </form:FormElement>
-                                        <form:FormElement label="Institution Name">
-                                        <Input value="{}" required="true"/>
-                                        </form:FormElement>
-                                        <form:FormElement label="CGPA">
-                                        <Input value="{}" required="true"/>
-                                        </form:FormElement>
-                                        <form:FormElement label="Graduation Date">
-                                        <DatePicker value="{Employees>/formData/gDate}"/>
-                                        </form:FormElement>
                                         
                                     </form:formElements>
                                 </form:FormContainer>
-                            </form:Form>
+                            </form:Form> -->
                         </WizardStep>
                     </Wizard>
                 </content>
