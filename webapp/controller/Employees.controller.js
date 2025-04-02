@@ -8,12 +8,23 @@ sap.ui.define([
 
     return Controller.extend("zhrmsportal.controller.Employees", {
         onInit:function(){
-            var oModel=this.getOwnerComponent().getModel("Modules");
-            this.getView().setModel(oModel,'Modules');
-            var modelEmp=this.getOwnerComponent().getModel("Employees");
-            this.getView().setModel(modelEmp,'Employees');
-            this.oRouter=sap.ui.core.UIComponent.getRouterFor(this);
-            this.oRouter.getRoute("Employees");
+            // var oModel=this.getOwnerComponent().getModel("Modules");
+            // this.getView().setModel(oModel,'Modules');
+            var oDataModel=this.getOwnerComponent().getModel()
+            var oModel=new sap.ui.model.json.JSONModel();
+            oDataModel.read("/Employees",{
+                success:function(data,res){
+                    oModel.setData(data.results)
+                    this.getView().setModel(oModel,"Employees")
+                    this.oRouter=sap.ui.core.UIComponent.getRouterFor(this);
+                    this.oRouter.getRoute("Employees");
+                }.bind(this),
+                error:function(e){
+                    debugger
+                }
+            })
+            // var modelEmp=this.getOwnerComponent().getModel("Employees");
+            // this.getView().setModel(modelEmp,'Employees');
         },
         onAddEmp(oEvent){
             this.oRouter.navTo("AddEmployee");
@@ -38,6 +49,9 @@ sap.ui.define([
             tbl.getBinding('items').filter(aFilter);
         },
         onEdit:function(oEvent){
+            var data=oEvent.getSource().getBindingContext("Employees").getObject();
+            // var p=sap.ui.getCore().byId("editPage")
+            this.oRouter.navTo("Edit")
             
         },
         onDelete:function(oEvent){

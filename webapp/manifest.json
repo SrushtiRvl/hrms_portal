@@ -67,18 +67,14 @@
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/loginDetails.json"
       },
-      "Employees": {
+      "FormData": {
         "type": "sap.ui.model.json.JSONModel",
-        "uri": "model/Employees.json"
+        "uri": "model/FormData.json"
       },
       "": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {}
-      },
-      "FormData":{
-        "type": "sap.ui.model.json.JSONModel",
-        "uri":"model/FormData.json"
       }
     },
     "resources": {
@@ -130,6 +126,13 @@
           ]
         },
         {
+          "name": "Edit",
+          "pattern": "edit",
+          "target": [
+            "Edit"
+          ]
+        },
+        {
           "name": "Modules",
           "pattern": "modules",
           "target": [
@@ -162,6 +165,11 @@
         },
         "AddEmployee": {
           "viewName": "AddEmployee",
+          "viewType": "XML",
+          "transition": "slide"
+        },
+        "Edit": {
+          "viewName": "Edit",
           "viewType": "XML",
           "transition": "slide"
         },

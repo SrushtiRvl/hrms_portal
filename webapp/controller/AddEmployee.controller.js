@@ -1,36 +1,56 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast"
-], (Controller, MessageToast) => {
+    "sap/m/MessageToast",
+    "zhrmsportal/utils/formatter"
+], (Controller, MessageToast, formatter) => {
     "use strict";
 
-    this._timeout = null;
     return Controller.extend("zhrmsportal.controller.AddEmployee", {
-        onInit: function () {
+        formatter: formatter,
+        onInit: async function () {
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.getRoute("AddEmployee");
+            // this.oRouter.getRoute("editPage");
 
-            this.oModelModule = this.getOwnerComponent().getModel()
-            this.oModelModule.read("/Modules", {
-                success: (data, res) => {
+            this.oDataModel = this.getOwnerComponent().getModel()
+            await this.readData("Modules")
+            // this.readData("Employees")
+            // this.oEmpModel = this.getOwnerComponent().getModel('Employees');
+            this.getOwnerComponent().getModel('FormData').setProperty('/EmployeeData', {
+                "fn": "",
+                "ln": "",
+                "EMP_EMAIL": "",
+                "EMP_MOBILE": "",
+                "EMP_DOB": "",
+                "EMP_CODE": "",
+                "selModule": "",
+                "selRole": "",
+                "selStatus": "",
+                "DESIGNATION": "",
+                "DATE_OF_JOINING": "",
+                "degType": "",
+                "INSTITUTION_NAME": "",
+                "CGPA": "",
+                "GRADUATION_DATE": ""
+
+            })
+        },
+        readData:async function(entityset){
+            var oModel=new sap.ui.model.json.JSONModel()
+            await this.oDataModel.read("/"+entityset, {
+                success: async (data, res) => {
                     debugger
-                    this.getView().setModel(this.oModelModule);
+                    oModel.setData(data.results)
+                    await this.getView().setModel(oModel,entityset);
                 },
                 error: (e) => {
                     debugger
                 }
             })
-            this.oEmpModel = this.getOwnerComponent().getModel('Employees');
-            this.getView().setModel(this.oEmpModel, "Employees")
-            this.oEmpModel.setProperty('/formData', {
-                "ln": "",
-                "fn": "",
-                "personalEmail": "",
-                "mobile": "",
-                "dob": new Date()
-            })
         },
-
+        setBtnVisible: function (id, visible) {
+            this.getView().byId(id).setVisible(visible);
+        },
         onActionBtnPress: function (oEvent) {
             var btn = oEvent.getSource().getText();
             if (btn === "Next") {
@@ -47,30 +67,29 @@ sap.ui.define([
         },
         onModuleSelect: function (oEvent) {
             var sub = this.getView().byId('modules');
-            var oModelModules=this.getOwnerComponent().getModel('Modules');
-            // var selectedValue = oEvent.getSource().getSelectedItem().getBindingContext('Modules').getObject().mName;
-            var selectedValue=oModelModules.getData().selMT;
-            sub.bindAggregation("items","Modules>/"+selectedValue, new sap.ui.core.ListItem({text:"{Modules>mName}",key:"{Modules>mKey}"}))
+            var oDataModels = this.getOwnerComponent().getModel('Modules');
+            var selectedValue = oDataModels.getData().selMT;
+            sub.bindAggregation("items", "Modules>/" + selectedValue, new sap.ui.core.ListItem({ text: "{Modules>mName}", key: "{Modules>mKey}" }))
             sub.setVisible()
-        },
-        setModelData:function(data,property){
-            var formData = this.oEmpModel.getProperty('/formData');
-            formData.property=data;
         },
 
         personalDetails: function (e) {
-            if(e.sId === "liveChange"){
-                var v=e.getParameter('value');
-                e.getSource().setProperty('value',v);
+            // var nav=this.byId("NavContainer");
+            // nav.to(this.getView().byId("editPage"));
+            // this.setBtnVisible("previous",false);
+
+            if (e.sId === "liveChange") {
+                var v = e.getParameter('value');
+                e.getSource().setProperty('value', v);
             }
-            var formData = this.oEmpModel.getProperty('/formData');
+            this.formData = this.getOwnerComponent().getModel('FormData').getProperty('/EmployeeData')
             this.wizard = this.getView().byId('idWizard');
-            var pEmail= formData.personalEmail;
+            var pEmail = this.formData.EMP_EMAIL;
             if (pEmail) {
                 // var value = pEmail.getValue();
                 var mailregex = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
-                
-                var sid=e.getSource().sId
+
+                var sid = e.getSource().sId
                 if (!mailregex.test(pEmail)) {
                     sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Error)
                     // pEmail.setValueState(sap.ui.core.ValueState.Error);
@@ -80,63 +99,187 @@ sap.ui.define([
                     // pEmail.setValueState(sap.ui.core.ValueState.Success);
                 }
             }
-            var mobile = this.getView().byId('mobile');
-            // var mData = mobile.getValue();;
-            var mData = formData.mobile;
+            // var EMP_MOBILE = this.getView().byId('EMP_MOBILE');
+            // var mData = EMP_MOBILE.getValue();;
+            var mData = this.formData.EMP_MOBILE;
 
             if (mData) {
-                var sid=e.getSource().sId
+                var sid = e.getSource().sId
                 sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Error)
                 if (mData.length == 10) {
                     sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Success)
-                    // mobile.setValueState(sap.ui.core.ValueState.Success);
+                    // EMP_MOBILE.setValueState(sap.ui.core.ValueState.Success);
                 }
                 else {
                     sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Error)
-                    // mobile.setValueState(sap.ui.core.ValueState.Error);
+                    // EMP_MOBILE.setValueState(sap.ui.core.ValueState.Error);
                 }
 
             }
-            
-            
-            if (formData.fn != '' && formData.ln != '' && formData.mobile != '' && formData.mobile.length == 10 && formData.personalEmail != '') {
+
+
             // if (fnData != '' && lnData != '' && mData != '' && mData.length == 10 && pEmail != '') {
+            if (this.formData.fn != '' && this.formData.ln != '' && this.formData.EMP_MOBILE != '' && this.formData.EMP_MOBILE.length == 10 && this.formData.EMP_EMAIL != '') {
+                this.formData.EMP_NAME = this.capitalize(this.formData.fn) + " " + this.capitalize(this.formData.ln);
                 this.wizard.validateStep(this.byId('PersonalDetails'))
-                this.getView().byId('next').setVisible();
+                // this.setBtnVisible("next",true);
                 this.byId('PersonalDetails').setIcon('sap-icon://accept')
+                // this.wizard.validateStep(this.byId('jobDetails'))
             }
             else {
-                // this.wizard.invalidateStep(this.byId('PersonalDetails'))
-                // this.wizard.setCurrentStep(this.byId("PersonalDetails"));
-                // this.getView().byId('next').setVisible(false);
-                // this.byId('PersonalDetails').setIcon('sap-icon://account')
+                // this.setBtnVisible("next",false);
+                this.wizard.invalidateStep(this.byId('PersonalDetails'))
+                this.wizard.setCurrentStep(this.byId("PersonalDetails"));
+                this.byId('PersonalDetails').setIcon('sap-icon://account')
             }
 
         },
-        jobDetails: function () {
-            // this.wizard.goToStep(this.getView().byId('personalDetails'))
-            // this.oEmpModel.attachPropertyChange(()=>{
-            //     debugger;
-            //     this.wizard = this.getView().byId('idWizard');
-                // var formData = this.oEmpModel.getProperty('/formData');
-                // if (formData.fn != '' && formData.ln != '' && formData.mobile != '' && formData.mobile.length == 10 && formData.personalEmail != '') {
-                //     this.wizard.validateStep(this.byId('PersonalDetails'))
-                //     this.getView().byId('next').setVisible();
-                //     this.byId('PersonalDetails').setIcon('sap-icon://accept')
-                // }
-                // else {
-                //     this.wizard.invalidateStep(this.byId('PersonalDetails'))
-                //     this.wizard.setCurrentStep(this.byId("PersonalDetails"));
-                //     this.getView().byId('next').setVisible(false);
-                //     this.byId('PersonalDetails').setIcon('sap-icon://account')
-                // }
-            // })
+        capitalize: function (word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
         },
-        projectDetails:function(){
-
+        jobDetails: function (e) {
+            // this.getView().getModel("Modules").refresh();
+            // this.getView().byId("previous").setVisible()
+            if (e.sId === "liveChange") {
+                var v = e.getParameter('value');
+                e.getSource().setProperty('value', v);
+            }
+            if (this.formData.selModule != "" && this.formData.selRole != "" && this.formData.selStatus != "" && this.formData.selStatus != "" && this.formData.selManager && this.formData.EMP_CODE != "" && this.formData.DESIGNATION != "" && this.formData.selManager != "" && this.formData.DATE_OF_JOINING != "") {
+                this.wizard.validateStep(this.byId('JobDetails'))
+                this.getView().byId('JobDetails').setIcon('sap-icon://accept')
+            }
+            else {
+                this.wizard.invalidateStep(this.byId('JobDetails'))
+                this.wizard.setCurrentStep(this.byId("JobDetails"));
+                this.getView().byId('JobDetails').setIcon('sap-icon://employee')
+            }
+        },
+        educationDetails: function (e) {
+            if (e.sId === "liveChange") {
+                var v = e.getParameter('value');
+                e.getSource().setProperty('value', v);
+            }
+            if(this.formData.degType!="" && this.formData.INSTITUTION_NAME!="" && this.formData.CGPA!="" && this.formData.GRADUATION_DATE!=""){
+                this.wizard.validateStep(this.byId('EducationDetails'))
+                this.getView().byId('EducationDetails').setIcon('sap-icon://accept')
+            }
+            else{
+                this.wizard.invalidateStep(this.byId('EducationDetails'))
+                this.wizard.setCurrentStep(this.byId("EducationDetails"));
+                this.getView().byId('EducationDetails').setIcon('sap-icon://education')
+            }
+        },
+        onComplete: function (e) {
+            // var formData = this.oEmpModel.getProperty('/formData');
+            // var nav=this.byId("NavContainer");
+            // nav.to(this.getView().byId("editPage"));
+            this.oRouter.navTo("Edit");
+        },
+        signature: function () {
+            this.getView().byId("submit").setVisible(true)
             this.getView().byId("html").setContent("<canvas id='signature-pad' width='400' height='200' class='signature-pad'></canvas>");
         },
-        onSign : function(oEvent){
+        onSubmit: function (e) {
+            if(this.formData.selModule){
+                this.oDataModel.read("/Modules",{
+                    success:((data,res)=>{
+                        var oData=data.results
+                        oData.forEach(val => {
+                            if(val.MODULE_ID== this.formData.selModule){
+                                this.formData.MODULE=val.MODULE_NAME;
+                            }
+                        });
+                    }),
+                    error:(e)=>{
+                        debugger
+                    }
+                })
+            }
+            if(this.formData.selRole){
+                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/EmployeeRole")
+                oData.forEach(val => {
+                    if(val.empTKey== this.formData.selRole){
+                        this.formData.EMP_ROLE=val.empTName
+                    }
+                });
+            }
+            if(this.formData.selStatus){
+                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/Status")
+                oData.forEach(val => {
+                    if(val.sKey== this.formData.selStatus){
+                        this.formData.STATUS=val.sValue;
+                    }
+                });
+            }
+            this.formData.REPORTING_MANAGER=[]
+            if(this.formData.selManager){
+                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/ReportingManager")
+                this.formData.selManager.forEach(val=>{
+                    oData.forEach(obj=>{
+                        if(obj.repoMKey==val){
+                            this.formData.REPORTING_MANAGER.push(obj.repoMName)
+                            return
+                        }
+                    })
+                })
+            }
+            if(this.formData.selType){
+                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/EmoloyeeType/"+this.formData.selType).empTName;
+                this.formData.EMP_TYPE=oData;
+            }
+            this.formData.EMP_ID=3
+            delete this.formData.fn
+            delete this.formData.ln
+            delete this.formData.selModule
+            delete this.formData.selRole
+            delete this.formData.selStatus
+            delete this.formData.selManager
+            delete this.formData.selType
+            
+            delete this.formData.degType
+            delete this.formData.INSTITUTION_NAME
+            delete this.formData.CGPA
+            delete this.formData.GRADUATION_DATE
+            
+            // // delete this.formData.
+            // // this.oDataModel.create("/Degree",)
+            
+            // this.formData.GRADUATION_DATE=new Date(this.formData.GRADUATION_DATE)
+            // this.formData.EMP_DOB=new Date(this.formData.EMP_DOB)
+            // this.formData.DATE_OF_JOINING=new Date(this.formData.DATE_OF_JOINING)
+            
+            // var degPayload={
+            //     INSTITUTION_NAME:this.formData.INSTITUTION_NAME,
+            //     CGPA:this.formData.CGPA,
+            //     GRADUATION_DATE:this.formData.GRADUATION_DATE,
+            //     URL:""
+            // }
+            // this.oDataModel.create("/Degree",degPayload,{
+            //     success:()=>{
+            //         delete this.formData.INSTITUTION_NAME
+            //         delete this.formData.CGPA
+            //         delete this.formData.GRADUATION_DATE
+            //     },
+            //     error:(e)=>{
+            //         debugger
+            //     }
+            // })
+
+            this.oDataModel.create("/Employees",this.formData,{
+                success:()=>{
+                    this.readData("Employees");
+                    this.oRouter.navTo("Employees");
+                    MessageToast.show("Employee Added Successfully")
+                },
+                error:(e)=>{
+                    debugger
+                }
+            } )
+            // this.oEmpModel.getProperty("/Employees").push(this.formData)
+            // this.oEmpModel.refresh();
+            // var formData = this.oEmpModel.getProperty('/formData');
+        },
+        onSign: function (oEvent) {
             var canvas = document.getElementById("signature-pad");
             var context = canvas.getContext("2d");
             canvas.width = 276;
@@ -158,18 +301,18 @@ sap.ui.define([
                     canvas.removeEventListener('mouseup', on_mouseup, false);
                     canvas.removeEventListener('touchmove', on_mousemove, false);
                     canvas.removeEventListener('touchend', on_mouseup, false);
-    
+
                     document.body.removeEventListener('mouseup', on_mouseup, false);
                     document.body.removeEventListener('touchend', on_mouseup, false);
                 }
-    
+
                 function get_coords(e) {
                     var x, y;
-    
+
                     if (e.changedTouches && e.changedTouches[0]) {
                         var offsety = canvas.offsetTop || 0;
                         var offsetx = canvas.offsetLeft || 0;
-    
+
                         x = e.changedTouches[0].pageX - offsetx;
                         y = e.changedTouches[0].pageY - offsety;
                     } else if (e.layerX || 0 == e.layerX) {
@@ -179,23 +322,23 @@ sap.ui.define([
                         x = e.offsetX;
                         y = e.offsetY;
                     }
-    
+
                     return {
-                        x : x, y : y
+                        x: x, y: y
                     };
                 };
-    
+
                 function on_mousedown(e) {
                     e.preventDefault();
                     e.stopPropagation();
-    
+
                     canvas.addEventListener('mouseup', on_mouseup, false);
                     canvas.addEventListener('mousemove', on_mousemove, false);
                     canvas.addEventListener('touchend', on_mouseup, false);
                     canvas.addEventListener('touchmove', on_mousemove, false);
                     document.body.addEventListener('mouseup', on_mouseup, false);
                     document.body.addEventListener('touchend', on_mouseup, false);
-    
+
                     empty = false;
                     var xy = get_coords(e);
                     context.beginPath();
@@ -204,17 +347,17 @@ sap.ui.define([
                     pixels.push(xy.x, xy.y);
                     xyLast = xy;
                 };
-    
+
                 function on_mousemove(e, finish) {
                     e.preventDefault();
                     e.stopPropagation();
-    
+
                     var xy = get_coords(e);
                     var xyAdd = {
-                        x : (xyLast.x + xy.x) / 2,
-                        y : (xyLast.y + xy.y) / 2
+                        x: (xyLast.x + xy.x) / 2,
+                        y: (xyLast.y + xy.y) / 2
                     };
-    
+
                     if (calculate) {
                         var xLast = (xyAddLast.x + xyLast.x + xyAdd.x) / 3;
                         var yLast = (xyAddLast.y + xyLast.y + xyAdd.y) / 3;
@@ -222,7 +365,7 @@ sap.ui.define([
                     } else {
                         calculate = true;
                     }
-    
+
                     context.quadraticCurveTo(xyLast.x, xyLast.y, xyAdd.x, xyAdd.y);
                     pixels.push(xyAdd.x, xyAdd.y);
                     context.stroke();
@@ -230,9 +373,9 @@ sap.ui.define([
                     context.moveTo(xyAdd.x, xyAdd.y);
                     xyAddLast = xyAdd;
                     xyLast = xy;
-    
+
                 };
-    
+
                 function on_mouseup(e) {
                     remove_event_listeners();
                     disableSave = false;
@@ -243,12 +386,13 @@ sap.ui.define([
             }
             // canvas.addEventListener('touchstart', on_mousedown, false);
             // canvas.addEventListener('mousedown', on_mousedown, false);
-    
+
         },
-        
-        
+
+
+
         /***********Download the Signature Pad********************/
-        
+
         // saveButton : function(oEvent){
         //     var canvas = document.getElementById("signature-pad");
         //     var link = document.createElement('a');
@@ -260,14 +404,14 @@ sap.ui.define([
         //           penColor: 'rgb(0, 0, 0)'
         //     })
         // },
-        
+
         /************Clear Signature Pad**************************/
-        
+
         // clearButton : function(oEvent){
         //     var canvas = document.getElementById("signature-pad");
         //     var context = canvas.getContext("2d");
         //     context.clearRect(0, 0, canvas.width, canvas.height);
-            
+
         //     var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
         //           backgroundColor: '#ffffff',
         //           penColor: 'rgb(0, 0, 0)',
@@ -282,15 +426,15 @@ sap.ui.define([
 
 
 
-        saveButton : function(oEvent){
+        saveButton: function (oEvent) {
             var canvas = document.getElementById("signature-pad");
             var link = document.createElement('a');
-            link.href = canvas.toDataURL('image/jpeg'); 
+            link.href = canvas.toDataURL('image/jpeg');
             link.download = 'sign.jpeg';
-            link.click(); 
+            link.click();
             var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
-                  backgroundColor: '#ffffff',
-                  penColor: 'rgb(0, 0, 0)'
+                backgroundColor: '#ffffff',
+                penColor: 'rgb(0, 0, 0)'
             })
         },
 
@@ -393,7 +537,7 @@ sap.ui.define([
                 MessageToast.show("Signature pad cleared.");
             }
         }
-    
+
 
 
 

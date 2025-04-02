@@ -26,13 +26,13 @@ sap.ui.define([
             if(oData.uName==="Admin" && oData.password==="admin"){
                 MessageToast.show("You have successfuly logged in")
                 oModel.setProperty("/login","Success");
-
-
-
+                
+                
+                
                 var oRouter=sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("AdminDashboard");
-
-
+                
+                
                 this.closeDialog();
             }
             else{
@@ -45,8 +45,14 @@ sap.ui.define([
             this.loginFrag=null;
         },
         showPassword:function(oEvent){
+            // var oModel=this.getOwnerComponent().getModel("loginDetails");
+            // oModel.refresh()
+            // var oData=oModel.getProperty('/formData');
+            // var pass=oData.password
             var inp=sap.ui.getCore().byId('inpPassword');
+
             if(inp.getType()==="Password"){
+                // inp.setValue(pass)
                 inp.setType("Text")
                 inp.setValueHelpIconSrc("sap-icon://show")
             }

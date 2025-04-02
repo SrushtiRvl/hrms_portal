@@ -5,15 +5,15 @@
     xmlns:form="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
 >
-    <!-- <NavContainer id="as"> -->
-    <App>
+    <NavContainer id="NavContainer">
+        <!-- <App> -->
         <pages>
             <Page>
                 <content>
                     <Wizard
                         id="idWizard"
-                        complete="onComplete"
                         renderMode="Page"
+                        complete="onComplete"
                         backgroundDesign="Solid"
                         class="sapUiResponsivePadding--header sapUiResponsivePadding--content wizard"
                         enableBranching="false"
@@ -21,7 +21,7 @@
                         <WizardStep
                             id="PersonalDetails"
                             title="Personal Details"
-                            validated="true"
+                            validated="false"
                             activate="personalDetails"
                             icon="sap-icon://account"
                             class="wizard"
@@ -29,7 +29,6 @@
                             <form:Form editable="true">
                                 <form:layout>
                                     <form:ResponsiveGridLayout
-                                        layout="ResponsiveGridLayout"
                                         class="wizard-form"
                                         labelSpanXL="4"
                                         labelSpanL="4"
@@ -51,38 +50,35 @@
                                             <form:fields>
                                                 <!-- id="fName" -->
                                                 <Input
-                                                    value="{Employees>/formData/fn}"
+                                                    value="{FormData>/EmployeeData/fn}"
                                                     required="true"
                                                     liveChange="personalDetails"
                                                     placeholder="First Name"
                                                 />
                                                 <!-- id="lName" -->
                                                 <Input
-                                                    value="{Employees>/formData/ln}"
+                                                    value="{FormData>/EmployeeData/ln}"
                                                     required="true"
                                                     liveChange="personalDetails"
                                                     placeholder="Last Name"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement
-                                            label="Personal Email"
-                                        >
+                                        <form:FormElement label="Email">
                                             <!-- id="pEmail" -->
                                             <form:fields>
                                                 <Input
                                                     required="true"
-                                                    value="{Employees>/formData/personalEmail}"
+                                                    value="{FormData>/EmployeeData/EMP_EMAIL}"
                                                     liveChange="personalDetails"
                                                     placeholder="Email"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement label="Mobile">
-                                            <!-- id="mobile" -->
                                             <form:fields>
                                                 <Input
-                                                    value="{Employees>/formData/mobile}"
+                                                    value="{FormData>/EmployeeData/EMP_MOBILE}"
                                                     required="true"
                                                     type="Number"
                                                     liveChange="personalDetails"
@@ -95,7 +91,7 @@
                                                 <DatePicker
                                                     displayFormat="dd.MM.yyyy"
                                                     valueFormat="yyyy-MM-dd"
-                                                    dateValue="{Employees>/formData/dob}"
+                                                    value="{FormData>/EmployeeData/EMP_DOB}"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
@@ -105,9 +101,9 @@
                             </form:Form>
                         </WizardStep>
                         <WizardStep
-                            id="jobDetails"
+                            id="JobDetails"
                             title="Job Details"
-                            validated="true"
+                            validated="false"
                             activate="jobDetails"
                             icon="sap-icon://employee"
                             class="wizard"
@@ -140,10 +136,11 @@
                                                 <RadioButtonGroup
                                                     id="empType"
                                                     class="radio"
-                                                    buttons="{Employees>/EmoloyeeType}"
+                                                    selectedIndex="{FormData>/EmployeeData/selType}"
+                                                    buttons="{FormData>/EmoloyeeType}"
                                                 >
                                                     <RadioButton
-                                                        text="{Employees>empTName}"
+                                                        text="{FormData>empTName}"
                                                         class="radioButtons"
                                                     />
                                                 </RadioButtonGroup>
@@ -153,21 +150,23 @@
                                             <form:fields>
                                                 <Input
                                                     required="true"
-                                                    value="{Employees>/formData/empCode}"
-                                                    liveChange="personalDetails"
+                                                    value="{FormData>/EmployeeData/EMP_CODE}"
+                                                    liveChange="jobDetails"
                                                     placeholder="Employee Code"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement label="Module">
                                             <ComboBox
+                                            selectionChange="jobDetails"
                                                 required="true"
-                                                items="{/Modules}"
+                                                selectedKey="{FormData>/EmployeeData/selModule}"
+                                                items="{Modules>/}"
                                                 placeholder="Select Module"
                                             >
                                                 <core:Item
-                                                    key="{MODULE_ID}"
-                                                    text="{MODULE_NAME}"
+                                                    key="{Modules>MODULE_ID}"
+                                                    text="{Modules>MODULE_NAME}"
                                                 />
                                             </ComboBox>
                                             <!-- <ComboBox
@@ -200,39 +199,42 @@
                                         <form:FormElement label="Employee Role">
                                             <form:fields>
                                                 <ComboBox
-                                                    items="{Employees>/EmployeeRole}"
-                                                    selectionChange="onEmpRoleSelect"
+                                                selectionChange="jobDetails"
+                                                    items="{FormData>/EmployeeRole}"
+                                                    selectedKey="{FormData>/EmployeeData/selRole}"
                                                     placeholder="Select Employee Role"
                                                     required="true"
                                                 >
                                                     <core:Item
-                                                        key="{Employees>empRKey}"
-                                                        text="{Employees>empRName}"
+                                                        key="{FormData>empRKey}"
+                                                        text="{FormData>empRName}"
                                                     />
                                                 </ComboBox>
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement
+                                        <!-- <form:FormElement
                                             label="Official Email"
                                         >
                                             <form:fields>
                                                 <Input
                                                     required="true"
-                                                    value="{Employee>/formData/ofcEmail}"
+                                                    value="{FormData>/EmployeeData/ofcEmail}"
                                                     placeholder="Official email"
                                                 />
                                             </form:fields>
-                                        </form:FormElement>
+                                        </form:FormElement> -->
                                         <form:FormElement label="Status">
                                             <form:fields>
                                                 <ComboBox
+                                                selectionChange="jobDetails"
                                                     required="true"
-                                                    items="{Employees>/Status}"
+                                                    items="{FormData>/Status}"
+                                                    selectedKey="{FormData>/EmployeeData/selStatus}"
                                                     placeholder="Status"
                                                 >
                                                     <core:Item
-                                                        key="{Employees>sKey}"
-                                                        text="{Employees>sValue}"
+                                                        key="{FormData>sKey}"
+                                                        text="{FormData>sValue}"
                                                     />
                                                 </ComboBox>
                                             </form:fields>
@@ -246,12 +248,25 @@
                                 </form:FormContainer>
 
                                 <form:FormContainer>
+                                <form:FormElement
+                                            label="Date of Joining"
+                                        >
+                                            <form:fields>
+                                                <DatePicker
+                                                    required="true"
+                                                    displayFormat="dd.MM.yyyy"
+                                                    valueFormat="yyyy-MM-dd"
+                                                    value="{FormData>/EmployeeData/DATE_OF_JOINING}"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
                                     <form:formElements>
                                         <form:FormElement label="Designation">
                                             <form:fields>
                                                 <Input
                                                     required="true"
-                                                    value="{Employees>/formData/designation}"
+                                                    value="{FormData>/EmployeeData/DESIGNATION}"
+                                                    liveChange="jobDetails"
                                                     placeholder="Designation"
                                                 />
                                             </form:fields>
@@ -263,38 +278,28 @@
                                                 <MultiComboBox
                                                     required="true"
                                                     placeholder="Select Manager"
-                                                    selectionChange="handleSelectionChange"
+                                                    selectionChange="jobDetails"
                                                     selectionFinish="handleSelectionFinish"
-                                                    items="{Employees>/ReportingManager}"
+                                                    selectedKeys="{FormData>/EmployeeData/selManager}"
+                                                    items="{FormData>/ReportingManager}"
                                                 >
                                                     <core:Item
-                                                        key="{Employees>repoMKey}"
-                                                        text="{Employees>repoMName}"
+                                                        key="{FormData>repoMKey}"
+                                                        text="{FormData>repoMName}"
                                                     />
                                                 </MultiComboBox>
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement
-                                            label="Date of Joining"
-                                        >
-                                            <form:fields>
-                                                <DatePicker
-                                                    required="true"
-                                                    displayFormat="dd.MM.yyyy"
-                                                    valueFormat="yyyy-MM-dd"
-                                                    dateValue="{Employees>/formData/doj}"
-                                                />
-                                            </form:fields>
-                                        </form:FormElement>
-                                        <form:FormElement label="Punch Id">
+                                        
+                                        <!-- <form:FormElement label="Punch Id">
                                             <form:fields>
                                                 <Input
-                                                    value="{Employees>/formData/punchID}"
+                                                    value="{FormData>/EmployeeData/punchID}"
                                                     liveChange="personalDetails"
                                                     placeholder="Punch Id"
                                                 />
                                             </form:fields>
-                                        </form:FormElement>
+                                        </form:FormElement> -->
                                     </form:formElements>
                                     <form:layoutData>
                                         <form:GridContainerData
@@ -306,7 +311,7 @@
                         </WizardStep>
 
                         <WizardStep
-                            id="educationDetails"
+                            id="EducationDetails"
                             title="Education Details"
                             validated="true"
                             activate="educationDetails"
@@ -334,30 +339,39 @@
                                         <form:FormElement label="Degree Type">
                                             <form:fields>
                                                 <Input
-                                                    value="{}"
+                                                    placeholder="Degree Type"
+                                                    value="{FormData>/EmployeeData/degType}"
+                                                    liveChange="educationDetails"
                                                     required="true"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement
-                                            label="Institution Name"
+                                            label="Graduation Date"
+                                        >
+                                            <DatePicker
+                                                placeholder="Select Graduation Date"
+                                                displayFormat="dd.MM.yyyy"
+                                                valueFormat="yyyy-MM-dd"
+                                                value="{FormData>/EmployeeData/GRADUATION_DATE}"
+                                            />
+                                        </form:FormElement>
+                                        <form:FormElement
+                                            label="Insititute Name"
                                         >
                                             <Input
-                                                value="{}"
+                                                placeholder="Enter Insititute Name"
+                                                value="{FormData>/EmployeeData/INSTITUTION_NAME}"
+                                                liveChange="educationDetails"
                                                 required="true"
                                             />
                                         </form:FormElement>
                                         <form:FormElement label="CGPA">
                                             <Input
-                                                value="{}"
+                                                placeholder="Enter CGPA"
+                                                value="{FormData>/EmployeeData/CGPA}"
+                                                liveChange="educationDetails"
                                                 required="true"
-                                            />
-                                        </form:FormElement>
-                                        <form:FormElement
-                                            label="Graduation Date"
-                                        >
-                                            <DatePicker
-                                                value="{Employees>/formData/gDate}"
                                             />
                                         </form:FormElement>
                                     </form:formElements>
@@ -365,11 +379,11 @@
                             </form:Form>
                         </WizardStep>
                         <WizardStep
-                            id="ProjectDetails"
-                            title="Project Details"
+                            id="SignatureStep"
+                            title="Signature"
                             validated="true"
-                            activate="projectDetails"
-                            icon="sap-icon://workflow-tasks"
+                            activate="signature"
+                            icon="sap-icon://signature"
                         >
                             <VBox>
                                 <core:HTML id="html" />
@@ -416,7 +430,7 @@
                                         <form:FormElement label="Project Code">
                                             <form:fields>
                                                 <Input
-                                                    value="{Employees>/formData/pCode}"
+                                                    value="{FormData>/EmployeeData/pCode}"
                                                     required="true"
                                                     liveChange="projectDetails"
                                                     placeholder="Project Code"
@@ -427,7 +441,7 @@
                                             <form:fields>
                                                 <Input
                                                     required="true"
-                                                    value="{Employees>/formData/pName}"
+                                                    value="{FormData>/EmployeeData/pName}"
                                                     liveChange="projectDetails"
                                                     placeholder="Project Name"
                                                 />
@@ -439,7 +453,7 @@
                                                     required="true"
                                                     displayFormat="dd.MM.yyyy"
                                                     valueFormat="yyyy-MM-dd"
-                                                    dateValue="{Employees>/formData/pStartDate}"
+                                                    dateValue="{FormData>/EmployeeData/pStartDate}"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
@@ -449,7 +463,7 @@
                                                     required="true"
                                                     displayFormat="dd.MM.yyyy"
                                                     valueFormat="yyyy-MM-dd"
-                                                    dateValue="{Employees>/formData/pEndDate}"
+                                                    dateValue="{FormData>/EmployeeData/pEndDate}"
                                                 />
                                             </form:fields>
                                         </form:FormElement>
@@ -461,11 +475,11 @@
                                                     placeholder="Select Reporting Manager"
                                                     required="true"
                                                     selectionChange="handleSelectionChange"
-                                                    items="{Employees>/ReportingManager}"
+                                                    items="{FormData>/ReportingManager}"
                                                 >
                                                     <core:Item
-                                                        key="{Employees>repoMKey}"
-                                                        text="{Employees>repoMName}"
+                                                        key="{FormData>repoMKey}"
+                                                        text="{FormData>repoMName}"
                                                     />
                                                 </ComboBox>
                                             </form:fields>
@@ -474,12 +488,12 @@
                                             <form:fields>
                                                 <ComboBox
                                                     required="true"
-                                                    items="{Employees>/Status}"
+                                                    items="{FormData>/Status}"
                                                     placeholder="Select Status"
                                                 >
                                                     <core:Item
-                                                        key="{Employees>sKey}"
-                                                        text="{Employees>sValue}"
+                                                        key="{FormData>sKey}"
+                                                        text="{FormData>sValue}"
                                                     />
                                                 </ComboBox>
                                             </form:fields>
@@ -495,27 +509,17 @@
                     <OverflowToolbar>
                         <ToolbarSpacer />
                         <Button
-                            id="next"
-                            press="onActionBtnPress"
-                            text="Next"
-                            visible="false"
-                        />
-                        <Button
-                            id="previous"
-                            press="onActionBtnPress"
-                            text="Previous"
-                            visible="false"
-                        />
-                        <Button
-                            id="review"
-                            press="onActionBtnPress"
-                            text="Review"
+                            id="submit"
+                            type="Emphasized"
+                            press="onSubmit"
+                            text="Submit"
                             visible="false"
                         />
                     </OverflowToolbar>
                 </footer>
             </Page>
+            
         </pages>
-        <!-- </NavContainer> -->
-    </App>
+    </NavContainer>
+    <!-- </App> -->
 </mvc:View>

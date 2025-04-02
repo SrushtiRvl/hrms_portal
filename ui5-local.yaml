@@ -33,6 +33,9 @@ server:
           - url: https://97b43115trial-dev-zproduct-srv.cfapps.us10-001.hana.ondemand.com/
             authenticationType: NoAuthentication
             path: /v2
+          - url: https://97b43115trial-dev-zproduct-srv.cfapps.us10-001.hana.ondemand.com/
+            authenticationType: NoAuthentication
+            path: /v2
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:

@@ -3,7 +3,7 @@
     xmlns="sap.m" xmlns:core="sap.ui.core">
     <App>
         <Page>
-            <Table items="{Employees>/Employees}" id="empTable" autoPopinMode="true">
+            <Table items="{Employees>/}" id="empTable" autoPopinMode="true">
                 <headerToolbar>
                     <Toolbar >
                         <Title text="Employees"/>
@@ -43,13 +43,13 @@
                 <items>
                     <ColumnListItem >
                         <cells>
-                            <Text text="{Employees>empName}"/>
-                            <Text text="{Employees>empCode}"/>
-                            <Text text="{Employees>officialEmail}"/>
-                            <Text text="{Employees>joiningDate}"/>
-                            <Text text="{Employees>teamLead}"/>
-                            <Text text="{Employees>role}"/>
-                            <Text text="{Employees>status}"/>
+                            <Text text="{Employees>EMP_NAME}"/>
+                            <Text text="{Employees>EMP_CODE}"/>
+                            <Text text="{Employees>EMP_EMAIL}"/>
+                            <Text text="{Employees>DATE_OF_JOINING}"/>
+                            <Text text="{Employees>REPORTING_MANAGER}"/>
+                            <Text text="{Employees>EMP_ROLE}"/>
+                            <Text text="{Employees>STATUS}"/>
                             <HBox>
                             <Button icon="sap-icon://edit" press="onEdit" type="Attention" class="sapUiTinyMargin"></Button>
                             <Button icon="sap-icon://delete" press="onDelete" type="Reject" class="sapUiTinyMargin"></Button>
