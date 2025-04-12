@@ -20,6 +20,23 @@ sap.ui.define([
             // var oModel=this.getOwnerComponent().getModel("Modules");
             // this.getView().setModel(oModel,'Modules');
         },
+        // onModuleSuggest: function (e) {
+        //     var sValue = oEvent.getParameter("suggestValue");
+        //     var oModel = this.get0wnerComponent().getModel(); // OData model
+        //     var that = this;
+        //     if (!sValue) return;
+        //     var oFilter = new sap.ui.model.Filter("MODULE_NAME", sap.ui.model.Filteraperator.Contains, sValue);
+        //     this.oDataModel.read("/Modules", {
+        //         fîlters: [oFilter],
+        //         success: function (oData) {
+        //             var oJSONModel = new sap.ui.model.json.JSONModel(oData.results);
+        //             that.getView().setModel(oJSONModel, "Modules");
+        //         },
+        //         error: function () {
+        //             sap.m.MessageToast.show("Failed to fetch material suggestions");
+        //         },
+        //     })
+        // },
         readData: function (e) {
             this.oModelModule.read("/Modules", {
                 success: (data, res) => {

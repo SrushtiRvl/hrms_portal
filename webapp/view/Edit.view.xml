@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="zhrmsportal.controller.AddEmployee"
+    controllerName="zhrmsportal.controller.Edit"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:form="sap.ui.layout.form"
@@ -22,7 +22,7 @@
                             labelSpanS="12"
                             adjustLabelSpan="false"
                             emptySpanXL="0"
-                            emptySpanL="2"
+                            emptySpanL="4"
                             emptySpanM="2"
                             emptySpanS="0"
                             columnsXL="1"
@@ -35,6 +35,11 @@
                             <form:FormElement label="Name">
                                 <form:fields>
                                     <!-- id="fName" -->
+                                    <!-- <Input
+                                        value="{FormData>/EmployeeData/EMP_NAME}"
+                                        required="true"
+                                        placeholder="Enter Name"
+                                    /> -->
                                     <Input
                                         value="{FormData>/EmployeeData/EMP_NAME}"
                                         required="true"
@@ -67,8 +72,9 @@
                             <form:FormElement label="Date of Birth">
                                 <form:fields>
                                     <DatePicker
+                                        required="true"
                                         displayFormat="dd.MM.yyyy"
-                                        valueFormat="yyyy-MM-dd"
+                                        valueFormat="dd.MM.yyyy"
                                         value="{FormData>/EmployeeData/EMP_DOB}"
                                     />
                                 </form:fields>
@@ -81,7 +87,7 @@
                             />
                         </form:FormElement> -->
                     </form:FormContainer>
-                    <form:FormContainer title="Job Details">
+                    <form:FormContainer  title="Job Details">
                         <form:formElements>
                             <form:FormElement label="Employee Type">
                                 <form:fields>
@@ -166,6 +172,16 @@
                                     />
                                 </form:fields>
                             </form:FormElement>
+                            <form:FormElement label="Employee Salary">
+                                <form:fields>
+                                    <Input
+                                        required="true"
+                                        value="{FormData>/EmployeeData/EMP_SALARY}"
+                                        liveChange="jobDetails"
+                                        placeholder="Employee Salary"
+                                    />
+                                </form:fields>
+                            </form:FormElement>
                             <form:FormElement label="Reporting Manager">
                                 <form:fields>
                                     <MultiComboBox
@@ -188,7 +204,7 @@
                                     <DatePicker
                                         required="true"
                                         displayFormat="dd.MM.yyyy"
-                                        valueFormat="yyyy-MM-dd"
+                                        valueFormat="dd.MM.yyyy"
                                         value="{FormData>/EmployeeData/DATE_OF_JOINING}"
                                     />
                                 </form:fields>
@@ -202,20 +218,36 @@
                                         </form:FormElement> -->
                         </form:formElements>
                     </form:FormContainer>
-                    <form:FormContainer title="Education Details">
-                        <form:formElements>
+                    <form:FormContainer
+                        title="Education Details"
+                        visible="{=  ${FormData>/EmployeeData/mode}==='Add'? false :true}"
+                        id="educationContainer"
+                    >
+                        <form:toolbar>
+                            <Toolbar>
+                                <Title text="Education Details" />
+                                <ToolbarSpacer />
+                                <Button
+                                    icon="sap-icon://add"
+                                    type="Emphasized"
+                                    press="addDegreeSection"
+                                />
+                            </Toolbar>
+                        </form:toolbar>
+                        <form:formElements >
                             <form:FormElement label="Degree Type">
                                 <form:fields>
                                     <Input
+                                        id="inpDegType"
                                         placeholder="Degree Type"
-                                        value="{FormData>/EmployeeData/degType}"
-                                        liveChange="educationDetails"
+                                        value="{FormData>/EmployeeData/DEGREE_NAME}"
                                         required="true"
                                     />
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement label="Insititute Name">
                                 <Input
+                                    id="inpInstitute"
                                     placeholder="Enter Insititute Name"
                                     value="{FormData>/EmployeeData/INSTITUTION_NAME}"
                                     required="true"
@@ -223,6 +255,7 @@
                             </form:FormElement>
                             <form:FormElement label="CGPA">
                                 <Input
+                                    id="cgpa"
                                     placeholder="Enter CGPA"
                                     value="{FormData>/EmployeeData/CGPA}"
                                     required="true"
@@ -230,18 +263,15 @@
                             </form:FormElement>
                             <form:FormElement label="Graduation Date">
                                 <DatePicker
+                                    required="true"
+                                    id="inpGrad"
                                     placeholder="Select Graduation Date"
                                     displayFormat="dd.MM.yyyy"
                                     valueFormat="yyyy-MM-dd"
+                                    liveChange="addDegreeSection"
                                     value="{FormData>/EmployeeData/GRADUATION_DATE}"
                                 />
                             </form:FormElement>
-                            <!-- <form:FormElement>
-                                <Link
-                                    text="Edit"
-                                    press=""
-                                />
-                            </form:FormElement> -->
                         </form:formElements>
                     </form:FormContainer>
                     <!-- <Input/> -->

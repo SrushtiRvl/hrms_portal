@@ -1,30 +1,60 @@
-<mvc:View controllerName="zhrmsportal.controller.AdminDashboard"
+<mvc:View
+    controllerName="zhrmsportal.controller.AdminDashboard"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+>
     <Page title="{i18n>title}">
-    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Employees"
-		subheader="Total Employees:100" press="onPress">
-		<TileContent unit="" footer="View Employee Details">
-			<ImageContent src="sap-icon://people-connected" />
-		</TileContent>
-	</GenericTile>
-    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Projects"
-		subheader="Total Projects:100" press="onPress">
-		<TileContent unit="" footer="Manage Projects">
-			<ImageContent src="sap-icon://workflow-tasks" />
-		</TileContent>
-	</GenericTile>
-    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Modules"
-		subheader="Total Projects:100" press="onPress">
-		<TileContent unit="" footer="Manage Modules">
-			<ImageContent src="sap-icon://business-objects-mobile" />
-		</TileContent>
-	</GenericTile>
-    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Punch-in Punch-outs"
-		subheader="Total Projects:100" press="onPress">
-		<TileContent unit="" footer="Manage Punch-in Punch-out">
-			<ImageContent src="sap-icon://filter-analytics" />
-		</TileContent>
-	</GenericTile>
+        <GenericTile
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+            header="Employees"
+            subheader="Total Employees:100"
+            press="onPress"
+        >
+            <TileContent
+                unit=""
+                footer="View Employee Details"
+            >
+                <ImageContent src="sap-icon://people-connected" />
+            </TileContent>
+        </GenericTile>
+        <GenericTile
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+            header="Projects"
+            subheader="Total Projects:100"
+            press="onPress"
+        >
+            <TileContent
+                unit=""
+                footer="Manage Projects"
+            >
+                <ImageContent src="sap-icon://workflow-tasks" />
+            </TileContent>
+        </GenericTile>
+        <GenericTile
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+            header="Modules"
+            subheader="Total Projects:100"
+            press="onPress"
+        >
+            <TileContent
+                unit=""
+                footer="Manage Modules"
+            >
+                <ImageContent src="sap-icon://business-objects-mobile" />
+            </TileContent>
+        </GenericTile>
+        <GenericTile
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+            header="Punch-in Punch-outs"
+            subheader="Total Projects:100"
+            press="onPress"
+        >
+            <TileContent
+                unit=""
+                footer="Manage Punch-in Punch-out"
+            >
+                <ImageContent src="sap-icon://filter-analytics" />
+            </TileContent>
+        </GenericTile>
     </Page>
 </mvc:View>

@@ -21,7 +21,7 @@
                         <WizardStep
                             id="PersonalDetails"
                             title="Personal Details"
-                            validated="false"
+                            validated="true"
                             activate="personalDetails"
                             icon="sap-icon://account"
                             class="wizard"
@@ -89,8 +89,9 @@
                                         <form:FormElement label="Date of Birth">
                                             <form:fields>
                                                 <DatePicker
+                                                    required="true"
                                                     displayFormat="dd.MM.yyyy"
-                                                    valueFormat="yyyy-MM-dd"
+                                                    valueFormat="dd.MM.yyyy"
                                                     value="{FormData>/EmployeeData/EMP_DOB}"
                                                 />
                                             </form:fields>
@@ -103,7 +104,7 @@
                         <WizardStep
                             id="JobDetails"
                             title="Job Details"
-                            validated="false"
+                            validated="true"
                             activate="jobDetails"
                             icon="sap-icon://employee"
                             class="wizard"
@@ -131,21 +132,7 @@
                                 </form:layout>
                                 <form:FormContainer>
                                     <form:formElements>
-                                        <form:FormElement label="Employee Type">
-                                            <form:fields>
-                                                <RadioButtonGroup
-                                                    id="empType"
-                                                    class="radio"
-                                                    selectedIndex="{FormData>/EmployeeData/selType}"
-                                                    buttons="{FormData>/EmoloyeeType}"
-                                                >
-                                                    <RadioButton
-                                                        text="{FormData>empTName}"
-                                                        class="radioButtons"
-                                                    />
-                                                </RadioButtonGroup>
-                                            </form:fields>
-                                        </form:FormElement>
+                                        
                                         <form:FormElement label="Employee Code">
                                             <form:fields>
                                                 <Input
@@ -157,7 +144,12 @@
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement label="Module">
-                                            <ComboBox
+                                        <Input id="Module" selectedKey="{FormData>/EmployeeData/selModule}" placeholder="Select Module" value="{Modules>/MODULE_CODE}" visible="true" showValueHelp="true" valueHelpRequest="onOpenValueHelp" showSuggestion="true" suggest="onModuleSuggest" suggestionItems="{path:'Modules>/'}">
+                                        <suggestionItems>
+                                        <core:Item  key="{Modules>MODULE_ID}" text="{Modules>MODULE_NAME}" ></core:Item>
+                                        </suggestionItems>
+                                        </Input>
+                                            <!-- <ComboBox
                                             selectionChange="jobDetails"
                                                 required="true"
                                                 selectedKey="{FormData>/EmployeeData/selModule}"
@@ -168,7 +160,11 @@
                                                     key="{Modules>MODULE_ID}"
                                                     text="{Modules>MODULE_NAME}"
                                                 />
-                                            </ComboBox>
+                                            </ComboBox> -->
+
+
+
+
                                             <!-- <ComboBox
                                                 
                                                     items="{Modules>/Modules}"
@@ -271,6 +267,16 @@
                                                 />
                                             </form:fields>
                                         </form:FormElement>
+                                        <form:FormElement label="Employee Salary">
+                                            <form:fields>
+                                                <Input
+                                                    required="true"
+                                                    value="{FormData>/EmployeeData/EMP_SALARY}"
+                                                    liveChange="jobDetails"
+                                                    placeholder="Employee Salary"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
                                         <form:FormElement
                                             label="Reporting Manager"
                                         >
@@ -310,12 +316,12 @@
                             </form:Form>
                         </WizardStep>
 
-                        <WizardStep
-                            id="EducationDetails"
-                            title="Education Details"
+                        <!-- <WizardStep
+                            id="CompensationDetails"
+                            title="Compensation Details"
                             validated="true"
-                            activate="educationDetails"
-                            icon="sap-icon://study-leave"
+                            activate="compensationDetails"
+                            icon="sap-icon://lead"
                         >
                             <form:Form editable="true">
                                 <form:layout>
@@ -336,35 +342,51 @@
                                 </form:layout>
                                 <form:FormContainer>
                                     <form:formElements>
-                                        <form:FormElement label="Degree Type">
+                                        <form:FormElement label="Employee Type">
                                             <form:fields>
-                                                <Input
-                                                    placeholder="Degree Type"
-                                                    value="{FormData>/EmployeeData/degType}"
-                                                    liveChange="educationDetails"
-                                                    required="true"
-                                                />
+                                                <RadioButtonGroup
+                                                    id="empType"
+                                                    class="radio"
+                                                    selectedIndex="{FormData>/EmployeeData/selType}"
+                                                    buttons="{FormData>/EmoloyeeType}"
+                                                >
+                                                    <RadioButton
+                                                        text="{FormData>empTName}"
+                                                        class="radioButtons"
+                                                    />
+                                                </RadioButtonGroup>
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement
-                                            label="Graduation Date"
+                                            label="Salary"
                                         >
-                                            <DatePicker
-                                                placeholder="Select Graduation Date"
-                                                displayFormat="dd.MM.yyyy"
-                                                valueFormat="yyyy-MM-dd"
-                                                value="{FormData>/EmployeeData/GRADUATION_DATE}"
-                                            />
+                                        <HBox class="salaryWrapper" width="100%"> 
+                                            <Input type="Number" placeholder="Enter Salary" class="salaryInput" width="100%"/>
+                                            <ComboBox
+                                                    class="salaryCombo"
+                                                    selectionChange="jobDetails"
+                                                    selectedKey="{FormData>/EmployeeData/selSalType}"
+                                                    placeholder=""
+                                                    required="true"
+                                                >
+                                                <items>
+
+                                                    <core:Item
+                                                        key="hr"
+                                                        text="Hr"
+                                                    />
+                                                    <core:Item
+                                                        key="mo"
+                                                        text="Mo"
+                                                    />
+                                                </items>
+                                            </ComboBox>
+                                            </HBox>
                                         </form:FormElement>
                                         <form:FormElement
-                                            label="Insititute Name"
+                                            label="Signin Bonus"
                                         >
-                                            <Input
-                                                placeholder="Enter Insititute Name"
-                                                value="{FormData>/EmployeeData/INSTITUTION_NAME}"
-                                                liveChange="educationDetails"
-                                                required="true"
-                                            />
+                                            <Switch state="{FormData>/EmployeeData/switch}" customTextOn=" ">    </Switch>
                                         </form:FormElement>
                                         <form:FormElement label="CGPA">
                                             <Input
@@ -377,10 +399,10 @@
                                     </form:formElements>
                                 </form:FormContainer>
                             </form:Form>
-                        </WizardStep>
+                        </WizardStep> -->
                         <WizardStep
                             id="SignatureStep"
-                            title="Signature"
+                            title="Signature (Optional)"
                             validated="true"
                             activate="signature"
                             icon="sap-icon://signature"

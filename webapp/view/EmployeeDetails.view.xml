@@ -1,0 +1,420 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    height="100%"
+    controllerName="zhrmsportal.controller.EmployeeDetails"
+>
+    <ObjectPageLayout
+        id="ObjectPageLayout"
+        showTitleInHeaderContent="true"
+        upperCaseAnchorBar="false"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <expandedHeading>
+                    <m:Title
+                        text="{/EMP_NAME}"
+                        wrapping="true"
+                    />
+                </expandedHeading>
+
+                <snappedHeading>
+                    <m:HBox>
+                        <m:VBox>
+                            <m:Avatar
+                                src="./test-resources/sap/uxap/images/imageID_275314.png"
+                                class="sapUiSmallMarginEnd"
+                            />
+                        </m:VBox>
+
+                        <m:VBox>
+                            <m:Title
+                                text="{/EMP_NAME}"
+                                wrapping="true"
+                            />
+                            <m:Label text="{/EMP_ROLE}" />
+                        </m:VBox>
+                    </m:HBox>
+                </snappedHeading>
+
+                <expandedContent>
+                    <m:Label text="{/EMP_ROLE}" />
+                </expandedContent>
+
+                <snappedTitleOnMobile>
+                    <m:Title text="Object Page Header with Header Container" />
+                </snappedTitleOnMobile>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <headerContent>
+            <m:HeaderContainer
+                id="headerContainer"
+                scrollStep="200"
+                showDividers="false"
+            >
+                <m:HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                    <m:Avatar
+                        src="./test-resources/sap/uxap/images/imageID_275314.png"
+                        class="sapUiMediumMarginEnd"
+                        displaySize="L"
+                    />
+
+                    <m:VBox class="sapUiSmallMarginBottom">
+                        <m:HBox
+                            class="sapUiTinyMarginBottom"
+                            renderType="Bare"
+                        >
+                            <m:Label
+                                text="Employee Code"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <m:Text text=" {/EMP_CODE}" />
+                        </m:HBox>
+
+                        <m:HBox
+                            class="sapUiTinyMarginBottom"
+                            renderType="Bare"
+                        >
+                            <m:Label
+                                text="Designation"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <m:Text text=" {/DESIGNATION}" />
+                        </m:HBox>
+
+                        <m:HBox
+                            class="sapUiTinyMarginBottom"
+                            renderType="Bare"
+                        >
+                            <m:Label
+                                text="Status"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <m:Text text=" {/STATUS}" />
+                        </m:HBox>
+                    </m:VBox>
+                </m:HBox>
+
+                <m:VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                    <m:Title
+                        text="Contact Information"
+                        class="sapUiTinyMarginBottom"
+                    />
+
+                    <!-- <m:HBox class="sapUiTinyMarginBottom">
+						<core:Icon src="sap-icon://account"/>
+						<m:Link text=" John Miller" class="sapUiSmallMarginBegin"/>
+					</m:HBox> -->
+
+                    <m:HBox class="sapUiTinyMarginBottom">
+                        <core:Icon src="sap-icon://outgoing-call" />
+                        <m:Link
+                            text="{/EMP_MOBILE}"
+                            class="sapUiSmallMarginBegin"
+                        />
+                    </m:HBox>
+
+                    <m:HBox>
+                        <core:Icon src="sap-icon://email" />
+                        <m:Link
+                            text="{/EMP_EMAIL}"
+                            class="sapUiSmallMarginBegin"
+                        />
+                    </m:HBox>
+                </m:VBox>
+
+                <!-- <m:VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+					<m:HBox class="sapUiTinyMarginBottom">
+						<m:Label text="Created By:" class="sapUiSmallMarginEnd"/>
+						<m:Link text="Julie Armstrong"/>
+					</m:HBox>
+
+					<m:HBox class="sapUiTinyMarginBottom" renderType="Bare">
+						<m:Label text="Created On:" class="sapUiSmallMarginEnd"/>
+						<m:Text text=" February 20, 2020"/>
+					</m:HBox>
+
+					<m:HBox class="sapUiTinyMarginBottom">
+						<m:Label text="Changed By:" class="sapUiSmallMarginEnd"/>
+						<m:Link text="John Miller"/>
+					</m:HBox>
+
+					<m:HBox renderType="Bare">
+						<m:Label text="Changed On:" class="sapUiSmallMarginEnd"/>
+						<m:Text text=" February 20, 2020"/>
+					</m:HBox>
+				</m:VBox>
+
+				<m:VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+					<m:Title  text="Product Description" class="sapUiTinyMarginBottom" />
+					<m:Text  width="320px" text="Top-design high-quality coffee mug - ideal for a comforting moment; Pack: 6; material: Porcelain - durable dishwasher and microwave-safe porcelain that cleans easily and is ideal for everyday service. Comes in two bright colors."/>
+				</m:VBox>
+
+				<m:VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+					<m:Title class="sapUiTinyMarginBottom">
+						<m:Link text="Status"/>
+					</m:Title>
+					<m:ObjectStatus text="Delivery" state="Success" class="sapMObjectStatusLarge"/>
+				</m:VBox>
+
+				<m:VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+					<m:Title text="Delivery Time" class="sapUiTinyMarginBottom" />
+					<m:ObjectStatus text="12 Days" icon="sap-icon://shipping-status" class="sapMObjectStatusLarge"/>
+				</m:VBox>
+
+				<m:VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+					<m:Title text="Assembly Option" class="sapUiTinyMarginBottom" />
+					<m:ObjectStatus text="To Be Selected" state="Error" class="sapMObjectStatusLarge"/>
+				</m:VBox>
+
+				<m:VBox class="sapUiSmallMarginEnd">
+					<m:Title text="Price" class="sapUiTinyMarginBottom" />
+					<m:ObjectStatus text="579 EUR" class="sapMObjectStatusLarge"/>
+				</m:VBox>
+
+				<m:VBox class="sapUiMediumMarginEnd sapUiSmallMarginBottom">
+					<m:Title class="sapUiTinyMarginBottom">
+						<m:Link text="Average User Rating"/>
+					</m:Title>
+					<m:Label text="6 Reviews"/>
+					<m:RatingIndicator value="4" iconSize="16px" />
+					<m:VBox alignItems="End">
+						<m:Text text="4.1 out of 5"/>
+					</m:VBox>
+				</m:VBox> -->
+            </m:HeaderContainer>
+        </headerContent>
+
+        <sections>
+            <!-- <ObjectPageSection
+                titleUppercase="false"
+                id="personalSection"
+                title="Personal Details"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        id="goalsSectionSS1"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:VBox>
+                                <m:HBox>
+                                    <m:Label text="" />
+                                    <m:Text text="" />
+                                </m:HBox>
+                            </m:VBox>
+                           </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection> -->
+
+            <ObjectPageSection
+                titleUppercase="false"
+                id="jobSection"
+                title="Job Details"
+                importance="Medium"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        id="jobSectionSS1"
+                        title="Information"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <form:SimpleForm
+                                layout="ColumnLayout"
+                                width="100%"
+                            >
+                                <core:Title text="Job Details" />
+                                <m:Label text="Employee Code" />
+                                <m:Text text="{/EMP_CODE}" />
+
+                                <m:Label text="Emplyee Role" />
+                                <m:Text text="{/EMP_ROLE}" />
+
+                                <m:Label text="Emplyee Type" />
+                                <m:Text text="{/EMP_TYPE}" />
+                            </form:SimpleForm>
+                            <form:SimpleForm
+                                layout="ColumnLayout"
+                                width="100%"
+                            >
+                                <core:Title text="" />
+                                <m:Label text="Designation" />
+                                <m:Text text="{/DESIGNATION}" />
+
+                                <m:Label text="Date of Joining" />
+                                <m:Text text="{/DATE_OF_JOINING}" />
+
+                                <m:Label text="Reporting Manager" />
+                                <m:Text text="{/REPORTING_MANAGER}" />
+                            </form:SimpleForm>
+                            <form:SimpleForm>
+                                <core:Title text="Personal Details" />
+                                <m:Label text="Date of Birth" />
+                                <m:Text text="{/EMP_DOB}" />
+                                <core:Title text="Contact Information" />
+                                <m:HBox class="sapUiTinyMarginBottom">
+                                    <core:Icon src="sap-icon://outgoing-call" />
+                                    <m:Link
+                                        text="{/EMP_MOBILE}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </m:HBox>
+
+                                <m:HBox>
+                                    <core:Icon src="sap-icon://email" />
+                                    <m:Link
+                                        text="{/EMP_EMAIL}"
+                                        class="sapUiSmallMarginBegin"
+                                    />
+                                </m:HBox>
+                            </form:SimpleForm>
+                            <form:SimpleForm>
+                                <m:ObjectStatus
+                                    state="Success"
+                                    icon="sap-icon://employee-approvals"
+                                    text="Available"
+                                />
+                            </form:SimpleForm>
+                            <!-- <form:SimpleForm
+                                layout="ColumnLayout"
+                                width="30%">
+								<core:Title text="Personal Details" />
+								<m:ObjectStatus state="Success" icon="sap-icon://employee-approvals" text="Available"/>
+                                <m:Label text="Designation" />
+                                <m:Text text="{/DESIGNATION}" />
+
+                                <m:Label text="Date of Joining" />
+                                <m:Text text="{/DATE_OF_JOINING}" />
+
+                                <m:Label text="Reporting Manager" />
+                                <m:Text text="{/REPORTING_MANAGER}" />
+								
+                            </form:SimpleForm> -->
+                            <!-- <personal:BlockPhoneNumber id="phone" class="sapUxAPObjectPageSubSectionAlignContent"/>
+							<personal:BlockSocial id="social" class="sapUxAPObjectPageSubSectionAlignContent"/>
+							<personal:BlockAdresses id="adresses" class="sapUxAPObjectPageSubSectionAlignContent"/>
+							<personal:BlockMailing id="mailing" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                        </blocks>
+                    </ObjectPageSubSection>
+
+                    <ObjectPageSubSection
+                        id="personalSectionSS2"
+                        title="Payment information"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <!-- <personal:PersonalBlockPart1 id="part1" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                        </blocks>
+                        <moreBlocks>
+                            <!-- <personal:PersonalBlockPart2 id="part2" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                        </moreBlocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection
+                titleUppercase="false"
+                id="employmentSection"
+                title="Employment"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        id="EducationSectionSS1"
+                        title="Education Details"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:Table
+                                items="{/EMP_DEGREES/results/}"
+                                autoPopinMode="true"
+                            >
+                                <!-- <m:headerToolbar>
+                                    <m:Toolbar>
+                                        <m:Title text="Employees" />
+                                        <m:ToolbarSpacer />
+                                        <m:SearchField
+                                            width="30%"
+                                            liveChange="onSearch"
+                                        />
+                                        <m:ToolbarSpacer />
+                                        <m:Button
+                                            icon="sap-icon://add"
+                                            type="Emphasized"
+                                            text="Add Employee"
+                                            press="onAddEmp"
+                                        />
+                                    </m:Toolbar>
+                                </m:headerToolbar> -->
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Degree Name" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="CGPA" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Institute Name" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Graduation Date" />
+                                    </m:Column>
+                                    
+                                    <m:Column>
+                                        <m:Text
+                                            text="Actions"
+                                            textAlign="End"
+                                        />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text text="{DEGREE_NAME}" />
+                                            <m:Text text="{CGPA}" />
+                                            <m:Text
+                                                text="{INSTITUTION_NAME}"
+                                            />
+                                            <m:Text
+                                                text="{GRADUATION_DATE}"
+                                            />
+                                            
+                                            <m:HBox>
+                                                <m:Button
+                                                    icon="sap-icon://delete"
+                                                    press="onDeleteDegree"
+                                                    type="Reject"
+                                                    class="sapUiTinyMargin"
+                                                />
+                                            </m:HBox>
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+
+                    <ObjectPageSubSection
+                        id="employmentSectionSS2"
+                        title="Employee Details"
+                        importance="Medium"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <!-- <employment:BlockEmpDetailPart1 id="empdetailpart1" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                        </blocks>
+                        <moreBlocks>
+                            <!-- <employment:BlockEmpDetailPart2 id="empdetailpart2" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/>
+							<employment:BlockEmpDetailPart3 id="empdetailpart3" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                        </moreBlocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
+</mvc:View>

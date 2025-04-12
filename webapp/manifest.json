@@ -67,9 +67,21 @@
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/loginDetails.json"
       },
+      "User": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
       "FormData": {
         "type": "sap.ui.model.json.JSONModel",
         "uri": "model/FormData.json"
+      },
+      "Employees": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "Modules": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "ListOfEmployees": {
+        "type": "sap.ui.model.json.JSONModel"
       },
       "": {
         "dataSource": "mainService",
@@ -119,6 +131,13 @@
           ]
         },
         {
+          "name": "EmployeeDetails",
+          "pattern": "employee-details/{path}",
+          "target": [
+            "EmployeeDetails"
+          ]
+        },
+        {
           "name": "AddEmployee",
           "pattern": "addEmployee",
           "target": [
@@ -127,9 +146,16 @@
         },
         {
           "name": "Edit",
-          "pattern": "edit",
+          "pattern": "edit/{EMP_ID}",
           "target": [
             "Edit"
+          ]
+        },
+        {
+          "name": "EditWizard",
+          "pattern": "edit",
+          "target": [
+            "EditWizard"
           ]
         },
         {
@@ -163,8 +189,18 @@
           "viewType": "XML",
           "transition": "slide"
         },
+        "EmployeeDetails": {
+          "viewName": "EmployeeDetails",
+          "viewType": "XML",
+          "transition": "slide"
+        },
         "AddEmployee": {
           "viewName": "AddEmployee",
+          "viewType": "XML",
+          "transition": "slide"
+        },
+        "EditWizard": {
+          "viewName": "Edit",
           "viewType": "XML",
           "transition": "slide"
         },

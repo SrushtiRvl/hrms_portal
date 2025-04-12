@@ -17,13 +17,13 @@
                 <EntitySet Name="Employees" EntityType="zProduct.srv.service.MyService.Employees"/>
                 <EntitySet Name="Degree" EntityType="zProduct.srv.service.MyService.Degree"/>
                 <EntitySet Name="Project" EntityType="zProduct.srv.service.MyService.Project"/>
-                <AssociationSet Name="Modules_MODULE_EMP" Association="zProduct.srv.service.MyService.Modules_MODULE_EMP">
+                <AssociationSet Name="Employees_EMP_MODULE" Association="zProduct.srv.service.MyService.Employees_EMP_MODULE">
+                    <End Role="Employees" EntitySet="Employees"/>
                     <End Role="Modules" EntitySet="Modules"/>
-                    <End Role="Employees" EntitySet="Employees"/>
                 </AssociationSet>
-                <AssociationSet Name="Employees_EMP_DEGREE" Association="zProduct.srv.service.MyService.Employees_EMP_DEGREE">
-                    <End Role="Employees" EntitySet="Employees"/>
+                <AssociationSet Name="Degree_EMP" Association="zProduct.srv.service.MyService.Degree_EMP">
                     <End Role="Degree" EntitySet="Degree"/>
+                    <End Role="Employees" EntitySet="Employees"/>
                 </AssociationSet>
                 <AssociationSet Name="Project_EMP" Association="zProduct.srv.service.MyService.Project_EMP">
                     <End Role="Project" EntitySet="Project"/>
@@ -52,8 +52,6 @@
                 <Property Name="MODULE_NAME" Type="Edm.String"/>
                 <Property Name="MODULE_CODE" Type="Edm.String"/>
                 <Property Name="MODULE_TYPE" Type="Edm.String"/>
-                <NavigationProperty Name="MODULE_EMP" Relationship="zProduct.srv.service.MyService.Modules_MODULE_EMP" FromRole="Modules" ToRole="Employees"/>
-                <Property Name="MODULE_EMP_EMP_ID" Type="Edm.Int32"/>
             </EntityType>
             <EntityType Name="Employees">
                 <Key>
@@ -71,19 +69,22 @@
                 <Property Name="STATUS" Type="Edm.String" MaxLength="50"/>
                 <Property Name="DESIGNATION" Type="Edm.String" MaxLength="100"/>
                 <Property Name="REPORTING_MANAGER" Type="Collection(Edm.String)" Nullable="false"/>
-                <Property Name="DATE_OF_JOINING" Type="Edm.DateTime" sap:display-format="Date"/>
-                <NavigationProperty Name="EMP_DEGREE" Relationship="zProduct.srv.service.MyService.Employees_EMP_DEGREE" FromRole="Employees" ToRole="Degree"/>
-                <Property Name="EMP_DEGREE_D_ID" Type="Edm.Int32"/>
+                <Property Name="DATE_OF_JOINING" Type="Edm.String"/>
+                <NavigationProperty Name="EMP_DEGREES" Relationship="zProduct.srv.service.MyService.Degree_EMP" FromRole="Employees" ToRole="Degree"/>
+                <NavigationProperty Name="EMP_MODULE" Relationship="zProduct.srv.service.MyService.Employees_EMP_MODULE" FromRole="Employees" ToRole="Modules"/>
+                <Property Name="EMP_MODULE_MODULE_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="EMP_PRJ" Relationship="zProduct.srv.service.MyService.Project_EMP" FromRole="Employees" ToRole="Project"/>
             </EntityType>
-            <EntityType Name="Degree" m:HasStream="true">
+            <EntityType Name="Degree">
                 <Key>
-                    <PropertyRef Name="D_ID"/>
+                    <PropertyRef Name="DEGREE_ID"/>
                 </Key>
-                <Property Name="D_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DEGREE_ID" Type="Edm.Int32" Nullable="false"/>
                 <Property Name="INSTITUTION_NAME" Type="Edm.String"/>
                 <Property Name="CGPA" Type="Edm.String"/>
-                <Property Name="GRADUATION_DATE" Type="Edm.DateTime" sap:display-format="Date"/>
-                <Property Name="URL" Type="Edm.String"/>
+                <Property Name="GRADUATION_DATE" Type="Edm.String"/>
+                <NavigationProperty Name="EMP" Relationship="zProduct.srv.service.MyService.Degree_EMP" FromRole="Degree" ToRole="Employees"/>
+                <Property Name="EMP_EMP_ID" Type="Edm.Int32"/>
             </EntityType>
             <EntityType Name="Project">
                 <Key>
@@ -94,32 +95,32 @@
                 <Property Name="EMP_EMP_ID" Type="Edm.Int32"/>
                 <Property Name="P_CODE" Type="Edm.String" MaxLength="50"/>
                 <Property Name="P_NAME" Type="Edm.String" MaxLength="100"/>
-                <Property Name="P_START_DATE" Type="Edm.DateTime" sap:display-format="Date"/>
-                <Property Name="P_END_DATE" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="P_START_DATE" Type="Edm.String"/>
+                <Property Name="P_END_DATE" Type="Edm.String"/>
                 <Property Name="REPORTING_MANAGER" Type="Edm.String" MaxLength="255"/>
                 <Property Name="STATUS" Type="Edm.String" MaxLength="50"/>
             </EntityType>
-            <Association Name="Modules_MODULE_EMP">
-                <End Role="Modules" Type="zProduct.srv.service.MyService.Modules" Multiplicity="*"/>
+            <Association Name="Employees_EMP_MODULE">
+                <End Role="Employees" Type="zProduct.srv.service.MyService.Employees" Multiplicity="*"/>
+                <End Role="Modules" Type="zProduct.srv.service.MyService.Modules" Multiplicity="0..1"/>
+                <ReferentialConstraint>
+                    <Principal Role="Modules">
+                        <PropertyRef Name="MODULE_ID"/>
+                    </Principal>
+                    <Dependent Role="Employees">
+                        <PropertyRef Name="EMP_MODULE_MODULE_ID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Degree_EMP">
+                <End Role="Degree" Type="zProduct.srv.service.MyService.Degree" Multiplicity="*"/>
                 <End Role="Employees" Type="zProduct.srv.service.MyService.Employees" Multiplicity="0..1"/>
                 <ReferentialConstraint>
                     <Principal Role="Employees">
                         <PropertyRef Name="EMP_ID"/>
                     </Principal>
-                    <Dependent Role="Modules">
-                        <PropertyRef Name="MODULE_EMP_EMP_ID"/>
-                    </Dependent>
-                </ReferentialConstraint>
-            </Association>
-            <Association Name="Employees_EMP_DEGREE">
-                <End Role="Employees" Type="zProduct.srv.service.MyService.Employees" Multiplicity="*"/>
-                <End Role="Degree" Type="zProduct.srv.service.MyService.Degree" Multiplicity="0..1"/>
-                <ReferentialConstraint>
-                    <Principal Role="Degree">
-                        <PropertyRef Name="D_ID"/>
-                    </Principal>
-                    <Dependent Role="Employees">
-                        <PropertyRef Name="EMP_DEGREE_D_ID"/>
+                    <Dependent Role="Degree">
+                        <PropertyRef Name="EMP_EMP_ID"/>
                     </Dependent>
                 </ReferentialConstraint>
             </Association>
@@ -158,9 +159,6 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Core.Description" String="User's unique ID"/>
                 <Annotation Term="Common.Label" String="Changed By"/>
-            </Annotations>
-            <Annotations Target="zProduct.srv.service.MyService.Degree" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Core.MediaType" String="image/png"/>
             </Annotations>
         </Schema>
     </edmx:DataServices>

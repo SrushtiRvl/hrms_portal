@@ -1,22 +1,113 @@
 {
-    
-    
-    "Employees":[
+    "Status": [
         {
-            "empCode":"E10",
-            "empName":"Srushti Raval",
-            "officialEmail":"srushti@gmail.com",
-            "joiningDate":"29-01-2025",
-            "teamLead":"Pratik Modh",
-            "role":"Intern",
-            "status":"Active",
-            "personalEmail":"srushti12@gmail.com",
-            "module":"ui5",
-            "designation":"Intern",
-            "mobile":"9892054960",
-            "reportingManager":"Kurvesh Patel",
-            "dob":"12-02-2004",
-            "punchID":"P12"
+            "sKey": "Active",
+            "sValue": "Active"
+        },
+        {
+            "sKey": "Inactive",
+            "sValue": "Inactive"
+        }
+    ],
+    "SalaryType": [
+        {
+            "sKey": "hr",
+            "sValue": "Hourly"
+        },
+        {
+            "sKey": "mo",
+            "sValue": "Monthly"
+        }
+    ],
+    "compensation": [
+        {
+            "cKey": "hr",
+            "cValue": "Hourly"
+        },
+        {
+            "cKey": "an",
+            "cValue": "Annual"
+        }
+    ],
+    "EmoloyeeType": [
+        {
+            "empTKey": "fullTime",
+            "empTName": "Full Time"
+        },
+        {
+            "empTKey": "partTime",
+            "empTName": "PartTime"
+        },
+        {
+            "empTKey": "contract",
+            "empTName": "Contract"
+        }
+    ],
+    "EmployeeRole": [
+        {
+            "empRKey": "HR",
+            "empRName": "HR"
+        },
+        {
+            "empRKey": "Employee",
+            "empRName": "Employee"
+        },
+        {
+            "empRKey": "Reporting Manager",
+            "empRName": "Reporting Manager"
+        },
+        {
+            "empRKey": "Intern",
+            "empRName": "Intern"
+        },
+        {
+            "empRKey": "Team Lead",
+            "empRName": "Team Lead"
+        },
+        {
+            "empRKey": "Consultant",
+            "empRName": "Consultant"
+        }
+    ],
+    "ReportingManager": [
+        {
+            "repoMKey": "RM001",
+            "repoMName": "John Doe"
+        },
+        {
+            "repoMKey": "RM002",
+            "repoMName": "Jane Smith"
+        },
+        {
+            "repoMKey": "RM003",
+            "repoMName": "Alice Brown"
+        },
+        {
+            "repoMKey": "RM004",
+            "repoMName": "Bob White"
+        },
+        {
+            "repoMKey": "RM005",
+            "repoMName": "Charlie Green"
+        }
+    ],
+    
+    "Employees": [
+        {
+            "empCode": "E10",
+            "empName": "Srushti Raval",
+            "officialEmail": "srushti@gmail.com",
+            "joiningDate": "29-01-2025",
+            "teamLead": "Pratik Modh",
+            "role": "Intern",
+            "status": "Active",
+            "personalEmail": "srushti12@gmail.com",
+            "module": "ui5",
+            "designation": "Intern",
+            "mobile": "9892054960",
+            "reportingManager": "Kurvesh Patel",
+            "dob": "12-02-2004",
+            "punchID": "P12"
         },
         {
             "empCode": "E11",
@@ -69,7 +160,5 @@
             "dob": "19-04-1992",
             "punchID": "P15"
         }
-        
-        
     ]
 }

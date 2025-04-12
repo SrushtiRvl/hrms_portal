@@ -1,5 +1,75 @@
 /* Enter your custom styles here */
 
+.btn{
+    position: relative;
+    right: 0px;
+    top: 0px;
+    width: 10%;
+}
+.salaryWrapper {  position: relative; width: 100% !important; }
+
+/* .salaryCombo{
+    position: absolute;
+    right: 0px;
+    z-index: 0;
+    width:30px;
+}
+.salaryInput{
+    z-index: 1;
+    width:100% !important;
+} */
+.salaryWrapper .sapMFlexItem:first-child {
+    flex-grow: 1 !important;
+    flex-shrink: 1;
+    flex-basis: 0;
+  }
+.salaryInput { width: 100% !important; min-width: 100% !important;}
+
+.salaryInputWrapper {
+    width: 100%;
+    position: relative;
+  }
+
+.salaryInput .sapMInputBaseInner {
+    padding-right: 100px !important; /* leave space for ComboBox */
+    box-sizing: border-box;
+  }
+
+.salaryCombo { 
+    position: absolute;
+    display: inline-block;
+    z-index: 10;
+  /* top: 0; */
+  right: 55px;
+  height: 100%;
+  width: 20% !important;
+  border: none;
+  padding: 0 10px;
+  font-size: 14px;
+  background: transparent;
+  outline: none;
+  appearance: none;
+  color: #333;
+  cursor: pointer; }
+
+.salaryCombo .sapMComboBoxInputInner { background: transparent !important; border: none !important; box-shadow: none !important;  height: 100%; width:20% !important}
+
+.salaryCombo .sapMInputBaseContentWrapper { position: relative; background: transparent !important; border: none !important; box-shadow: none !important; height: 100%;  width:20% !important}
+
+.salaryCombo .sapMComboBoxArrow { color: #666; right: 5px; }
+
+/* .salary-wrapper { position: relative; width: 100%; }
+
+.salary-input { width: 100% !important;  }
+
+.salary-combo { position: absolute; right: 0; top: 0; height: 100%; width: 100px; border: none !important; background: transparent !important; box-shadow: none !important; }
+
+.salary-combo .sapMComboBoxInputInner { border: none !important; background: transparent !important; }
+
+.salary-combo .sapMInputBaseContentWrapper { border: none !important; background: transparent !important; box-shadow: none !important; }
+
+.salary-combo .sapMComboBoxArrow { right: 10px; } */
+
 .wizard{
     /* background-color: rgba(128, 128, 128, 0.329) !important; */
     /* background-color: rgba(128, 128, 128, 0.087) !important; */

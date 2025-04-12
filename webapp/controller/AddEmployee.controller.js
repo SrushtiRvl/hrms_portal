@@ -16,6 +16,43 @@ sap.ui.define([
             await this.readData("Modules")
             // this.readData("Employees")
             // this.oEmpModel = this.getOwnerComponent().getModel('Employees');
+            this.setFormData();
+        },
+        onModuleSuggest: function (e) {
+            var sValue = e.getParameter("suggestValue");
+            // var oModel = this.get0wnerComponent().getModel(); // OData model
+            var aFilter=[]
+            var that = this;
+            if (!sValue) return;
+            if(sValue){
+                aFilter.push(new sap.ui.model.Filter("MODULE_NAME", sap.ui.model.FilterOperator.Contains, sValue))
+            }
+            e.getSource().getBinding("suggestionItems").filter(aFilter);
+            // var oFilter = new sap.ui.model.Filter("MODULE_NAME", sap.ui.model.Filteraperator.Contains, sValue);
+            // this.oDataModel.read("/Modules", {
+            //     fîlters: [oFilter],
+            //     success: function (oData) {
+            //         var oJSONModel = new sap.ui.model.json.JSONModel(oData.results);
+            //         that.getView().setModel(oJSONModel, "Modules");
+            //     },
+            //     error: function () {
+            //         sap.m.MessageToast.show("Failed to fetch material suggestions");
+            //     },
+            // })
+        },
+        onOpenValueHelp: function (e) {
+            if(!this.fragModuleHelp){
+                this.fragModuleHelp=sap.ui.xmlfragment("zhrmsportal.fragments.ModuleValueHelp",this)
+                this.getView().addDependent(this.fragModuleHelp)
+            }
+            this.fragModuleHelp.open()
+        },
+        onValueHelpModuleSelect:function(e){
+            var id = e.getParameter('selectedItem').getBindingContext("Modules").getObject().MODULE_ID
+            this.formData.selModule=id;
+            this.getOwnerComponent().getModel("FormData").refresh();
+        },
+        setFormData: function (e) {
             this.getOwnerComponent().getModel('FormData').setProperty('/EmployeeData', {
                 "fn": "",
                 "ln": "",
@@ -28,20 +65,22 @@ sap.ui.define([
                 "selStatus": "",
                 "DESIGNATION": "",
                 "DATE_OF_JOINING": "",
-                "degType": "",
+                "DEGREE_NAME": "",
                 "INSTITUTION_NAME": "",
                 "CGPA": "",
-                "GRADUATION_DATE": ""
-
+                "salary":"",
+                "selSalType":"hr",
+                "GRADUATION_DATE": "",
+                "mode": ""
             })
         },
-        readData:async function(entityset){
-            var oModel=new sap.ui.model.json.JSONModel()
-            await this.oDataModel.read("/"+entityset, {
+        readData: async function (entityset) {
+            var oModel = new sap.ui.model.json.JSONModel()
+            await this.oDataModel.read("/" + entityset, {
                 success: async (data, res) => {
                     debugger
                     oModel.setData(data.results)
-                    await this.getView().setModel(oModel,entityset);
+                    await this.getView().setModel(oModel, entityset);
                 },
                 error: (e) => {
                     debugger
@@ -65,13 +104,13 @@ sap.ui.define([
 
             }
         },
-        onModuleSelect: function (oEvent) {
-            var sub = this.getView().byId('modules');
-            var oDataModels = this.getOwnerComponent().getModel('Modules');
-            var selectedValue = oDataModels.getData().selMT;
-            sub.bindAggregation("items", "Modules>/" + selectedValue, new sap.ui.core.ListItem({ text: "{Modules>mName}", key: "{Modules>mKey}" }))
-            sub.setVisible()
-        },
+        // onModuleSelect: function (oEvent) {
+        //     var sub = this.getView().byId('modules');
+        //     var oDataModels = this.getOwnerComponent().getModel('Modules');
+        //     var selectedValue = oDataModels.getData().selMT;
+        //     sub.bindAggregation("items", "Modules>/" + selectedValue, new sap.ui.core.ListItem({ text: "{Modules>mName}", key: "{Modules>mKey}" }))
+        //     sub.setVisible()
+        // },
 
         personalDetails: function (e) {
             // var nav=this.byId("NavContainer");
@@ -128,6 +167,8 @@ sap.ui.define([
             }
             else {
                 // this.setBtnVisible("next",false);
+
+
                 this.wizard.invalidateStep(this.byId('PersonalDetails'))
                 this.wizard.setCurrentStep(this.byId("PersonalDetails"));
                 this.byId('PersonalDetails').setIcon('sap-icon://account')
@@ -144,7 +185,7 @@ sap.ui.define([
                 var v = e.getParameter('value');
                 e.getSource().setProperty('value', v);
             }
-            if (this.formData.selModule != "" && this.formData.selRole != "" && this.formData.selStatus != "" && this.formData.selStatus != "" && this.formData.selManager && this.formData.EMP_CODE != "" && this.formData.DESIGNATION != "" && this.formData.selManager != "" && this.formData.DATE_OF_JOINING != "") {
+            if (this.formData.selModule != "" && this.formData.EMP_SALARY != "" && this.formData.selRole != "" && this.formData.selStatus != "" && this.formData.selStatus != "" && this.formData.selManager && this.formData.EMP_CODE != "" && this.formData.DESIGNATION != "" && this.formData.selManager != "" && this.formData.DATE_OF_JOINING != "") {
                 this.wizard.validateStep(this.byId('JobDetails'))
                 this.getView().byId('JobDetails').setIcon('sap-icon://accept')
             }
@@ -159,11 +200,11 @@ sap.ui.define([
                 var v = e.getParameter('value');
                 e.getSource().setProperty('value', v);
             }
-            if(this.formData.degType!="" && this.formData.INSTITUTION_NAME!="" && this.formData.CGPA!="" && this.formData.GRADUATION_DATE!=""){
+            if (this.formData.degType != "" && this.formData.INSTITUTION_NAME != "" && this.formData.CGPA != "" && this.formData.GRADUATION_DATE != "") {
                 this.wizard.validateStep(this.byId('EducationDetails'))
                 this.getView().byId('EducationDetails').setIcon('sap-icon://accept')
             }
-            else{
+            else {
                 this.wizard.invalidateStep(this.byId('EducationDetails'))
                 this.wizard.setCurrentStep(this.byId("EducationDetails"));
                 this.getView().byId('EducationDetails').setIcon('sap-icon://education')
@@ -173,112 +214,112 @@ sap.ui.define([
             // var formData = this.oEmpModel.getProperty('/formData');
             // var nav=this.byId("NavContainer");
             // nav.to(this.getView().byId("editPage"));
-            this.oRouter.navTo("Edit");
+            this.oRouter.navTo("EditWizard");
         },
         signature: function () {
             this.getView().byId("submit").setVisible(true)
             this.getView().byId("html").setContent("<canvas id='signature-pad' width='400' height='200' class='signature-pad'></canvas>");
         },
-        onSubmit: function (e) {
-            if(this.formData.selModule){
-                this.oDataModel.read("/Modules",{
-                    success:((data,res)=>{
-                        var oData=data.results
-                        oData.forEach(val => {
-                            if(val.MODULE_ID== this.formData.selModule){
-                                this.formData.MODULE=val.MODULE_NAME;
-                            }
-                        });
-                    }),
-                    error:(e)=>{
-                        debugger
-                    }
-                })
-            }
-            if(this.formData.selRole){
-                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/EmployeeRole")
-                oData.forEach(val => {
-                    if(val.empTKey== this.formData.selRole){
-                        this.formData.EMP_ROLE=val.empTName
-                    }
-                });
-            }
-            if(this.formData.selStatus){
-                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/Status")
-                oData.forEach(val => {
-                    if(val.sKey== this.formData.selStatus){
-                        this.formData.STATUS=val.sValue;
-                    }
-                });
-            }
-            this.formData.REPORTING_MANAGER=[]
-            if(this.formData.selManager){
-                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/ReportingManager")
-                this.formData.selManager.forEach(val=>{
-                    oData.forEach(obj=>{
-                        if(obj.repoMKey==val){
-                            this.formData.REPORTING_MANAGER.push(obj.repoMName)
-                            return
-                        }
-                    })
-                })
-            }
-            if(this.formData.selType){
-                var oData=this.getOwnerComponent().getModel("FormData").getProperty("/EmoloyeeType/"+this.formData.selType).empTName;
-                this.formData.EMP_TYPE=oData;
-            }
-            this.formData.EMP_ID=3
-            delete this.formData.fn
-            delete this.formData.ln
-            delete this.formData.selModule
-            delete this.formData.selRole
-            delete this.formData.selStatus
-            delete this.formData.selManager
-            delete this.formData.selType
-            
-            delete this.formData.degType
-            delete this.formData.INSTITUTION_NAME
-            delete this.formData.CGPA
-            delete this.formData.GRADUATION_DATE
-            
-            // // delete this.formData.
-            // // this.oDataModel.create("/Degree",)
-            
-            // this.formData.GRADUATION_DATE=new Date(this.formData.GRADUATION_DATE)
-            // this.formData.EMP_DOB=new Date(this.formData.EMP_DOB)
-            // this.formData.DATE_OF_JOINING=new Date(this.formData.DATE_OF_JOINING)
-            
-            // var degPayload={
-            //     INSTITUTION_NAME:this.formData.INSTITUTION_NAME,
-            //     CGPA:this.formData.CGPA,
-            //     GRADUATION_DATE:this.formData.GRADUATION_DATE,
-            //     URL:""
-            // }
-            // this.oDataModel.create("/Degree",degPayload,{
-            //     success:()=>{
-            //         delete this.formData.INSTITUTION_NAME
-            //         delete this.formData.CGPA
-            //         delete this.formData.GRADUATION_DATE
-            //     },
-            //     error:(e)=>{
-            //         debugger
-            //     }
-            // })
+        // onSubmit: function (e) {
+        //     if(this.formData.selModule){
+        //         this.oDataModel.read("/Modules",{
+        //             success:((data,res)=>{
+        //                 var oData=data.results
+        //                 oData.forEach(val => {
+        //                     if(val.MODULE_ID== this.formData.selModule){
+        //                         this.formData.MODULE=val.MODULE_NAME;
+        //                     }
+        //                 });
+        //             }),
+        //             error:(e)=>{
+        //                 debugger
+        //             }
+        //         })
+        //     }
+        //     if(this.formData.selRole){
+        //         var oData=this.getOwnerComponent().getModel("FormData").getProperty("/EmployeeRole")
+        //         oData.forEach(val => {
+        //             if(val.empTKey== this.formData.selRole){
+        //                 this.formData.EMP_ROLE=val.empTName
+        //             }
+        //         });
+        //     }
+        //     if(this.formData.selStatus){
+        //         var oData=this.getOwnerComponent().getModel("FormData").getProperty("/Status")
+        //         oData.forEach(val => {
+        //             if(val.sKey== this.formData.selStatus){
+        //                 this.formData.STATUS=val.sValue;
+        //             }
+        //         });
+        //     }
+        //     this.formData.REPORTING_MANAGER=[]
+        //     if(this.formData.selManager){
+        //         var oData=this.getOwnerComponent().getModel("FormData").getProperty("/ReportingManager")
+        //         this.formData.selManager.forEach(val=>{
+        //             oData.forEach(obj=>{
+        //                 if(obj.repoMKey==val){
+        //                     this.formData.REPORTING_MANAGER.push(obj.repoMName)
+        //                     return
+        //                 }
+        //             })
+        //         })
+        //     }
+        //     if(this.formData.selType){
+        //         var oData=this.getOwnerComponent().getModel("FormData").getProperty("/EmoloyeeType/"+this.formData.selType).empTName;
+        //         this.formData.EMP_TYPE=oData;
+        //     }
+        //     this.formData.EMP_ID=3
+        //     delete this.formData.fn
+        //     delete this.formData.ln
+        //     delete this.formData.selModule
+        //     delete this.formData.selRole
+        //     delete this.formData.selStatus
+        //     delete this.formData.selManager
+        //     delete this.formData.selType
 
-            this.oDataModel.create("/Employees",this.formData,{
-                success:()=>{
-                    this.readData("Employees");
-                    this.oRouter.navTo("Employees");
-                    MessageToast.show("Employee Added Successfully")
-                },
-                error:(e)=>{
-                    debugger
-                }
-            } )
-            // this.oEmpModel.getProperty("/Employees").push(this.formData)
-            // this.oEmpModel.refresh();
-            // var formData = this.oEmpModel.getProperty('/formData');
-        },
+        //     delete this.formData.degType
+        //     delete this.formData.INSTITUTION_NAME
+        //     delete this.formData.CGPA
+        //     delete this.formData.GRADUATION_DATE
+
+        //     // // delete this.formData.
+        //     // // this.oDataModel.create("/Degree",)
+
+        //     // this.formData.GRADUATION_DATE=new Date(this.formData.GRADUATION_DATE)
+        //     // this.formData.EMP_DOB=new Date(this.formData.EMP_DOB)
+        //     // this.formData.DATE_OF_JOINING=new Date(this.formData.DATE_OF_JOINING)
+
+        //     // var degPayload={
+        //     //     INSTITUTION_NAME:this.formData.INSTITUTION_NAME,
+        //     //     CGPA:this.formData.CGPA,
+        //     //     GRADUATION_DATE:this.formData.GRADUATION_DATE,
+        //     //     URL:""
+        //     // }
+        //     // this.oDataModel.create("/Degree",degPayload,{
+        //     //     success:()=>{
+        //     //         delete this.formData.INSTITUTION_NAME
+        //     //         delete this.formData.CGPA
+        //     //         delete this.formData.GRADUATION_DATE
+        //     //     },
+        //     //     error:(e)=>{
+        //     //         debugger
+        //     //     }
+        //     // })
+
+        //     this.oDataModel.create("/Employees",this.formData,{
+        //         success:()=>{
+        //             this.readData("Employees");
+        //             this.oRouter.navTo("Employees");
+        //             MessageToast.show("Employee Added Successfully")
+        //         },
+        //         error:(e)=>{
+        //             debugger
+        //         }
+        //     } )
+        //     // this.oEmpModel.getProperty("/Employees").push(this.formData)
+        //     // this.oEmpModel.refresh();
+        //     // var formData = this.oEmpModel.getProperty('/formData');
+        // },
         onSign: function (oEvent) {
             var canvas = document.getElementById("signature-pad");
             var context = canvas.getContext("2d");

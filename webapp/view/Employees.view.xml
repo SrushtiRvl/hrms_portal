@@ -1,24 +1,29 @@
 <mvc:View controllerName="zhrmsportal.controller.Employees"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m" xmlns:core="sap.ui.core">
+    xmlns="sap.m" xmlns:core="sap.ui.core"
+    xmlns:u="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:goals="sap.uxap.sample.SharedBlocks.goals"
+    xmlns:personal="sap.uxap.sample.SharedBlocks.personal"
+	xmlns:employment="sap.uxap.sample.SharedBlocks.employment">
     <App>
         <Page>
-            <Table items="{Employees>/}" id="empTable" autoPopinMode="true">
+            <Table items="{Employees>/}" id="empTable" mode="SingleSelectMaster" selectionChange="onEmpSelect" autoPopinMode="true">
                 <headerToolbar>
                     <Toolbar >
                         <Title text="Employees"/>
                         <ToolbarSpacer ></ToolbarSpacer>
                         <SearchField width="30%" liveChange="onSearch"></SearchField>
                         <ToolbarSpacer ></ToolbarSpacer>
-                        <Button text="Add Employee" press="onAddEmp"></Button>
+                        <Button icon="sap-icon://add" type="Emphasized" text="Add Employee" press="onAddEmp"></Button>
                     </Toolbar>
                 </headerToolbar>
                 <columns>
-                    <Column >
+                    <Column importance="High">
                     <Text text="Employee Name"/>
                     </Column>
-                    <Column >
-                    <Text text="Employee Code"/>
+                    <Column importance="High">
+                    <Text text="Employee Code" />
                     </Column>
                     <Column >
                     <Text text="Official Email"/>
@@ -35,9 +40,12 @@
                     <Column >
                     <Text text="Status"/>
                     </Column>
-                    <Column >
+                    <Column width="4%">
+                    <!-- <Text text="Status"/> -->
+                    </Column>
+                    <Column importance="High">
                     
-                    <Text text="Actions"  textAlign="End"/>
+                    <Text text="Actions"  textAlign="End" />
                     </Column>
                 </columns>
                 <items>
@@ -49,17 +57,20 @@
                             <Text text="{Employees>DATE_OF_JOINING}"/>
                             <Text text="{Employees>REPORTING_MANAGER}"/>
                             <Text text="{Employees>EMP_ROLE}"/>
-                            <Text text="{Employees>STATUS}"/>
+                            <!-- <Text text=""/> -->
+                            <ObjectStatus inverted="true" state="{= ${Employees>STATUS} === 'Active'? 'Success' : 'Error'}" text="{Employees>STATUS}"></ObjectStatus>
+                            <Button icon="sap-icon://warning" press="onIncompleteProfile" visible="{= ${Employees>EMP_DEGREES/results}.length>0? false : true}" type="Transparent" tooltip="Incomplete Profile" class="sapUiTinyMargin"/>
                             <HBox>
                             <Button icon="sap-icon://edit" press="onEdit" type="Attention" class="sapUiTinyMargin"></Button>
                             <Button icon="sap-icon://delete" press="onDelete" type="Reject" class="sapUiTinyMargin"></Button>
-                            
                             </HBox>
                         </cells>
 
                     </ColumnListItem>
                 </items>
             </Table>
-        </Page>
+        </Page> 
+       
     </App>
+    
 </mvc:View>

@@ -53,7 +53,7 @@
                 "empRName": "Employee"
             },
             {
-                "empRKey": "Reporting Manager",
+                "empRKey": "repoManager",
                 "empRName": "Reporting Manager"
             },
             {
@@ -61,7 +61,7 @@
                 "empRName": "Intern"
             },
             {
-                "empRKey": "Team Lead",
+                "empRKey": "TL",
                 "empRName": "Team Lead"
             },
             {
