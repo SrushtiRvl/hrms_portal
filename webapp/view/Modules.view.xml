@@ -3,58 +3,77 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
 >
     <App>
-        <Page>
-            <Table
-                items="{/Modules}"
-                id="mTable"
-            >
-                <headerToolbar>
-                    <Toolbar>
-                        <Title text="Modules" />
-                        <ToolbarSpacer />
-                        <SearchField width="30%" liveChange="onSearch"></SearchField>
-                        
-                        <ToolbarSpacer />
-                        <Button
-                            text="Add Modules"
-                            press="onAdd"
-                            icon="sap-icon://add"
-                            type="Emphasized"
-                        />
-                    </Toolbar>
-                </headerToolbar>
-                <columns>
-                    <Column>
-                        <Text text="Name" />
-                    </Column>
-                    <Column>
-                        <Text text="Code" />
-                    </Column>
-                    <Column>
-                        <Text text="Module Type" />
-                    </Column>
-                    <Column>
-                        <Text text="Actions" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <Text text="{MODULE_NAME}" />
-                            <Text text="{MODULE_CODE}" />
-                            <Text text="{MODULE_TYPE}" />
-                            <!-- <core:Icon src="sap-icon://edit" press="onEdit"></core:Icon> -->
-                            <Button
-                                type="Reject"
-                                icon="sap-icon://delete"
-                                press="onDelete"
+        <f:DynamicPage>
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Modules"/>
+					</f:heading>
+					<f:breadcrumbs>
+						<Breadcrumbs>
+							<Link text="Dashboard" press="gotoDashboard"/>
+						</Breadcrumbs>
+					</f:breadcrumbs>
+                    <f:actions>
+						<Button
+                                text="Add Modules"
+                                press="onAdd"
+                                icon="sap-icon://add"
+                                type="Emphasized"
                             />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-        </Page>
+                    
+                        </f:actions>
+				</f:DynamicPageTitle>
+                    </f:title>
+                <f:content>
+                <Table
+                    items="{/Modules}"
+                    id="mTable"
+                >
+                    <headerToolbar>
+                        <Toolbar class="toolbar">
+                            <!-- <ToolbarSpacer /> -->
+                             <SearchField width="30%" liveChange="onSearch"></SearchField>
+                            
+                            <!-- <ToolbarSpacer /> -->
+                            
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column>
+                            <Text text="Name" />
+                        </Column>
+                        <Column>
+                            <Text text="Code" />
+                        </Column>
+                        <Column>
+                            <Text text="Module Type" />
+                        </Column>
+                        <Column>
+                            <Text text="Actions" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{MODULE_NAME}" />
+                                <Text text="{MODULE_CODE}" />
+                                <Text text="{MODULE_TYPE}" />
+                                <!-- <core:Icon src="sap-icon://edit" press="onEdit"></core:Icon> -->
+                                <Button
+                                    type="Reject"
+                                    icon="sap-icon://delete"
+                                    press="onDelete"
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                
+                </f:content>
+       </f:DynamicPage>
     </App>
 </mvc:View>

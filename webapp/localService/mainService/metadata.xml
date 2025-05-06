@@ -53,7 +53,7 @@
                 <Property Name="MODULE_CODE" Type="Edm.String"/>
                 <Property Name="MODULE_TYPE" Type="Edm.String"/>
             </EntityType>
-            <EntityType Name="Employees">
+            <EntityType Name="Employees" m:HasStream="true">
                 <Key>
                     <PropertyRef Name="EMP_ID"/>
                 </Key>
@@ -61,7 +61,7 @@
                 <Property Name="EMP_NAME" Type="Edm.String" MaxLength="100"/>
                 <Property Name="EMP_EMAIL" Type="Edm.String" MaxLength="100"/>
                 <Property Name="EMP_MOBILE" Type="Edm.String"/>
-                <Property Name="EMP_DOB" Type="Edm.DateTime" sap:display-format="Date"/>
+                <Property Name="EMP_DOB" Type="Edm.String"/>
                 <Property Name="EMP_TYPE" Type="Edm.String" MaxLength="50"/>
                 <Property Name="EMP_CODE" Type="Edm.String" MaxLength="50"/>
                 <Property Name="EMP_SALARY" Type="Edm.String"/>
@@ -70,6 +70,9 @@
                 <Property Name="DESIGNATION" Type="Edm.String" MaxLength="100"/>
                 <Property Name="REPORTING_MANAGER" Type="Collection(Edm.String)" Nullable="false"/>
                 <Property Name="DATE_OF_JOINING" Type="Edm.String"/>
+                <Property Name="EMP_IMG_FILE_NAME" Type="Edm.String"/>
+                <Property Name="EMP_IMG_URL" Type="Edm.String"/>
+                <Property Name="EMP_IMG_STR" Type="Edm.String"/>
                 <NavigationProperty Name="EMP_DEGREES" Relationship="zProduct.srv.service.MyService.Degree_EMP" FromRole="Employees" ToRole="Degree"/>
                 <NavigationProperty Name="EMP_MODULE" Relationship="zProduct.srv.service.MyService.Employees_EMP_MODULE" FromRole="Employees" ToRole="Modules"/>
                 <Property Name="EMP_MODULE_MODULE_ID" Type="Edm.Int32"/>
@@ -82,6 +85,7 @@
                 <Property Name="DEGREE_ID" Type="Edm.Int32" Nullable="false"/>
                 <Property Name="INSTITUTION_NAME" Type="Edm.String"/>
                 <Property Name="CGPA" Type="Edm.String"/>
+                <Property Name="DEGREE_NAME" Type="Edm.String"/>
                 <Property Name="GRADUATION_DATE" Type="Edm.String"/>
                 <NavigationProperty Name="EMP" Relationship="zProduct.srv.service.MyService.Degree_EMP" FromRole="Degree" ToRole="Employees"/>
                 <Property Name="EMP_EMP_ID" Type="Edm.Int32"/>
@@ -159,6 +163,9 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Core.Description" String="User's unique ID"/>
                 <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="zProduct.srv.service.MyService.Employees" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Core.MediaType" String="image/png"/>
             </Annotations>
         </Schema>
     </edmx:DataServices>

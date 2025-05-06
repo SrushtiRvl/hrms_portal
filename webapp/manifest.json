@@ -80,6 +80,9 @@
       "Modules": {
         "type": "sap.ui.model.json.JSONModel"
       },
+      "Project": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
       "ListOfEmployees": {
         "type": "sap.ui.model.json.JSONModel"
       },
@@ -118,58 +121,93 @@
         },
         {
           "name": "AdminDashboard",
-          "pattern": "dashboard",
+          "pattern": "Dashboard",
           "target": [
             "AdminDashboard"
           ]
         },
         {
           "name": "Employees",
-          "pattern": "employees",
+          "pattern": "Employees",
           "target": [
             "Employees"
           ]
         },
         {
           "name": "EmployeeDetails",
-          "pattern": "employee-details/{path}",
+          "pattern": "Employee-Details/{path}",
           "target": [
             "EmployeeDetails"
           ]
         },
         {
           "name": "AddEmployee",
-          "pattern": "addEmployee",
+          "pattern": "AddEmployee",
           "target": [
             "AddEmployee"
           ]
         },
         {
           "name": "Edit",
-          "pattern": "edit/{EMP_ID}",
+          "pattern": "Edit/{EMP_ID}",
           "target": [
             "Edit"
           ]
         },
         {
+          "name": "IncompleteProfile",
+          "pattern": "Edit/{EMP_ID}",
+          "target": [
+            "IncompleteProfile"
+          ]
+        },
+        {
           "name": "EditWizard",
-          "pattern": "edit",
+          "pattern": "Edit",
           "target": [
             "EditWizard"
           ]
         },
         {
           "name": "Modules",
-          "pattern": "modules",
+          "pattern": "Modules",
           "target": [
             "Modules"
           ]
         },
         {
+          "name": "Projects",
+          "pattern": "Projects",
+          "target": [
+            "Projects"
+          ]
+        },
+        {
+          "name": "ProjectDetails",
+          "pattern": "ProjectDetails/{P_ID}",
+          "target": [
+            "ProjectDetails"
+          ]
+        },
+        {
+          "name": "AddProject",
+          "pattern": "AddProject",
+          "target": [
+            "AddProject"
+          ]
+        },
+        {
           "name": "EmployeeDashboard",
-          "pattern": "dashboard",
+          "pattern": "Dashboard",
           "target": [
             "EmployeeDashboard"
+          ]
+        },
+        {
+          "name": "Time Sheet",
+          "pattern": "Timesheet",
+          "target": [
+            "Time Sheet"
           ]
         }
       ],
@@ -209,13 +247,38 @@
           "viewType": "XML",
           "transition": "slide"
         },
+        "IncompleteProfile": {
+          "viewName": "Edit",
+          "viewType": "XML",
+          "transition": "slide"
+        },
         "Modules": {
           "viewName": "Modules",
           "viewType": "XML",
           "transition": "slide"
         },
+        "Projects": {
+          "viewName": "Projects",
+          "viewType": "XML",
+          "transition": "slide"
+        },
+        "ProjectDetails": {
+          "viewName": "ProjectDetails",
+          "viewType": "XML",
+          "transition": "slide"
+        },
+        "AddProject": {
+          "viewName": "AddProject",
+          "viewType": "XML",
+          "transition": "slide"
+        },
         "EmployeeDashboard": {
           "viewName": "EmployeeDashboard",
+          "viewType": "XML",
+          "transition": "slide"
+        },
+        "Time Sheet": {
+          "viewName": "TimeSheet",
           "viewType": "XML",
           "transition": "slide"
         }

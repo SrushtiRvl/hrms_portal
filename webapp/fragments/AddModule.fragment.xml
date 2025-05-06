@@ -5,13 +5,14 @@
 >
     <Dialog contentWidth="100px" title="Add Module">
         <VBox class="sapUiTinyMargin">
-        
+
         <Label text="Module Code" />
-        <Input value="{FormData>/ModuleData/MODULE_CODE}" id="CODE"/>
+        <Input value="{FormData>/ModuleData/MODULE_CODE}" id="CODE" valueStateText="Invalid Module Code"/>
+
         <Label text="Module Name" />
-        <Input value="{FormData>/ModuleData/MODULE_NAME}" id="NAME"/>
+        <Input value="{FormData>/ModuleData/MODULE_NAME}" id="NAME" valueStateText="Invalid Module Name"/>
         <Label text="Module Type" />
-        <ComboBox items="{FormData>/ModuleTypes}" selectedKey="{FormData>/ModuleData/selValue}" width="100%" id="TYPE">
+        <ComboBox items="{FormData>/ModuleTypes}" selectedKey="{FormData>/ModuleData/selValue}" width="100%" id="TYPE" valueStateText="Invalid Module Type">
             <core:Item text="{FormData>mValue}" key="{FormData>mKey}"></core:Item>
         </ComboBox>
         </VBox>

@@ -1,0 +1,219 @@
+<mvc:View
+    controllerName="zhrmsportal.controller.TimeSheet"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+>
+    <App>
+        <f:DynamicPage showFooter="true">
+            <f:title>
+                <f:DynamicPageTitle>
+                    <f:heading>
+                        <Title text="Time Sheet" />
+                    </f:heading>
+                    <f:breadcrumbs>
+                        <Breadcrumbs>
+                            <Link
+                                text="Dashboard"
+                                press="gotoDashboard"
+                            />
+                        </Breadcrumbs>
+                    </f:breadcrumbs>
+                </f:DynamicPageTitle>
+            </f:title>
+            <f:content >
+                <VBox width="100%" justifyContent="Center" alignItems="Center">
+                    <form:Form width="100%">
+                        <form:layout>
+                            <form:ResponsiveGridLayout
+                                labelSpanXL="12"
+                                labelSpanL="12"
+                                labelSpanM="12"
+                                labelSpanS="12"
+                                emptySpanXL="0"
+                                emptySpanL="0"
+                                emptySpanM="0"
+                                emptySpanS="0"
+                                columnsXL="12"
+                                columnsL="12"
+                                columnsM="12"
+                            />
+                        </form:layout>
+                        <form:formContainers>
+                            <form:FormContainer>
+                                <form:formElements>
+                                    <form:FormElement label="Full Name">
+                                        <form:fields>
+                                            <ComboBox
+                                                    items="{Employees>/}"
+                                                    id="emp"
+                                                    selectedKey="{FormData>/TimeSheet/Name}"
+                                                    selectionChange="empSelect"
+                                                    required="true"
+                                                >
+                                                <core:Item
+                                                    key="{Employees>EMP_ID}"
+                                                    text="{Employees>EMP_NAME}"
+                                                />
+                                            </ComboBox>
+                                            <!-- <Input
+                                                value="{FormData>/TimeSheet/Name}"
+                                                required="true"
+                                            /> -->
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement label="Module">
+                                        <form:fields>
+                                            <ComboBox
+                                                items="{Modules>/Modules}"
+                                                id="modules"
+                                                editable="false"
+                                                selectedKey="{FormData>/TimeSheet/MODULE_ID}"
+                                                required="true"
+                                            >
+                                                <core:Item
+                                                    key="{Modules>MODULE_ID}"
+                                                    text="{Modules>MODULE_NAME}"
+                                                />
+                                            </ComboBox>
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement label="Date">
+                                        <form:fields>
+                                            <DatePicker
+                                                required="true"
+                                                displayFormat="dd/MM/yyyy"
+                                                value="{FormData>/TimeSheet/date}"
+                                            />
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement label="Project 1">
+                                        <form:fields>
+                                            <ComboBox
+                                                required="true"
+                                                items="{combo>/Project}"
+                                                selectedKey="{FormData>/TimeSheet/P_ID1}"
+                                            >
+                                                <core:Item
+                                                    key="{combo>P_ID}"
+                                                    text="{combo>P_NAME}"
+                                                />
+                                            </ComboBox>
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement
+                                        label="Project 1 Activity"
+                                    >
+                                        <form:fields>
+                                            <ComboBox
+                                                id="combo1"
+                                                items="{combo>/Task}"
+                                                selectedKey="{FormData>/TimeSheet/TaskID1}"
+                                                required="true"
+                                            >
+                                                <core:Item
+                                                    key="{combo>T_ID}"
+                                                    text="{combo>T_NAME}"
+                                                />
+                                            </ComboBox>
+                                            <!-- <Input
+                                                required="true"
+                                                value="{FormData>/TimeSheet/Activity_P1}"
+                                            /> -->
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement
+                                        label="No hours worked-Project 1"
+                                    >
+                                        <form:fields>
+                                            <Input
+                                                required="true"
+                                                value="{FormData>/TimeSheet/Hours_P1}"
+                                            />
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement label="Project 2">
+                                        <form:fields>
+                                            <ComboBox
+                                                items="{Project>/Project}"
+                                                selectedKey="{FormData>/TimeSheet/P_ID2}"
+                                            >
+                                                <core:Item
+                                                    key="{Project>P_ID}"
+                                                    text="{Project>P_NAME}"
+                                                />
+                                            </ComboBox>
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement
+                                        label="Project 2 Activity"
+                                    >
+                                        <form:fields>
+                                            <Input
+                                                value="{FormData>/TimeSheet/Activity_P2}"
+                                            />
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement
+                                        label="No hours worked-Project 2"
+                                    >
+                                        <form:fields>
+                                            <Input
+                                                value="{FormData>/TimeSheet/Hours_P2}"
+                                            />
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement label="Project 3">
+                                        <form:fields>
+                                            <ComboBox
+                                                items="{Project>/Project}"
+                                                selectedKey="{FormData>/TimeSheet/P_ID3}"
+                                            >
+                                                <core:Item
+                                                    key="{Project>P_ID}"
+                                                    text="{Project>P_NAME}"
+                                                />
+                                            </ComboBox>
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement
+                                        label="Project 3 Activity"
+                                    >
+                                        <form:fields>
+                                            <Input
+                                                value="{FormData>/TimeSheet/Activity_P3}"
+                                            />
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement
+                                        label="No hours worked-Project 3"
+                                    >
+                                        <form:fields>
+                                            <Input
+                                                value="{FormData>/TimeSheet/Hours_P3}"
+                                            />
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement
+                                        label=""
+                                    >
+                                        <form:fields>
+                                            <Button
+                            type="Emphasized"
+                            press="onSubmit"
+                            text="Submit"
+                        />
+                                        </form:fields>
+                                    </form:FormElement>
+                                </form:formElements>
+                            </form:FormContainer>
+                        </form:formContainers>
+                    </form:Form>
+                </VBox>
+            </f:content>
+            
+        </f:DynamicPage>
+    </App>
+</mvc:View>

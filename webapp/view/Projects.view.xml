@@ -1,0 +1,183 @@
+<mvc:View
+    controllerName="zhrmsportal.controller.Projects"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+>
+    <App>
+        <f:DynamicPage class="projectsPage">
+            <f:title>
+                <f:DynamicPageTitle>
+                    <f:heading>
+                        <Title text="Projects" />
+                    </f:heading>
+                    <f:breadcrumbs>
+                        <Breadcrumbs>
+                            <Link
+                                text="Dashboard"
+                                press="gotoDashboard"
+                            />
+                        </Breadcrumbs>
+                    </f:breadcrumbs>
+                    <f:actions>
+                        <Button
+                            text="Delete Project"
+                            press="deleteProject"
+                            
+                            icon="sap-icon://delete"
+                            type="Reject"
+                        />
+                        <Button
+                            text="Cancel"
+                            visible="{/Delete}"
+                            press="cancelDeleteProject"
+                            icon="sap-icon://cancel"
+                            type="Emphasized"
+                        />
+                    </f:actions>
+                </f:DynamicPageTitle>
+            </f:title>
+            <f:content>
+            <HBox
+                    id="projectsBox"
+                    
+                >
+                <VBox alignItems="Center">
+                <GenericTile
+                        class="sapUiResponsiveMargin tileLayout newProject"
+                        subheader="{}"
+                        press="press"
+                       
+                        frameType="TwoByOne"
+                    >
+                        <TileContent>
+                        <Button text="Add new Project" press="onAdd" type="Emphasized"/>
+                        </TileContent>
+                    </GenericTile>
+                    <Link text="New" press="onAdd"></Link>
+                    </VBox>
+                <HBox  items="{/Project}" class="hbox">
+                <!-- <Panel
+                    class="flexbox"
+                    backgroundDesign="Transparent"
+                    content="{/Project}"
+                > -->
+                    <VBox class="flexbox hbox" >
+                    <GenericTile
+                        class="sapUiResponsiveMargin tileLayout tiles "
+                        header="{P_NAME}"
+                        subheader="{REPORTING_MANAGER}"
+                        scope="{= ${/Delete}? 'ActionRemove' : 'Display'}"
+                        press="onProjectPress"
+                       
+                        frameType="TwoByOne"
+                    >
+                        <TileContent>
+                            <ObjectStatus text="{STATUS}"/>
+                        </TileContent>
+                    </GenericTile>
+                    <Link text="{P_NAME}" press="onProjectPress" class="sapUiSmallMarginBottom"></Link>
+                </VBox>
+                <!-- </Panel> -->
+                </HBox>
+                    <!-- <VBox class="flexbox"> -->
+                        <!-- <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout newProject tiles " header=""
+                    tileIcon="sap-icon://add" 
+                    subheader="" press="addProject" appShortcut = "" systemInfo = ""  >
+                    <TileContent>
+                        <ImageContent src="sap-icon://add" class="add"/>
+                    </TileContent>
+                </GenericTile> -->
+                        <!-- <Link text="New"  press="addProject"/> -->
+                        <!-- <Label text="Create a New Project from scratch" /> -->
+                    <!-- </VBox> -->
+
+                    <!-- <VBox class="flexbox">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout newProject" header=""
+                    tileIcon="sap-icon://add" 
+                    subheader="" press="press" appShortcut = "" systemInfo = ""  >
+                    <TileContent>
+                        <ImageContent src="sap-icon://add" class="add"/>
+                    </TileContent>
+                </GenericTile>
+                <Label text="New" class="label"/>
+                </VBox>
+                <VBox class="flexbox">
+                <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout newProject" header=""
+                    tileIcon="sap-icon://add" 
+                    subheader="" press="press" appShortcut = "" systemInfo = ""  >
+                    <TileContent>
+                        <ImageContent src="sap-icon://add" class="add"/>
+                    </TileContent>
+                </GenericTile>
+                <Label text="New" class="label"/>
+                </VBox>-->
+                </HBox>
+                <!-- <Table
+                items="{/Project}"
+                autoPopinMode="true"
+            >
+                <headerToolbar>
+                    <Toolbar class="toolbar">
+                        <SearchField width="30%" liveChange="onSearch"></SearchField>
+                        
+                        <ToolbarSpacer />
+                        
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Name" />
+                    </Column>
+                    <Column>
+                        <Text text="Code" />
+                    </Column>
+                    <Column>
+                        <Text text="Reporting Manager" />
+                    </Column>
+                    <Column>
+                        <Text text="Starting Date" />
+                    </Column>
+                    <Column>
+                        <Text text="Ending Date" />
+                    </Column>
+                    <Column>
+                        <Text text="Status" />
+                    </Column>
+                    <Column>
+                        <Text text="Actions" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{P_NAME}" />
+                            <Text text="{P_CODE}" />
+                            <Text text="{REPORTING_MANAGER}" />
+                            <Text text="{P_START_DATE}" />
+                            <Text text="{P_END_DATE}" />
+                            <Text text="{STATUS}" />
+                            <HBox >
+                                <Button
+                                    class="sapUiTinyMargin"
+                                    type="Attention"
+                                    icon="sap-icon://edit"
+                                    press="onEdit"
+                                />
+                                <Button
+                                    class="sapUiTinyMargin"
+                                    type="Reject"
+                                    icon="sap-icon://delete"
+                                    press="onDelete"
+                                />
+                            </HBox>
+                            
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table> -->
+            </f:content>
+        </f:DynamicPage>
+    </App>
+</mvc:View>

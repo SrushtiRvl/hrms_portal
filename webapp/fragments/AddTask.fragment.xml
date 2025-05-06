@@ -1,0 +1,51 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog contentWidth="100px" title="Add Task">
+        <VBox class="sapUiTinyMargin">
+        
+
+        <Label text="Name" />
+        <Input value="{FormData>/TaskData/T_NAME}"  valueStateText="Invalid Task Name"/>
+
+        <Label text="Start Date" />
+        <DatePicker value="{FormData>/TaskData/T_START_DATE}" valueFormat="dd/MM/YYYY" displayFormat="dd/MM/YYYY" maxDate="{path:'/P_END_DATE',formatter:'.formatter.date'}" minDate="{path:'/P_START_DATE',formatter:'.formatter.date'}"/>
+        
+        <Label text="End Date" />
+        <DatePicker value="{FormData>/TaskData/T_END_DATE}" valueFormat="dd/MM/YYYY" displayFormat="dd/MM/YYYY" maxDate="{path:'/P_END_DATE',formatter:'.formatter.date'}" minDate="{path:'FormData>/TaskData/T_START_DATE',formatter:'.formatter.date'}"/>
+
+        <Label text="Progress" />
+        <Input value="{FormData>/TaskData/PROGRESS}"  valueStateText="Invalid Task Progress"/>
+
+
+        <Label text="Priority" />
+        <ComboBox items="{FormData>/Priority}" selectedKey="{FormData>/TaskData/PRIORITY}" width="100%"  valueStateText="Invalid Module Type">
+            <core:Item text="{FormData>pValue}" key="{FormData>pValue}"></core:Item>
+        </ComboBox>
+
+        <Label text="Assigned To" />
+        <ComboBox items="{Employees>/}" selectedKey="{FormData>/TaskData/EMP_EMP_ID}" width="100%"  valueStateText="Invalid Module Type">
+            <core:Item text="{Employees>EMP_NAME}" key="{Employees>EMP_ID}"></core:Item>
+        </ComboBox>
+
+        <Label text="Status" />
+            <ComboBox
+                selectedKey="{FormData>/TaskData/STATUS}"
+                width="100%"
+                items="{FormData>/ProjStatus/}"
+            >
+                <core:Item
+                    key="{FormData>sKey}"
+                    text="{FormData>sValue}"
+                />
+            </ComboBox>
+        </VBox>
+        <buttons>
+        <Button text="Save" type="Success" press="onAddSave" icon="sap-icon://save"></Button>
+        <Button text="Cancel" type="Reject" press="onAddCancel" icon="sap-icon://cancel"></Button>
+        </buttons>
+    </Dialog>
+
+</core:FragmentDefinition>

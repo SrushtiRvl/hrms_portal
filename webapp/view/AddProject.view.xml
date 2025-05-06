@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="zhrmsportal.controller.Edit"
+    controllerName="zhrmsportal.controller.AddProject"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:form="sap.ui.layout.form"
@@ -17,8 +17,6 @@
 					<f:breadcrumbs>
 						<Breadcrumbs>
 							<Link text="Dashboard" press="gotoDashboard"/>
-							<Link text="Employees" press="gotoEmployees"/>
-							<Link text="Add Employee" press="gotoWizard" visible="{=  ${FormData>/EmployeeData/mode}==='Edit'? false :true}"/>
 						</Breadcrumbs>
 					</f:breadcrumbs>
                     <f:actions>
@@ -31,7 +29,6 @@
                 <form:Form
                     editable="true"
                     title="Details"
-                    id="form"
                 >
                     <form:layout>
                         <form:ResponsiveGridLayout
@@ -52,26 +49,15 @@
                     </form:layout>
                     <form:FormContainer title="Personal Details">
                         <form:formElements>
-                            <!-- <form:FormElement label="Employee Image"  visible="{=  ${FormData>/EmployeeData/mode}==='Edit'? false :true}">
+                            <form:FormElement label="Employee Image"  visible="{=  ${FormData>/EmployeeData/mode}==='Edit'? false :true}">
                                 <form:fields>
-                                    <u:FileUploader
-                                        width="100%"
-                                        id="fileUploader"
-                                        name="myFileUpload"
-                                        tooltip="Upload your file to the local server"
-                                        uploadComplete="uploadProfilePic"
-                                        fileType="png" 
-                                        typeMissmatch="handleTypeMissmatch"
-                                        uploadStart="beforeUploadStarts"
-                                        uploadUrl="/v2/odata"
-                                        change="handleFileChange"
-                                    />
-                                </form:fields>
-                            </form:FormElement> -->
+                                   
                                     <!-- <Button
                                         text="Upload File"
                                         press="handleUploadPress"
                                     /> -->
+                                </form:fields>
+                            </form:FormElement>
                             <form:FormElement label="Name">
                                 <form:fields>
                                     <Input
@@ -86,6 +72,7 @@
                                 <form:fields>
                                     <Input
                                         required="true"
+                                        valueStateText="Invalid Email"
                                         value="{FormData>/EmployeeData/EMP_EMAIL}"
                                         liveChange="personalDetails"
                                         placeholder="Enter Email"
@@ -96,6 +83,7 @@
                                 <form:fields>
                                     <Input
                                         value="{FormData>/EmployeeData/EMP_MOBILE}"
+                                        valueStateText="Invalid Phone Number"
                                         required="true"
                                         type="Number"
                                         liveChange="personalDetails"
@@ -139,7 +127,7 @@
                                     </RadioButtonGroup>
                                 </form:fields>
                             </form:FormElement>
-                            <!-- <form:FormElement label="Employee Code">
+                            <form:FormElement label="Employee Code">
                                 <form:fields>
                                     <Input
                                         required="true"
@@ -148,13 +136,13 @@
                                         placeholder="Employee Code"
                                     />
                                 </form:fields>
-                            </form:FormElement> -->
+                            </form:FormElement>
                             <form:FormElement label="Module">
                                 <ComboBox
                                     selectionChange="jobDetails"
                                     required="true"
                                     selectedKey="{FormData>/EmployeeData/selModule}"
-                                    items="{Modules>/Modules}"
+                                    items="{Modules>/}"
                                     placeholder="Select Module"
                                 >
                                     <core:Item
@@ -208,7 +196,7 @@
                                     />
                                 </form:fields>
                             </form:FormElement>
-                            <!-- <form:FormElement label="Employee Salary">
+                            <form:FormElement label="Employee Salary">
                                 <form:fields>
                                     <Input
                                         required="true"
@@ -217,7 +205,7 @@
                                         placeholder="Employee Salary"
                                     />
                                 </form:fields>
-                            </form:FormElement> -->
+                            </form:FormElement>
                             <form:FormElement label="Reporting Manager">
                                 <form:fields>
                                     <MultiComboBox
@@ -254,67 +242,7 @@
                                         </form:FormElement> -->
                         </form:formElements>
                     </form:FormContainer>
-                    <form:FormContainer
-                        title="Education Details"
-                        visible="{=  ${FormData>/EmployeeData/mode}==='Edit'? true :false}"
-                        id="educationContainer"
-                    >
-                        <form:toolbar>
-                            <Toolbar>
-                                <Title text="Education Details" />
-                                <ToolbarSpacer />
-                                <Button
-                                    icon="sap-icon://add"
-                                    type="Emphasized"
-                                    press="addDegreeSection"
-                                />
-                            </Toolbar>
-                        </form:toolbar>
-                        <form:formElements>
-                            <form:FormElement label="Degree Type">
-                                <form:fields>
-                                    <Input
-                                        id="inpDegType"
-                                        liveChange="checkDegreeData"
-                                        placeholder="Degree Type"
-                                        value="{FormData>/EmployeeData/DEGREE_NAME}"
-                                        required="true"
-                                    />
-                                </form:fields>
-                            </form:FormElement>
-                            <form:FormElement label="Insititute Name">
-                                <Input
-                                    id="inpInstitute"
-                                    liveChange="checkDegreeData"
-                                    placeholder="Enter Insititute Name"
-                                    value="{FormData>/EmployeeData/INSTITUTION_NAME}"
-                                    required="true"
-                                />
-                            </form:FormElement>
-                            <form:FormElement label="CGPA">
-                                <Input
-                                    id="cgpa"
-                                    placeholder="Enter CGPA"
-                                    liveChange="checkDegreeData"
-                                    value="{FormData>/EmployeeData/CGPA}"
-                                    required="true"
-                                />
-                            </form:FormElement>
-                            <!-- liveChange="dateFormat" -->
-                            <form:FormElement label="Graduation Date">
-                                <DatePicker
-                                    required="true"
-                                    id="inpGrad"
-                                    afterValueHelpClose="dateFormat"
-                                    placeholder="Select Graduation Date"
-                                    displayFormat="dd-MM-yyyy"
-                                    valueFormat="dd-MM-yyyy"
-                                    liveChange="checkDegreeData"
-                                    value="{FormData>/EmployeeData/GRADUATION_DATE}"
-                                />
-                            </form:FormElement>
-                        </form:formElements>
-                    </form:FormContainer>
+                    
                     <!-- <Input/> -->
                 </form:Form>
                 <!-- <form:Form

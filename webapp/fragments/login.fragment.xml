@@ -7,9 +7,9 @@
 		<FlexBox class="sapUiMediumMargin login"  justifyContent="Center">
 			<Image src="https://vsdtechno.com/openui/webapp/image/vsdlogo.JPG" width="80%" class="logo" />
 			<Label text="User Name:"/>
-			<Input value="{/formData/uName}" />
+			<Input class="pass" placeholder="User Name" value="{/formData/uName}" />
 			<Label text="Password"/>
-			<Input type="Password" value="{/formData/password}" id="inpPassword" class="input" showValueHelp="true" valueHelpIconSrc="sap-icon://hide" valueHelpRequest="showPassword" />
+			<Input type="Password" placeholder="Password" value="{/formData/password}" id="inpPassword" class="input" showValueHelp="true" valueHelpIconSrc="sap-icon://hide" valueHelpRequest="showPassword" />
 			<!-- <Link text="Forgot Password"></Link> -->
 			<Button text="login" press="onLogin" type="Emphasized" width="100%" class="loginBtn"></Button>
 		</FlexBox>

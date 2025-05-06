@@ -14,6 +14,12 @@
     >
         <headerTitle>
             <ObjectPageDynamicHeaderTitle>
+            <breadcrumbs>
+					<m:Breadcrumbs>
+						<m:Link text="Dashboard" press="gotoDashboard"/>
+						<m:Link text="Employees" press="gotoEmployees"/>
+					</m:Breadcrumbs>
+				</breadcrumbs>
                 <expandedHeading>
                     <m:Title
                         text="{/EMP_NAME}"
@@ -25,7 +31,7 @@
                     <m:HBox>
                         <m:VBox>
                             <m:Avatar
-                                src="./test-resources/sap/uxap/images/imageID_275314.png"
+                                src="{/EMP_IMG_STR}"
                                 class="sapUiSmallMarginEnd"
                             />
                         </m:VBox>
@@ -58,7 +64,7 @@
             >
                 <m:HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
                     <m:Avatar
-                        src="./test-resources/sap/uxap/images/imageID_275314.png"
+                        src="{/EMP_IMG_STR}"
                         class="sapUiMediumMarginEnd"
                         displaySize="L"
                     />
@@ -250,8 +256,8 @@
                                 <m:Label text="Date of Joining" />
                                 <m:Text text="{/DATE_OF_JOINING}" />
 
-                                <m:Label text="Reporting Manager" />
-                                <m:Text text="{/REPORTING_MANAGER}" />
+                                <m:Label text="Manager" />
+                                <m:Text text="{/MANAGER}" />
                             </form:SimpleForm>
                             <form:SimpleForm>
                                 <core:Title text="Personal Details" />
@@ -415,6 +421,210 @@
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
+            <ObjectPageSection
+                titleUppercase="false"
+                id="ProjectSection"
+                title="Projects"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        id="ProjectSectionSS1"
+                        title="Project Details"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:Table
+                                items="{/EMP_PRJ/results/}"
+                                autoPopinMode="true"
+                            >
+                                <!-- <m:headerToolbar>
+                                    <m:Toolbar>
+                                        <m:Title text="Employees" />
+                                        <m:ToolbarSpacer />
+                                        <m:SearchField
+                                            width="30%"
+                                            liveChange="onSearch"
+                                        />
+                                        <m:ToolbarSpacer />
+                                        <m:Button
+                                            icon="sap-icon://add"
+                                            type="Emphasized"
+                                            text="Add Employee"
+                                            press="onAddEmp"
+                                        />
+                                    </m:Toolbar>
+                                </m:headerToolbar> -->
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Project Name" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Reporting Manager" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Status" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Project Start Date" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Project End Date" />
+                                    </m:Column>
+                                    
+                                    <m:Column>
+                                        <m:Text
+                                            text="Actions"
+                                            textAlign="End"
+                                        />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text text="{P_NAME}" />
+                                            <m:Text text="{REPORTING_MANAGER}" />
+                                            <m:Text
+                                                text="{STATUS}"
+                                            />
+                                            <m:Text
+                                                text="{P_START_DATE}"
+                                            />
+                                            <m:Text
+                                                text="{P_END_DATE}"
+                                            />
+                                            
+                                            <m:HBox>
+                                                <m:Button
+                                                    icon="sap-icon://edit"
+                                                    press="onEditTask"
+                                                    type="Attention"
+                                                    class="sapUiTinyMargin"
+                                                />
+                                            </m:HBox>
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+
+                    <ObjectPageSubSection
+                        title="Employee Details"
+                        importance="Medium"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <!-- <employment:BlockEmpDetailPart1 id="empdetailpart1" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                        </blocks>
+                        <moreBlocks>
+                            <!-- <employment:BlockEmpDetailPart2 id="empdetailpart2" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/>
+							<employment:BlockEmpDetailPart3 id="empdetailpart3" columnLayout="1" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                        </moreBlocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+            <ObjectPageSection
+                titleUppercase="false"
+                id="TaskSection"
+                title="Employment"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        id="TaskSectionSS1"
+                        title="Tasks Details"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:Table
+                                items="{/EMP_TASK/results/}"
+                                autoPopinMode="true"
+                            >
+                                <!-- <m:headerToolbar>
+                                    <m:Toolbar>
+                                        <m:Title text="Employees" />
+                                        <m:ToolbarSpacer />
+                                        <m:SearchField
+                                            width="30%"
+                                            liveChange="onSearch"
+                                        />
+                                        <m:ToolbarSpacer />
+                                        <m:Button
+                                            icon="sap-icon://add"
+                                            type="Emphasized"
+                                            text="Add Employee"
+                                            press="onAddEmp"
+                                        />
+                                    </m:Toolbar>
+                                </m:headerToolbar> -->
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Task Name" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Progress" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Priority" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Status" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Task Start Date" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Task End Date" />
+                                    </m:Column>
+                                    
+                                    <m:Column>
+                                        <m:Text
+                                            text="Actions"
+                                            textAlign="End"
+                                        />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text text="{T_NAME}" />
+                                            <m:Text text="{PROGRESS}" />
+                                            <m:Text
+                                                text="{PRIORITY}"
+                                            />
+                                            <m:Text
+                                                text="{STATUS}"
+                                            />
+                                            <m:Text
+                                                text="{T_START_DATE}"
+                                            />
+                                            <m:Text
+                                                text="{T_END_DATE}"
+                                            />
+                                            
+                                            <m:HBox>
+                                                <m:Button
+                                                    icon="sap-icon://edit"
+                                                    press="onEditTask"
+                                                    type="Attention"
+                                                    class="sapUiTinyMargin"
+                                                />
+                                            </m:HBox>
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+
+                    <ObjectPageSubSection
+                        title="Employee Details"
+                        importance="Medium"
+                        titleUppercase="false"
+                    >
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+            
         </sections>
     </ObjectPageLayout>
 </mvc:View>

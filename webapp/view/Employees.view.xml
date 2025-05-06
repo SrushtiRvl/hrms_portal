@@ -5,25 +5,43 @@
     xmlns:m="sap.m"
     xmlns:goals="sap.uxap.sample.SharedBlocks.goals"
     xmlns:personal="sap.uxap.sample.SharedBlocks.personal"
-	xmlns:employment="sap.uxap.sample.SharedBlocks.employment">
+	xmlns:employment="sap.uxap.sample.SharedBlocks.employment"
+    xmlns:f="sap.f"
+>
     <App>
-        <Page>
-            <Table items="{Employees>/}" id="empTable" mode="SingleSelectMaster" selectionChange="onEmpSelect" autoPopinMode="true">
+        <f:DynamicPage>
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Employees"/>
+					</f:heading>
+					<f:breadcrumbs>
+						<Breadcrumbs>
+							<Link text="Dashboard" press="gotoDashboard"/>
+						</Breadcrumbs>
+					</f:breadcrumbs>
+                    <f:actions>
+						<Button icon="sap-icon://add" type="Emphasized" text="Add Employee" press="onAddEmp"></Button>
+                    
+                        </f:actions>
+				</f:DynamicPageTitle>
+                    </f:title>
+                <f:content>
+            <Table items="{Employees>/}" id="empTable" mode="SingleSelectMaster" selectionChange="onEmpSelect" enableBusyIndicator="true" busy="true" autoPopinMode="true">
                 <headerToolbar>
-                    <Toolbar >
-                        <Title text="Employees"/>
-                        <ToolbarSpacer ></ToolbarSpacer>
+                    <Toolbar class="toolbar" >
                         <SearchField width="30%" liveChange="onSearch"></SearchField>
                         <ToolbarSpacer ></ToolbarSpacer>
-                        <Button icon="sap-icon://add" type="Emphasized" text="Add Employee" press="onAddEmp"></Button>
+                        
                     </Toolbar>
                 </headerToolbar>
+
                 <columns>
                     <Column importance="High">
                     <Text text="Employee Name"/>
                     </Column>
                     <Column importance="High">
-                    <Text text="Employee Code" />
+                    <Text text="Module" />
                     </Column>
                     <Column >
                     <Text text="Official Email"/>
@@ -37,8 +55,8 @@
                     <Column >
                     <Text text="Role"/>
                     </Column>
-                    <Column >
-                    <Text text="Status"/>
+                    <Column importance="High">
+                    <Text text="Status" />
                     </Column>
                     <Column width="4%">
                     <!-- <Text text="Status"/> -->
@@ -52,10 +70,10 @@
                     <ColumnListItem >
                         <cells>
                             <Text text="{Employees>EMP_NAME}"/>
-                            <Text text="{Employees>EMP_CODE}"/>
+                            <Text text="{path:'Employees>EMP_MODULE_MODULE_ID',formatter:'.formatter.getModuleName'}"/>
                             <Text text="{Employees>EMP_EMAIL}"/>
                             <Text text="{Employees>DATE_OF_JOINING}"/>
-                            <Text text="{Employees>REPORTING_MANAGER}"/>
+                            <Text text="{Employees>MANAGER}"/>
                             <Text text="{Employees>EMP_ROLE}"/>
                             <!-- <Text text=""/> -->
                             <ObjectStatus inverted="true" state="{= ${Employees>STATUS} === 'Active'? 'Success' : 'Error'}" text="{Employees>STATUS}"></ObjectStatus>
@@ -69,8 +87,8 @@
                     </ColumnListItem>
                 </items>
             </Table>
-        </Page> 
-       
+         </f:content>
+       </f:DynamicPage>
     </App>
     
 </mvc:View>

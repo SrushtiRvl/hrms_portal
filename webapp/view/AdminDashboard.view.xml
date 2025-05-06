@@ -3,11 +3,11 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
 >
-    <Page title="{i18n>title}">
+    <Page title="Dashboard">
         <GenericTile
             class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
             header="Employees"
-            subheader="Total Employees:100"
+            subheader="Total Employees:{/Employees}"
             press="onPress"
         >
             <TileContent
@@ -20,7 +20,7 @@
         <GenericTile
             class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
             header="Projects"
-            subheader="Total Projects:100"
+            subheader="Total Projects:{/Project}"
             press="onPress"
         >
             <TileContent
@@ -33,7 +33,7 @@
         <GenericTile
             class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
             header="Modules"
-            subheader="Total Projects:100"
+            subheader="Total Modules:{/Modules}"
             press="onPress"
         >
             <TileContent
@@ -54,6 +54,19 @@
                 footer="Manage Punch-in Punch-out"
             >
                 <ImageContent src="sap-icon://filter-analytics" />
+            </TileContent>
+        </GenericTile>
+        <GenericTile
+            class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+            header="Time Sheet"
+            subheader=""
+            press="onPress"
+        >
+            <TileContent
+                unit=""
+                footer="Manage Time sheet"
+            >
+                <ImageContent src="sap-icon://excel-attachment" />
             </TileContent>
         </GenericTile>
     </Page>

@@ -21,23 +21,9 @@ sap.ui.define([
             oModel.refresh();
 
 
-            this.oDataModel = this.getOwnerComponent().getModel();
-            this.readData("Modules");
-
+            
         },
-        readData:async function(entityset){
-            // var oModel=new sap.ui.model.json.JSONModel()
-            await this.oDataModel.read("/"+entityset, {
-                success: async (data, res) => {
-                    debugger
-                    // oModel.setData()
-                    await this.getOwnerComponent().getModel(entityset).setData(data.results);
-                },
-                error: (e) => {
-                    debugger
-                }
-            })
-        },
+        
         onLogin:function(oEvent){
             var oModel=this.getOwnerComponent().getModel("loginDetails");
             var oData=oModel.getProperty('/formData');

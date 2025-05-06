@@ -1,0 +1,102 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog
+        contentWidth="100px"
+        title="Add Project"
+    >
+        <VBox class="sapUiTinyMargin black">
+            <Label text="Project Code" />
+            <Input
+                required="true"
+                placeholder="Enter Project Code"
+                value="{FormData>/ProjectData/P_CODE}"
+                valueState="{FormData>/ProjectData/valid}"
+                valueStateText="Invalid Project Code"
+            />
+
+            <Label text="Project Name" />
+            <Input
+                required="true"
+                placeholder="Enter Project Name"
+                value="{FormData>/ProjectData/P_NAME}"
+                valueState="{FormData>/ProjectData/valid}"
+                valueStateText="Invalid Project Name"
+            />
+            <Label text="Start Date" />
+            <DatePicker
+                required="true"
+                placeholder="Select Start Date"
+                value="{FormData>/ProjectData/P_START_DATE}"
+                valueFormat="dd/MM/yyyy"
+                displayFormat="dd/MM/yyyy"
+                valueState="{FormData>/ProjectData/valid}"
+            />
+            <Label text="End Date" />
+            <DatePicker
+                required="true"
+                placeholder="Select End Date"
+                value="{FormData>/ProjectData/P_END_DATE}"
+                minDate="{path: 'FormData>/ProjectData/P_START_DATE', formatter: '.formatter.date'}"
+                valueFormat="dd/MM/yyyy"
+                displayFormat="dd/MM/yyyy"
+                valueState="{FormData>/ProjectData/valid}"
+            />
+            <Label text="Manager" />
+            <ComboBox
+                width="100%"
+                required="true"
+                placeholder="Select Manger"
+                selectedKey="{FormData>/ProjectData/selManager}"
+                value="{FormData>/ProjectData/REPORTING_MANAGER}"
+                items="{Employees>/}"
+            >
+                <core:Item 
+                    key="{Employees>/EMP_NAME}"
+                    text="{Employees>EMP_NAME}"
+                 />
+            </ComboBox>
+            <Label text="Members" />
+            <MultiComboBox
+                required="true"
+                placeholder="Select Members"
+                selectionFinish="handleSelectionFinish"
+                selectedKeys="{FormData>/ProjectData/selMembers}"
+                items="{Employees>/}"
+            >
+                <core:Item
+                    key="{Employees>EMP_ID}"
+                    text="{Employees>EMP_NAME}"
+                />
+            </MultiComboBox>
+            <Label text="Status" />
+            <ComboBox
+                selectedKey="{FormData>/ProjectData/STATUS}"
+                width="100%"
+                items="{FormData>/ProjStatus/}"
+            >
+                <core:Item
+                    key="{FormData>sKey}"
+                    text="{FormData>sValue}"
+                />
+            </ComboBox>
+            <Button text="Add Task" icon="sap-icon://add" type="Emphasized" width="100%" press="addTask"/>
+        </VBox>
+        <buttons>
+            <Button
+                text="Save"
+                type="Success"
+                press="onAddProject"
+                icon="sap-icon://save"
+            />
+            <Button
+                text="Cancel"
+                type="Reject"
+                press="onCancelProject"
+                icon="sap-icon://cancel"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

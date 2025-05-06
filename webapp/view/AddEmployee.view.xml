@@ -4,12 +4,29 @@
     xmlns="sap.m"
     xmlns:form="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
+   xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
 >
-    <NavContainer id="NavContainer">
-        <!-- <App> -->
-        <pages>
-            <Page>
-                <content>
+    <App>
+        <f:DynamicPage id="addEmployeePage" showFooter="false">
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Add Employee"/>
+					</f:heading>
+					<f:breadcrumbs>
+						<Breadcrumbs>
+							<Link text="Dashboard" press="gotoDashboard"/>
+							<Link text="Employees" press="gotoEmployees"/>
+						</Breadcrumbs>
+					</f:breadcrumbs>
+                    <f:actions>
+						
+                    
+                        </f:actions>
+				</f:DynamicPageTitle>
+                    </f:title>
+                <f:content>
                     <Wizard
                         id="idWizard"
                         renderMode="Page"
@@ -44,7 +61,7 @@
                                         columnsM="2"
                                     />
                                 </form:layout>
-                                <form:FormContainer>
+                                <form:FormContainer >
                                     <form:formElements>
                                         <form:FormElement label="Name">
                                             <form:fields>
@@ -75,6 +92,18 @@
                                                 />
                                             </form:fields>
                                         </form:FormElement>
+                                        <form:FormElement label="Date of Birth">
+                                            <form:fields>
+                                                <DatePicker
+                                
+                                                    liveChange=""
+                                                    required="true"
+                                                    displayFormat="dd-MM-yyyy"
+                                                    valueFormat="dd-MM-yyyy"
+                                                    value="{FormData>/EmployeeData/EMP_DOB}"
+                                                />
+                                            </form:fields>
+                                        </form:FormElement>
                                         <form:FormElement label="Mobile">
                                             <form:fields>
                                                 <Input
@@ -86,16 +115,7 @@
                                                 />
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement label="Date of Birth">
-                                            <form:fields>
-                                                <DatePicker
-                                                    required="true"
-                                                    displayFormat="dd.MM.yyyy"
-                                                    valueFormat="dd.MM.yyyy"
-                                                    value="{FormData>/EmployeeData/EMP_DOB}"
-                                                />
-                                            </form:fields>
-                                        </form:FormElement>
+                                        
                                     </form:formElements>
                                 </form:FormContainer>
                                 <!-- <Input/> -->
@@ -133,7 +153,7 @@
                                 <form:FormContainer>
                                     <form:formElements>
                                         
-                                        <form:FormElement label="Employee Code">
+                                        <!-- <form:FormElement label="Employee Code">
                                             <form:fields>
                                                 <Input
                                                     required="true"
@@ -142,13 +162,16 @@
                                                     placeholder="Employee Code"
                                                 />
                                             </form:fields>
-                                        </form:FormElement>
+                                        </form:FormElement> -->
                                         <form:FormElement label="Module">
-                                        <Input id="Module" selectedKey="{FormData>/EmployeeData/selModule}" placeholder="Select Module" value="{Modules>/MODULE_CODE}" visible="true" showValueHelp="true" valueHelpRequest="onOpenValueHelp" showSuggestion="true" suggest="onModuleSuggest" suggestionItems="{path:'Modules>/'}">
+                                        <!-- <Input id="Module" showSuggestion="true" selectedKey="{FormData>/EmployeeData/selModule}" suggest="onModuleSuggest"/> -->
+                                        <Input required="true" id="Module" selectedKey="{FormData>/EmployeeData/selModule}" placeholder="Select Module" value="{Modules>/Modules/MODULE_CODE}" visible="true" showValueHelp="true" valueHelpRequest="onOpenValueHelp" showSuggestion="true" suggest="onModuleSuggest" suggestionItems="{path:'Modules>/Modules'}">
                                         <suggestionItems>
                                         <core:Item  key="{Modules>MODULE_ID}" text="{Modules>MODULE_NAME}" ></core:Item>
                                         </suggestionItems>
                                         </Input>
+
+
                                             <!-- <ComboBox
                                             selectionChange="jobDetails"
                                                 required="true"
@@ -250,8 +273,8 @@
                                             <form:fields>
                                                 <DatePicker
                                                     required="true"
-                                                    displayFormat="dd.MM.yyyy"
-                                                    valueFormat="yyyy-MM-dd"
+                                                    displayFormat="dd-MM-yyyy"
+                                                    valueFormat="dd-MM-yyyy"
                                                     value="{FormData>/EmployeeData/DATE_OF_JOINING}"
                                                 />
                                             </form:fields>
@@ -267,7 +290,7 @@
                                                 />
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement label="Employee Salary">
+                                        <!-- <form:FormElement label="Employee Salary">
                                             <form:fields>
                                                 <Input
                                                     required="true"
@@ -276,22 +299,22 @@
                                                     placeholder="Employee Salary"
                                                 />
                                             </form:fields>
-                                        </form:FormElement>
+                                        </form:FormElement> -->
                                         <form:FormElement
-                                            label="Reporting Manager"
+                                            label="Manager"
                                         >
                                             <form:fields>
                                                 <MultiComboBox
                                                     required="true"
                                                     placeholder="Select Manager"
                                                     selectionChange="jobDetails"
-                                                    selectionFinish="handleSelectionFinish"
+                                                    
                                                     selectedKeys="{FormData>/EmployeeData/selManager}"
-                                                    items="{FormData>/ReportingManager}"
+                                                    items="{FormData>/Manager}"
                                                 >
                                                     <core:Item
-                                                        key="{FormData>repoMKey}"
-                                                        text="{FormData>repoMName}"
+                                                        key="{FormData>mValue}"
+                                                        text="{FormData>mValue}"
                                                     />
                                                 </MultiComboBox>
                                             </form:fields>
@@ -407,6 +430,24 @@
                             activate="signature"
                             icon="sap-icon://signature"
                         >
+                        <Label text="Employee Image"/>
+                                    <u:FileUploader
+                                        width="100%"
+                                        id=""
+                                        name="myFileUpload"
+                                        tooltip="Upload your file to the local server"
+                                        uploadComplete="uploadProfilePic"
+                                        fileType="png" 
+                                        typeMissmatch="handleTypeMissmatch"
+                                        uploadStart="beforeUploadStarts"
+                                        uploadUrl="/v2/odata"
+                                        change="handleFileChange"
+                                    />
+                                    <!-- <Button
+                                        text="Upload File"
+                                        press="handleUploadPress"
+                                    /> -->
+                                
                             <VBox>
                                 <core:HTML id="html" />
                             </VBox>
@@ -473,7 +514,7 @@
                                             <form:fields>
                                                 <DatePicker
                                                     required="true"
-                                                    displayFormat="dd.MM.yyyy"
+                                                    displayFormat="dd-MM-yyyy"
                                                     valueFormat="yyyy-MM-dd"
                                                     dateValue="{FormData>/EmployeeData/pStartDate}"
                                                 />
@@ -483,7 +524,7 @@
                                             <form:fields>
                                                 <DatePicker
                                                     required="true"
-                                                    displayFormat="dd.MM.yyyy"
+                                                    displayFormat="dd-MM-yyyy"
                                                     valueFormat="yyyy-MM-dd"
                                                     dateValue="{FormData>/EmployeeData/pEndDate}"
                                                 />
@@ -526,8 +567,8 @@
                             </form:Form> -->
                         </WizardStep>
                     </Wizard>
-                </content>
-                <footer>
+                </f:content>
+                <f:footer>
                     <OverflowToolbar>
                         <ToolbarSpacer />
                         <Button
@@ -538,10 +579,8 @@
                             visible="false"
                         />
                     </OverflowToolbar>
-                </footer>
-            </Page>
-            
-        </pages>
-    </NavContainer>
+                </f:footer>
+            </f:DynamicPage>
+    </App>
     <!-- </App> -->
 </mvc:View>

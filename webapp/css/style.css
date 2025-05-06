@@ -1,5 +1,245 @@
 /* Enter your custom styles here */
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    /* font-family: "Poppins", sans-serif; */
+    /* font-family: "72-Semibold","72-Semiboldfull","72","72full",Arial,Helvetica,sans-serif; */
+    /* font-weight: 400; */
+    /* font-style: normal; */
+}
+.black div{
+    color:black !important;
+}
+.donutchart{
+    /* margin-top:5rem; */
+    width: 20rem !important;
+    height: 15rem !important;
+}
+.sapMLnk:focus{
+    background-color: transparent !important;
+    color: blue !important;
+}
+.text-wrap{
+    overflow-y: auto;
+}
+.toolbar{
+    padding:0px !important;
+}
+
+.hbox{
+    flex-wrap:wrap;
+}
+.w50{
+    width:50%;
+}
+.hboxContainer{
+    width:100%;
+}
+button, link{
+    cursor: pointer;
+}
+.container{
+    background-color: white;
+    height: 10% ;
+    margin: .3rem;
+    border-radius: .8rem;
+    padding: .6rem;
+    box-shadow: 0 2rem 3rem rgba(132,139,200,0.18);
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1) !important;
+    transition: all .5s ease-in-out;
+}
+.container:hover{
+    cursor: pointer;
+    box-shadow: none !important;
+}
+.container.top{width:100%;}
+.container.middle{width:70%; height:15rem;}
+.container.flexbox.middle{
+    width: 33.33%;
+}
+.second{
+    margin:5px;
+
+}
+.discDiv{
+    width: 50% !important;
+    height: 20vh !important;
+    overflow-y: scroll;
+}
+.status{
+    color:rgba(255, 255, 0, 0.326);
+}
+.container .title{
+    font-size:0.7rem;
+    /* color:#333; */
+    color:grey;
+}
+.value{
+    color: black;
+    font-size: 1rem;
+}
+.flexbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width:11rem; */
+}
+
+.flexbox>div>a {
+    margin-top:3px ;
+    color: black !important;
+    text-wrap: auto;
+}
+.project{
+    border-radius: 7px;
+    
+}
+.projectsPage{
+    /* background-color: white; */
+    background-color: white !important;
+}
+.tiles:hover{
+    background-color: white !important;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer !important;
+}
+div.tiles:focus {
+    /* border: 2px solid white !important; */
+}
+.sapMGT.TwoByOne:focus .sapMGTFocusDiv{
+    border:none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.tiles.sapMGT:hover:not(.sapMGTPressActive),.newProject.sapMGT:hover:not(.sapMGTPressActive) {
+    box-shadow: none !important;
+}
+.tiles{
+
+    /* width: 130% !important;
+    height: 20vh !important; */
+    width: 240px !important;
+    height: 140px !important;
+    /* margin: 10em auto 10em !important; */
+    
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1) !important;
+    /* filter: drop-shadow(0 0 0.75rem grey) !important; */
+    
+
+    border-bottom:1px solid #7036E9;
+    background: white;
+    position: relative !important;
+
+    /* clip-path: circle(10% at 0% 0%); */
+    transition: all .5s ease-in-out;
+
+}
+    
+.tiles::before{
+    content:  '';
+    position: absolute !important;
+    top: -18px !important;
+    width: 200px !important;
+    height: 25px !important;
+    background: white;
+    border-radius: 25px 0 0 0 !important;
+    
+    /* clip-path: path('M 0 0 L 160 0 C 185 2, 175 16, 200 18 L 0 50 z') !important; */
+    clip-path: path('M 0 0 L 110 0 C 130 2, 125 16, 150 18 L 0 50 z')  !important;
+    /* clip-path: path('M 0 0 L 151 0 C 163 2, 175 16, 200 18 L 0 50 z')  !important; */
+}
+.tiles::after{
+    content: '' !important;
+    position: absolute !important;
+    left:  23px !important;
+    width: 70px !important;
+    height: 5px !important;
+    top: -18px !important;
+    background: #7036E9 !important;
+    border-radius: 0 0 5px 5px !important;
+
+}
+.completeTile.tiles::after {
+    background: #28a745 !important; /* Green, or any other "completed" color */
+}
+.newProject{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* background: #ececf4; */
+    /* background: #e3e3e869; */
+    /* background: #e6e6e7; */
+    /* background: #a5a8fe; */
+    /* background: #eeeeff; */
+    /* background: #e8e8ff; */
+    border-bottom:1px dashed #7036E9;
+    background-color:#e8e8ff !important;
+    width: 240px !important;
+    height: 140px !important;
+    /* width: 130% !important;
+    height: 20vh !important; */
+    /* margin: 10em auto 10em !important; */
+    
+    /* border-radius: 5px 25px 25px 25px !important; */
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1) !important;
+    /* filter: drop-shadow(0 0 0.75rem grey) !important; */
+    position: relative !important;
+    transition: all .5s ease-in-out;
+    /* border:1px dashed #5258ff; */
+    /* border-radius: 7px; */
+}
+
+.newProject::before{
+    content:  '';
+    position: absolute !important;
+    top: -18px !important;
+    width: 200px !important;
+    height: 25px !important;
+    background-color:#e8e8ff !important;
+    border-radius: 25px 0 0 0 !important;
+    clip-path: path('M 0 0 L 110 0 C 130 2, 125 16, 150 18 L 0 50 z')  !important;
+}
+.newProject::after{
+    content: '' !important;
+    position: absolute !important;
+    left:  23px !important;
+    width: 70px !important;
+    height: 5px !important;
+    top: -18px !important;
+    background: #7036E9 !important;
+    border-radius: 0 0 5px 5px !important;
+  
+  }
+.add>.sapMImageContentImageIcon.sapUiIcon {
+    margin: 0px 10px !important;
+    width: auto;
+    /* color: blue !important; */
+    color: #5258ff  !important;
+    font-size: 3.75rem;
+    line-height: 1.5 !important;
+}
+.tiles:hover{
+    background-color: #7036E9;
+}
+
+
+/* input[placeholder]:focus::-webkit-input-placeholder {
+    transition: opacity 0.5s 0.5s ease; 
+    opacity: 0;
+  }
+  
+  .pass:focus::-webkit-input-placeholder {
+    transition: text-indent 0.5s 0.5s ease; 
+    text-indent: -100%;
+    opacity: 1;
+  } */
 .btn{
     position: relative;
     right: 0px;

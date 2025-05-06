@@ -7,38 +7,63 @@ sap.ui.define([
 
     return Controller.extend("zhrmsportal.controller.AddEmployee", {
         formatter: formatter,
-        onInit: async function () {
+        onInit: function () {
+            debugger;
             this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-            this.oRouter.getRoute("AddEmployee");
+            this.oRouter.getRoute("AddEmployee").attachPatternMatched(this.checkFormData,this);
             // this.oRouter.getRoute("editPage");
 
             this.oDataModel = this.getOwnerComponent().getModel()
-            await this.readData("Modules")
+            // this.getOwnerComponent().getModel("Modules").getData()
+            this.readData("Modules")
             // this.readData("Employees")
             // this.oEmpModel = this.getOwnerComponent().getModel('Employees');
             this.setFormData();
         },
+        checkFormData:function(e){
+            var formdata=this.getOwnerComponent().getModel("FormData").getData();
+            if((!formdata)||formdata.fn==""){
+                this.wizard = this.getView().byId('idWizard');
+                this.wizard.setCurrentStep(this.byId("PersonalDetails"));
+            }
+        },
+        gotoDashboard:function(e){
+            this.oRouter.navTo("AdminDashboard");
+        },
+        gotoEmployees:function(e){
+            this.oRouter.navTo("Employees");
+        },
         onModuleSuggest: function (e) {
+            var inp=this.getView().byId("Module")
+            // oView = this.getView();
             var sValue = e.getParameter("suggestValue");
+            // if (!this._pPopover) {
+			// 	this._pPopover = sap.ui.core.Fragment.load({
+			// 		id: oView.getId(),
+			// 		name: "zhrmsportal.fragments.popup",
+			// 		controller: this
+			// 	}).then(function(oPopover){
+			// 		oView.addDependent(oPopover);
+			// 		return oPopover;
+			// 	});
+			// }
+
+			// this._pPopover.then(function(oPopover){
+			// 	oPopover.openBy(inp);
+			// });
             // var oModel = this.get0wnerComponent().getModel(); // OData model
             var aFilter=[]
             var that = this;
             if (!sValue) return;
+
+
+
+
             if(sValue){
                 aFilter.push(new sap.ui.model.Filter("MODULE_NAME", sap.ui.model.FilterOperator.Contains, sValue))
             }
             e.getSource().getBinding("suggestionItems").filter(aFilter);
-            // var oFilter = new sap.ui.model.Filter("MODULE_NAME", sap.ui.model.Filteraperator.Contains, sValue);
-            // this.oDataModel.read("/Modules", {
-            //     fîlters: [oFilter],
-            //     success: function (oData) {
-            //         var oJSONModel = new sap.ui.model.json.JSONModel(oData.results);
-            //         that.getView().setModel(oJSONModel, "Modules");
-            //     },
-            //     error: function () {
-            //         sap.m.MessageToast.show("Failed to fetch material suggestions");
-            //     },
-            // })
+            
         },
         onOpenValueHelp: function (e) {
             if(!this.fragModuleHelp){
@@ -51,6 +76,9 @@ sap.ui.define([
             var id = e.getParameter('selectedItem').getBindingContext("Modules").getObject().MODULE_ID
             this.formData.selModule=id;
             this.getOwnerComponent().getModel("FormData").refresh();
+        },
+        getModelName:function(e){
+            
         },
         setFormData: function (e) {
             this.getOwnerComponent().getModel('FormData').setProperty('/EmployeeData', {
@@ -71,16 +99,17 @@ sap.ui.define([
                 "salary":"",
                 "selSalType":"hr",
                 "GRADUATION_DATE": "",
-                "mode": ""
+                "mode": "Edit"
             })
         },
         readData: async function (entityset) {
             var oModel = new sap.ui.model.json.JSONModel()
-            await this.oDataModel.read("/" + entityset, {
+            this.oDataModel.read("/" + entityset, {
                 success: async (data, res) => {
                     debugger
-                    oModel.setData(data.results)
-                    await this.getView().setModel(oModel, entityset);
+                    oModel.setProperty("/"+entityset,data.results)
+                    
+                    this.getView().setModel(oModel, entityset);
                 },
                 error: (e) => {
                     debugger
@@ -131,6 +160,7 @@ sap.ui.define([
                 var sid = e.getSource().sId
                 if (!mailregex.test(pEmail)) {
                     sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Error)
+                    sap.ui.getCore().byId(sid).setValueStateText("Invalid Email")
                     // pEmail.setValueState(sap.ui.core.ValueState.Error);
                 }
                 else {
@@ -147,10 +177,12 @@ sap.ui.define([
                 sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Error)
                 if (mData.length == 10) {
                     sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Success)
+                    
                     // EMP_MOBILE.setValueState(sap.ui.core.ValueState.Success);
                 }
                 else {
                     sap.ui.getCore().byId(sid).setValueState(sap.ui.core.ValueState.Error)
+                    sap.ui.getCore().byId(sid).setValueStateText("Invalid Mobile Number")
                     // EMP_MOBILE.setValueState(sap.ui.core.ValueState.Error);
                 }
 
@@ -158,7 +190,7 @@ sap.ui.define([
 
 
             // if (fnData != '' && lnData != '' && mData != '' && mData.length == 10 && pEmail != '') {
-            if (this.formData.fn != '' && this.formData.ln != '' && this.formData.EMP_MOBILE != '' && this.formData.EMP_MOBILE.length == 10 && this.formData.EMP_EMAIL != '') {
+            if (this.formData.fn != '' && this.formData.ln != '' && this.formData.EMP_MOBILE != '' && this.formData.EMP_MOBILE.length == 10 && this.formData.EMP_EMAIL != '' && this.formData.EMP_DOB != '') {
                 this.formData.EMP_NAME = this.capitalize(this.formData.fn) + " " + this.capitalize(this.formData.ln);
                 this.wizard.validateStep(this.byId('PersonalDetails'))
                 // this.setBtnVisible("next",true);
@@ -185,7 +217,7 @@ sap.ui.define([
                 var v = e.getParameter('value');
                 e.getSource().setProperty('value', v);
             }
-            if (this.formData.selModule != "" && this.formData.EMP_SALARY != "" && this.formData.selRole != "" && this.formData.selStatus != "" && this.formData.selStatus != "" && this.formData.selManager && this.formData.EMP_CODE != "" && this.formData.DESIGNATION != "" && this.formData.selManager != "" && this.formData.DATE_OF_JOINING != "") {
+            if (this.formData.selModule != "" && this.formData.selRole != "" && this.formData.selStatus != ""  && this.formData.selManager  && this.formData.DESIGNATION != "" && this.formData.selManager != "" && this.formData.DATE_OF_JOINING != "") {
                 this.wizard.validateStep(this.byId('JobDetails'))
                 this.getView().byId('JobDetails').setIcon('sap-icon://accept')
             }
@@ -217,6 +249,7 @@ sap.ui.define([
             this.oRouter.navTo("EditWizard");
         },
         signature: function () {
+            // this.getView().byId("addEmployeePage").setShowFooter(true);
             this.getView().byId("submit").setVisible(true)
             this.getView().byId("html").setContent("<canvas id='signature-pad' width='400' height='200' class='signature-pad'></canvas>");
         },
@@ -320,6 +353,16 @@ sap.ui.define([
         //     // this.oEmpModel.refresh();
         //     // var formData = this.oEmpModel.getProperty('/formData');
         // },
+        uploadProfilePic: function (e) {
+            var sResponse = "File upload complete. Status: 200",
+                iHttpStatusCode = parseInt(/\d{3}/.exec(sResponse)[0]),
+                sMessage;
+
+            if (sResponse) {
+                sMessage = iHttpStatusCode === 200 ? sResponse + " (Upload Success)" : sResponse + " (Upload Error)";
+                MessageToast.show(sMessage);
+            }
+        },
         onSign: function (oEvent) {
             var canvas = document.getElementById("signature-pad");
             var context = canvas.getContext("2d");

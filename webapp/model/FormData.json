@@ -1,4 +1,32 @@
 {
+    "Priority":[
+        {
+            "pKey":"Low",
+            "pValue":"Low"
+        },
+        {
+            "pKey":"Medium",
+            "pValue":"Medium"
+        },
+        {
+            "pKey":"High",
+            "pValue":"High"
+        }
+    ],
+    "ProjStatus":[
+        {
+            "sKey":"Pending",
+            "sValue":"Pending"
+        },
+        {
+            "sKey":"On Going",
+            "sValue":"On Going"
+        },
+        {
+            "sKey":"Completed",
+            "sValue":"Completed"
+        }
+    ],
     "Status": [
             {
                 "sKey": "Active",

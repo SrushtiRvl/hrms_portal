@@ -1,0 +1,366 @@
+<mvc:View
+    controllerName="zhrmsportal.controller.ProjectDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:micro="sap.suite.ui.microchart"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+>
+    <App>
+        <f:DynamicPage class="projectsPage">
+            <f:title>
+                <f:DynamicPageTitle>
+                    <f:heading>
+                        <Title text="{/P_NAME}" />
+                    </f:heading>
+                    <f:breadcrumbs>
+                        <Breadcrumbs>
+                            <Link
+                                text="Dashboard"
+                                press="gotoDashboard"
+                            />
+                            <Link
+                                text="Projects"
+                                press="gotoProjects"
+                            />
+                        </Breadcrumbs>
+                    </f:breadcrumbs>
+                    <f:actions>
+                        <Button
+                            text="Edit"
+                            press="EditProject"
+                            icon="sap-icon://edit"
+                            type="Emphasized"
+                        />
+                    </f:actions>
+                </f:DynamicPageTitle>
+            </f:title>
+            <f:content>
+                <HBox class="flexbox hbox">
+                    <HBox class="hboxContainer">
+                        <!-- <VBox class="container discDiv">
+                        <Text text="Description"/>
+                        <Text class="value" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"/>
+                    </VBox> -->
+                        <VBox class="container top">
+                            <Text class="title" text="Due Date" />
+                            <HBox class="second"><core:Icon src="sap-icon://calendar"/><Text text="{/P_END_DATE}"></Text></HBox>
+                        </VBox>
+                        <VBox class="container top">
+                            <Text class="title" text="Total Members" />
+                            <HBox class="second"><core:Icon src="sap-icon://group"/>
+                            <Text
+                                class="value"
+                                text="{path:'/P_EMP',formatter:'.formatter.totalMembers'}"
+                            />
+                            
+                            </HBox>
+                        </VBox>
+                        <VBox class="container top">
+                            <Text class="title" text="Team Lead" />
+                            <HBox class="second"><core:Icon src="sap-icon://manager"/>
+                            <Text
+                                class="value"
+                                text="{/REPORTING_MANAGER}"
+                            /></HBox>
+                        </VBox>
+                        <VBox class="container top">
+                            <Text class="title" text="Status" />
+                            <!-- <core:Icon src="sap-icon://circle-task-2" class="status"/> -->
+                            <Text class="second" text="{/STATUS}"></Text>
+                        </VBox>
+                    </HBox>
+                    <HBox class="hboxContainer">
+                        <VBox class="container middle text-wrap">
+                            <Text class="title" text="Hours Worked" />
+                             	<!-- <FlexBox width="20rem" height="10rem" alignItems="Center" class="sapUiSmallMargin">
+			<items>
+				<micro:InteractiveBarChart labelWidth="25%" items="" selectionChanged="selectionChanged" press="press">
+					<micro:bars items={}>
+						<micro:InteractiveBarChartBar label="Product 1" value="10"/>
+						<micro:InteractiveBarChartBar label="Product 2" value="20"/>
+						<Imicro:nteractiveBarChartBar label="Product 3" value="70"/>
+					</micro:bars>
+				</micro:InteractiveBarChart>
+			</items>
+		</FlexBox> -->
+        <viz:VizFrame  uiConfig="{applicationSet:'fiori'}"
+                height='100%' width="100%" vizType='line'>
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{Employees>/EMP_TIME}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Week"
+                                value="{Employees>/ENTRY_DATE}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Revenue"
+                                value="{Employees>HOURS_WORKED}" />
+                            <viz.data:MeasureDefinition name="Cost"
+                                value="{Employees>EMP_EMP_ID}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+
+                <viz:feeds>
+                    <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure"
+                        values="Revenue" />
+                    <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension"
+                        values="Week" />
+                </viz:feeds>
+                <viz:dependents>
+                    <viz:Popover ></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+                            <!-- <FlexBox
+                                width="90%"
+                                height="10rem"
+                                alignItems="Center"
+                                class="sapUiSmallMargin"
+                            >
+                                <items>
+                                    <micro:InteractiveLineChart
+                                        selectionChanged="selectionChanged"
+                                        press="press"
+                                        precedingPoint="15"
+                                        succeedingPoint="89"
+                                    >
+                                        <micro:points>
+                                            <micro:InteractiveLineChartPoint
+                                                value="200"
+                                                label="January"
+                                            />
+                                            <micro:InteractiveLineChartPoint
+                                                value="180"
+                                                label="February"
+                                            />
+                                            <micro:InteractiveLineChartPoint
+                                                value="220"
+                                                label="March"
+                                            />
+                                            <micro:InteractiveLineChartPoint
+                                                value="210"
+                                                label="April"
+                                            />
+                                            <micro:InteractiveLineChartPoint
+                                                value="190"
+                                                label="May"
+                                            />
+                                        </micro:points>
+                                    </micro:InteractiveLineChart>
+                                </items>
+                            </FlexBox> -->
+                            <!-- <Text class="value" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"/> -->
+                        </VBox>
+                        <VBox class="container flexbox  middle" justifyContent="Start">
+                        <Text class="title" text="Tasks Progress"></Text>
+                        <viz:VizFrame id="idVizFrame" 
+                  vizType='donut' 
+                  vizProperties="{
+                  'title': {
+                      'visible': false
+                  }
+              }"
+                  class="text-wrap donutchart" >
+                <viz:dataset >
+                    <viz.data:FlattenedDataset data="{/P_TASK/results/}" >
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition name="Task Name"
+                                value="{T_NAME}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition name="Progress" 
+                                value="{path:'PROGRESS',formatter:'.formatter.number'}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+
+                <viz:feeds >
+                    <viz.feeds:FeedItem uid="size" type="Measure"
+                        values="Progress" />
+                    <viz.feeds:FeedItem uid="color" type="Dimension"
+                        values="Task Name" />
+                </viz:feeds>
+                <viz:dependents >
+                    <viz:Popover id="idPopOver"></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+                            <!-- <FlexBox
+                                class="donutchart"
+                                height="auto"
+                                width="20rem"
+                                alignItems="Start"
+                                justifyContent="SpaceBetween"
+                            >
+                                <items>
+                                    <micro:InteractiveDonutChart
+                                        
+                                        displayedSegments="13"
+                                        
+                                        selectionChanged="onSelectionChanged"
+                                    >
+                                        <micro:segments >
+                                            <micro:InteractiveDonutChartSegment
+                                                label="Set Up SAP Fiori Launchpad Configuration"
+                                                value="100.0"
+                                                displayedValue="100.0%"
+                                            />
+                                            <micro:InteractiveDonutChartSegment
+                                                label="Create and Assign Fiori Tiles and Groups"
+                                                value="100"
+                                                displayedValue="100%"
+                                            />
+                                            <micro:InteractiveDonutChartSegment
+                                                label="Configure and Customize Fiori Launchpad Security and User Access"
+                                                value="30.5"
+                                                displayedValue="30.5%"
+                                            />
+                                            <micro:InteractiveDonutChartSegment label="Test Phase" value="38.5" displayedValue="38.5%"/>
+                                           <micro:InteractiveDonutChartSegment label="Design" value="21.5" displayedValue="20.5%"/>
+                                         <micro:InteractiveDonutChartSegment label="Test" value="3.5" displayedValue="3.5%"/>
+                                        <micro:InteractiveDonutChartSegment label="Impse" value="8.0" displayedValue="8.0%"/>
+                                        <micro:InteractiveDonutChartSegment label="se" value="2.5" displayedValue="2.5%"/>
+                                        <micro:InteractiveDonutChartSegment label="check" value="36.5" displayedValue="36.5%"/>
+                                        </micro:segments>
+                                    </micro:InteractiveDonutChart>
+                                </items>
+                            </FlexBox> -->
+                        </VBox>
+                    </HBox>
+                    <HBox class="hboxContainer">
+                        <VBox class="container ">
+                        <!-- <Text class="title" text="Tasks" /> -->
+                            <Table items="{/P_TASK/results}">
+                            <headerToolbar>
+                            <OverflowToolbar>
+                                <Title text="Tasks"/>
+                                <ToolbarSpacer />
+                                <Button type="Emphasized" press="addTask" text="Add Task" icon="sap-icon://add"/>
+                            </OverflowToolbar>
+                            
+                            </headerToolbar>
+                            
+
+                                <columns>
+                                    <Column>
+                                        <Text text="Tasks" />
+                                    </Column>
+                                    <!-- <Column>
+                                        <Text text="Reporting Manager" />
+                                    </Column> -->
+                                    <Column>
+                                        <Text text="Asigned To" />
+                                    </Column>
+                                    <!-- <Column>
+                                        <Text text="Hours Worked" />
+                                    </Column> -->
+                                    <Column>
+                                        <Text text="Starting Date" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Due Date" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Progress" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Status" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Priority" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                <ColumnListItem >
+                                <cells>
+                                <Text text="{T_NAME}"/>
+                                <Text text="{T_NAME}"/>
+                                <Text text="{T_START_DATE}"/>
+                                <Text text="{T_END_DATE}"/>
+                                <Text text="{PROGRESS}"/>
+                                <Text text="{STATUS}"/>
+                                <Text text="{PRIORITY}"/>
+                                </cells>
+                                <!-- <cells>
+                                <Text text="Set Up SAP Fiori Launchpad Configuration"></Text>
+                                <Text text="Alice Brown"></Text>
+                                <Text text="Mike Ross"></Text>
+                                <Text text="310hr"></Text>
+                                <Text text="13-03-2025"></Text>
+                                <Text text="100%"></Text>
+                                <Text text="Completed"></Text>
+                                </cells> -->
+                                </ColumnListItem>
+                                <!-- <ColumnListItem>
+                                <cells>
+                                <Text text="Create and Assign Fiori Tiles and Groups"></Text>
+                                <Text text="Alice Brown"></Text>
+                                <Text text="Mike Ross"></Text>
+                                <Text text="520hr"></Text>
+                                <Text text="12-04-2025"></Text>
+                                <Text text="100%"></Text>
+                                <Text text="Completed"></Text>
+                                </cells>
+                                </ColumnListItem>
+                                <ColumnListItem>
+                                <cells>
+                                <Text text="Set Up SAP Fiori Launchpad Configuration"></Text>
+                                <Text text="Alice Brown"></Text>
+                                <Text text="Mike Ross"></Text>
+                                <Text text="108hr"></Text>
+                                <Text text="12-05-2025"></Text>
+                                <Text text="30.5%"></Text>
+                                <Text text="OnGoing"></Text>
+                                </cells>
+                                </ColumnListItem> -->
+                                </items>
+                            </Table>
+                        </VBox>
+                    </HBox>
+                    <HBox>
+                    
+                    </HBox>
+                </HBox>
+            </f:content>
+        </f:DynamicPage>
+    </App>
+</mvc:View>
+<!-- <FlexBox
+                                width="22rem"
+                                height="13rem"
+                                alignItems="Start"
+                                justifyContent="SpaceBetween"
+                            >
+                                <items>
+                                    <micro:InteractiveDonutChart
+                                        selectionChanged="onSelectionChanged"
+                                        displayedSegments="4"
+                                        press="press"
+                                    >
+                                        <segments>
+                                            <micro:InteractiveDonutChartSegment
+                                                label="Design Phase"
+                                                value="32"
+                                                displayedValue="32.0%"
+                                            />
+                                            <micro:InteractiveDonutChartSegment
+                                                label="Implementation Phase"
+                                                value="28"
+                                                displayedValue="28%"
+                                            />
+                                            <micro:InteractiveDonutChartSegment
+                                                label="Test Phase"
+                                                value="25"
+                                                displayedValue="25%"
+                                            />
+                                            <micro:InteractiveDonutChartSegment
+                                                label="Launch Phase"
+                                                value="15"
+                                                displayedValue="15%"
+                                            />
+                                        </segments>
+                                    </micro:InteractiveDonutChart>
+                                </items>
+                            </FlexBox> -->

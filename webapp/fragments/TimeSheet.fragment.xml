@@ -1,0 +1,103 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog contentWidth="100px" title="Time Sheet">
+    <Label text="hello"></Label>
+    <!-- <form:Form width="100%">
+            	<form:layout>
+				<form:ResponsiveGridLayout
+					labelSpanXL="12"
+					labelSpanL="12"
+					labelSpanM="12"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="0"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsXL="2"
+					columnsL="2"
+					columnsM="1"
+					 />
+			</form:layout>
+            <form:formContainers>
+				<form:FormContainer>
+					<form:formElements>
+						<form:FormElement label="Full Name">
+							<form:fields>
+								<Input value="{formData>/TimeSheet/Name}"/>
+							</form:fields>
+						</form:FormElement>
+						<form:FormElement label="Module">
+							<form:fields>
+								<ComboBox items="{Modules>/Modules}" selectedKey="{formData>/TimeSheet/MODULE_ID}">
+                <core:Item key="{Modules>MODULE_ID}" text="{Modules>MODULE_NAME}"/>
+            </ComboBox>
+							</form:fields>
+						</form:FormElement>
+						<form:FormElement label="Date">
+							<form:fields>
+								<DatePicker displayFormat="dd/MM/yyyy" value="{formData>/TimeSheet/date}"/>
+							</form:fields>
+						</form:FormElement>
+						<form:FormElement label="Project 1">
+							<form:fields>
+								     <ComboBox items="{Project>/Project}" selectedKey="{formData>/TimeSheet/P_ID}">
+                <core:Item key="{Project>P_ID}" text="{Project>P_NAME}"/>
+            </ComboBox>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="Project 1 Activity">
+							<form:fields>
+								<Input value="{formData>/TimeSheet/Activity_P1}"></Input>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="No hours worked-Project 1">
+							<form:fields>
+								<Input value="{formData>/TimeSheet/Hours_P1}"/>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="Project 2">
+							<form:fields>
+								<ComboBox items="{Project>/Project}" selectedKey="{formData>/TimeSheet/P_ID}">
+                <core:Item key="{Project>P_ID}" text="{Project>P_NAME}"/>
+            </ComboBox>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="Project 2 Activity">
+							<form:fields>
+								<Input value="{formData>/TimeSheet/Activity_P2}"/>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="No hours worked-Project 2">
+							<form:fields>
+								<Input value="{formData>/TimeSheet/Hours_P2}"/>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="Project 3">
+							<form:fields>
+								<ComboBox items="{Project>/Project}" selectedKey="{formData>/TimeSheet/P_ID}">
+                <core:Item key="{Project>P_ID}" text="{Project>P_NAME}"/>
+            </ComboBox>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="Project 3 Activity">
+							<form:fields>
+								<Input value="{formData>/TimeSheet/Activity_P3}"/>
+							</form:fields>
+						</form:FormElement>
+                        <form:FormElement label="No hours worked-Project 3">
+							<form:fields>
+								<Input value="{formData>/TimeSheet/Hours_P3}"/>
+							</form:fields>
+						</form:FormElement>
+                        	</form:formElements>
+				</form:FormContainer>
+			</form:formContainers>
+           
+            </form:Form> -->
+    </Dialog>
+
+</core:FragmentDefinition>

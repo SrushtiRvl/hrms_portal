@@ -3,7 +3,7 @@
     xmlns="sap.m"
     xmlns:form="sap.ui.layout.form"
 >
-    <SelectDialog id="Modules" title="Select Module" cancel="closeValueHelp" confirm="onValueHelpModuleSelect"  liveChange="searchModule" items="{path:'Modules>/'}">
+    <SelectDialog id="Modules" title="Select Module" cancel="closeValueHelp" confirm="onValueHelpModuleSelect"  liveChange="searchModule" items="{path:'Modules>/Modules'}">
         <StandardListItem id="list" title="{Modules>MODULE_CODE}" description="{Modules>MODULE_NAME}" iconInset="false" iconDensityAware="false"></StandardListItem>
     </SelectDialog>
 </core:FragmentDefinition>
